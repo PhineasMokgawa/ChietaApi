@@ -1,0 +1,55 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CHIETAMIS.DiscretionaryProjects.Dtos
+{
+    public class DiscretionaryProjectDetailsApprovalsView
+    {
+		public int Id { get; set; }
+		public string SDL { get; set; }
+		public int OrganisationId { get; set; }
+		public string Organisation_Name { get; set; }
+		public string Organisation_Trade_Name { get; set; }
+		public int ProjectId { get; set; }
+		public string? Contract_Number { get; set;}
+		public string ProjectType { get; set; }
+		public string FocusArea { get; set; }
+		public string SubCategory { get; set; }
+		public string Intervention { get; set; }
+		public string? OtherIntervention { get; set; }
+		public int Number_Continuing { get; set; }
+		public int Number_New { get; set; }
+		public decimal CostPerLearner { get; set; }
+		public int? GEC_Continuing { get; set; }
+		public int? GEC_New { get; set; }
+		public decimal? GEC_CostPerLearner { get; set; }
+		public int? GAC_Continuing { get; set; }
+		public int? GAC_New { get; set; }
+		public decimal? GAC_CostPerLearner { get; set; }
+		public int? GC_Continuing { get; set; }
+		public int? GC_New { get; set; }
+		public decimal? GC_CostPerLearner { get; set; }
+		public int HDI { get; set; }
+		public int Female { get; set; }
+		public int Youth { get; set; }
+		public int Number_Disabled { get; set; }
+		public int Rural { get; set; }
+		public string Province { get; set; }
+		public string Municipality { get; set; }
+		public string Status { get; set; }
+		public string? SqmrAppIndicator { get; set; }
+		public string? vision2025goal { get; set; }
+		public string Leviesuptodate { get; set; }
+		public string PreviousWSP { get; set; }
+		public string PreviousParticipation { get; set; }
+		public DiscretionaryDetailApproval ApprovalStatus { get; set; }
+		public DiscretionaryGECApproval GECStatus { get; set; }
+		public DiscretionaryGACApproval GACStatus { get; set; }
+		public DiscretionaryGCApproval GCStatus { get; set; }
+		public string Comment { get; set; }
+		public DateTime DateCreated { get; set; }
+	}
+}

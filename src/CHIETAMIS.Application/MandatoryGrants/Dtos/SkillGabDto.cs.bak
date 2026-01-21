@@ -1,0 +1,29 @@
+﻿using Abp.Application.Services.Dto;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CHIETAMIS.MandatoryGrants.Dtos
+{
+	public class SkillGabDto : EntityDto
+	{
+		public virtual int ApplicationId { get; set; }
+		public virtual string OCCUPATION_OR_SPECIALISATION_TITLE { get; set; }
+
+		public virtual string Code { get; set; }
+
+		public virtual string SKILL_GAB { get; set; }
+
+		public virtual string REASON_FOR_THE_SKILLS_GAP { get; set; }
+
+		public virtual string ADDITIONAL_COMMENTS { get; set; }
+
+		public virtual int UserID { get; set; }
+		public virtual DateTime DateCreated { get; set; }
+		public virtual int? UsrUpd { get; set; }
+		public virtual int? DteUpd { get; set; }
+
+	}
+}

@@ -1,0 +1,14 @@
+﻿using CHIETAMIS.Dashboards.Dtos;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CHIETAMIS.MG_Dashboards.Dtos
+{
+    public class MWindowTitlesView
+    {
+        public MWindowTitlesDto References { get; set; }
+    }
+}

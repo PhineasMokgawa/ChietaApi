@@ -1,0 +1,45 @@
+﻿using Abp.Application.Services.Dto;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CHIETAMIS.Organisations.Dtos
+{
+    public class OrganisationDto: EntityDto
+    {
+        public string SDL_No { get; set; }
+        public Int16 SETA_Id { get; set; }
+        public string SIC_Code { get; set; }
+        public string Organisation_Registration_Number { get; set; }
+        public string Organisation_Name { get; set; }
+        public string Organisation_Trading_Name { get; set; }
+        public string Organisation_Fax_Number { get; set; }
+        public string Organisation_Contact_Name { get; set; }
+        public string Organisation_Contact_Email_Address { get; set; }
+        public string Organisation_Contact_Phone_Number { get; set; }
+        public string Organisation_Contact_Cell_Number { get; set; }
+        public string COMPANY_SIZE { get; set; }
+        public int NUMBER_OF_EMPLOYEES { get; set; }
+        public string TYPE_OF_ENTITY { get; set; }
+        public string CORE_BUSINESS { get; set; }
+        public string PARENT_SDL_NUMBER { get; set; }
+        public string BBBEE_Status { get; set; }
+        public int BBBEE_LEVEL { get; set; }
+        public DateTime DATEBUSINESSCOMMENCED { get; set; }
+        public string STATUS { get; set; }
+        public Int16 EXMPTIONCODE { get; set; }
+        public string CHAMBER { get; set; }
+        public string CEO_Name { get; set; }
+        public string CEO_Surname { get; set; }
+        public string CEO_Email { get; set; }
+        public string CEO_RaceId { get; set; }
+        public string CEO_GenderId { get; set; }
+        public string Senior_Rep_Name { get; set; }
+        public string Senior_Rep_Surname { get; set; }
+        public string Senior_Rep_Email { get; set; }
+        public string Senior_Rep_RaceId { get; set; }
+        public string Senior_Rep_GenderId { get; set; }
+    }
+}

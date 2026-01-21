@@ -1,0 +1,5 @@
+﻿{
+  "ConnectionStrings": {
+    "Default": "Server=192.168.1.73; Database=CHIETAMISDb; Trusted_Connection=True;"
+  }
+}

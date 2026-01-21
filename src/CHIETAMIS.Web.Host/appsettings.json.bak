@@ -1,0 +1,28 @@
+﻿{
+  "ConnectionStrings": {
+    "Default": "Server=ho-ICTSpare3; Database=CHIETA_INTERGRATED_LIVE; User Id=sa;Password=ChietaAdmin123;"
+  },
+  "App": {
+    "ServerRootAddress": "https://localhost:44311",
+    "ClientRootAddress": "http://localhost:4200/",
+    "CorsOrigins": "http://localhost:4200"
+  },
+  "Authentication": {
+    "JwtBearer": {
+      "IsEnabled": "true",
+      "SecurityKey": "CHIETAMIS_C421AAEE0D114E9C",
+      "Issuer": "CHIETAMIS",
+      "Audience": "CHIETAMIS"
+    }
+  },
+  "Kestrel": {
+    "Endpoints": {
+      "Http": {
+        "Url": "https://localhost:44311"
+      }
+    }
+  },
+  "Swagger": {
+    "ShowSummaries": false
+  }
+}

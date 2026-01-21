@@ -1,0 +1,407 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading.Tasks;
+using Abp.Authorization.Users;
+using Abp.Configuration;
+using Abp.Dependency;
+using Abp.Domain.Repositories;
+using Abp.Domain.Uow;
+using Abp.Extensions;
+using Abp.Localization;
+using Abp.UI;
+using Abp.Net.Mail;
+using CHIETAMIS.Chat;
+using CHIETAMIS.Editions;
+using CHIETAMIS.Localization;
+using CHIETAMIS.MultiTenancy;
+using System.Net.Mail;
+using System.Web;
+using Abp.Runtime.Security;
+using CHIETAMIS.Net.Emailing;
+using Abp;
+using System.Net;
+using Microsoft.AspNetCore.Hosting;
+
+namespace CHIETAMIS.Authorization.Users
+{
+    /// <summary>
+    /// Used to send email to users.
+    /// </summary>
+    public class UserEmailer : AbpServiceBase, IUserEmailer, ITransientDependency
+    {
+        private readonly IEmailTemplateProvider _emailTemplateProvider;
+        private readonly IEmailSender _emailSender;
+        private readonly IRepository<Tenant> _tenantRepository;
+        private readonly ICurrentUnitOfWorkProvider _unitOfWorkProvider;
+        private readonly IUnitOfWorkManager _unitOfWorkManager;
+        private readonly ISettingManager _settingManager;
+        private readonly EditionManager _editionManager;
+        private readonly UserManager _userManager;
+        private readonly IWebHostEnvironment _webHostEnvironment;
+
+        // used for styling action links on email messages.
+        private string _emailButtonStyle =
+            "padding-left: 30px; padding-right: 30px; padding-top: 12px; padding-bottom: 12px; color: #ffffff; background-color: #00bb77; font-size: 14pt; text-decoration: none;";
+        private string _emailButtonColor = "#00bb77";
+
+        public UserEmailer(
+            IEmailTemplateProvider emailTemplateProvider,
+            IEmailSender emailSender,
+            IRepository<Tenant> tenantRepository,
+            ICurrentUnitOfWorkProvider unitOfWorkProvider,
+            IUnitOfWorkManager unitOfWorkManager,
+            ISettingManager settingManager,
+            EditionManager editionManager,
+            UserManager userManager,
+            IWebHostEnvironment webHostEnvironment)
+        {
+            _emailTemplateProvider = emailTemplateProvider;
+            _emailSender = emailSender;
+            _tenantRepository = tenantRepository;
+            _unitOfWorkProvider = unitOfWorkProvider;
+            _unitOfWorkManager = unitOfWorkManager;
+            _settingManager = settingManager;
+            _editionManager = editionManager;
+            _userManager = userManager;
+            _webHostEnvironment = webHostEnvironment;
+        }
+
+        /// <summary>
+        /// Send email activation link to user's email address.
+        /// </summary>
+        /// <param name="user">User</param>
+        /// <param name="link">Email activation link</param>
+        /// <param name="plainPassword">
+        /// Can be set to user's plain password to include it in the email.
+        /// </param>
+        [UnitOfWork]
+        public virtual async Task SendEmailActivationLinkAsync(User user, string link, string plainPassword = null)
+        {
+            if (user.EmailConfirmationCode.IsNullOrEmpty())
+            {
+                throw new UserFriendlyException("Email Confirmation Code should be set in order to send email activation link.");
+            }
+
+            link = link.Replace("{userId}", user.Id.ToString());
+            link = link.Replace("{confirmationCode}", Uri.EscapeDataString(user.EmailConfirmationCode));
+
+            if (user.TenantId.HasValue)
+            {
+                link = link.Replace("{tenantId}", user.TenantId.ToString());
+            }
+
+            link = EncryptQueryParameters(link);
+
+            var tenancyName = GetTenancyNameOrNull(user.TenantId);
+            var emailTemplate = GetTitleAndSubTitle(user.TenantId, L("EmailActivation_Title"), L("EmailActivation_SubTitle"));
+            var mailMessage = new StringBuilder();
+
+            mailMessage.AppendLine("<b>" + L("NameSurname") + "</b>: " + user.Name + " " + user.Surname + "<br />");
+
+            if (!tenancyName.IsNullOrEmpty())
+            {
+                mailMessage.AppendLine("<b>" + L("TenancyName") + "</b>: " + tenancyName + "<br />");
+            }
+
+            mailMessage.AppendLine("<b>" + L("UserName") + "</b>: " + user.UserName + "<br />");
+
+            if (!plainPassword.IsNullOrEmpty())
+            {
+                mailMessage.AppendLine("<b>" + L("Password") + "</b>: " + plainPassword + "<br />");
+            }
+
+            mailMessage.AppendLine("<br />");
+            mailMessage.AppendLine(L("EmailActivation_ClickTheLinkBelowToVerifyYourEmail") + "<br /><br />");
+            mailMessage.AppendLine("<a style=\"" + _emailButtonStyle + "\" bg-color=\"" + _emailButtonColor + "\" href=\"" + link + "\">" + L("Verify") + "</a>");
+            mailMessage.AppendLine("<br />");
+            mailMessage.AppendLine("<br />");
+            mailMessage.AppendLine("<br />");
+            mailMessage.AppendLine("<span style=\"font-size: 9pt;\">" + L("EmailMessage_CopyTheLinkBelowToYourBrowser") + "</span><br />");
+            mailMessage.AppendLine("<span style=\"font-size: 8pt;\">" + link + "</span>");
+
+            await ReplaceBodyAndSend(user.EmailAddress, L("EmailActivation_Subject"), emailTemplate, mailMessage);
+        }
+
+        /// <summary>
+        /// Sends a password reset link to user's email.
+        /// </summary>
+        /// <param name="user">User</param>
+        /// <param name="link">Reset link</param>
+        public async Task SendPasswordResetLinkAsync(User user, string link = null)
+        {
+            if (user.PasswordResetCode.IsNullOrEmpty())
+            {
+                throw new Exception("Password Reset Code should be set in order to send password reset link.");
+            }
+
+            var tenancyName = GetTenancyNameOrNull(user.TenantId);
+            var mailMessage = new StringBuilder();
+
+            mailMessage.AppendLine("<b>" + "Name Surname" + "</b>: " + user.Name + " " + user.Surname + "<br />");
+
+            if (!tenancyName.IsNullOrEmpty())
+            {
+                mailMessage.AppendLine("<b>" + "TenancyName" + "</b>: " + tenancyName + "<br />");
+            }
+
+            mailMessage.AppendLine("<b>" + "UserName" + "</b>: " + user.UserName + "<br />");
+            mailMessage.AppendLine("<b>" + "ResetCode" + "</b>: " + user.PasswordResetCode + "<br />");
+
+            if (!link.IsNullOrEmpty())
+            {
+                link = link.Replace("{userId}", user.Id.ToString());
+                link = link.Replace("{resetCode}", Uri.EscapeDataString(user.PasswordResetCode));
+
+                if (user.TenantId.HasValue)
+                {
+                    link = link.Replace("{tenantId}", user.TenantId.ToString());
+                }
+
+                link = EncryptQueryParameters(link);
+
+                mailMessage.AppendLine("<br />");
+                //mailMessage.AppendLine(L("PasswordResetEmail_ClickTheLinkBelowToResetYourPassword") + "<br /><br />");-
+                mailMessage.AppendLine("<br />");
+            }
+
+            await ReplaceBodyAndSend(user.EmailAddress, "Password Reset Email", null, mailMessage);
+        }
+
+
+
+        public async Task TryToSendChatMessageMail(User user, string senderUsername, string senderTenancyName, ChatMessage chatMessage)
+        {
+            try
+            {
+                var emailTemplate = GetTitleAndSubTitle(user.TenantId, L("NewChatMessageEmail_Title"), L("NewChatMessageEmail_SubTitle"));
+                var mailMessage = new StringBuilder();
+
+                mailMessage.AppendLine("<b>" + L("Sender") + "</b>: " + senderTenancyName + "/" + senderUsername + "<br />");
+                mailMessage.AppendLine("<b>" + L("Time") + "</b>: " + chatMessage.CreationTime.ToUniversalTime().ToString("yyyy-MM-dd HH:mm:ss") + " UTC<br />");
+                mailMessage.AppendLine("<b>" + L("Message") + "</b>: " + chatMessage.Message + "<br />");
+                mailMessage.AppendLine("<br />");
+
+                await ReplaceBodyAndSend(user.EmailAddress, L("NewChatMessageEmail_Subject"), emailTemplate, mailMessage);
+            }
+            catch (Exception exception)
+            {
+                Logger.Error(exception.Message, exception);
+            }
+        }
+
+        private string GetTenancyNameOrNull(int? tenantId)
+        {
+            if (tenantId == null)
+            {
+                return null;
+            }
+
+            using (_unitOfWorkProvider.Current.SetTenantId(null))
+            {
+                return _tenantRepository.Get(tenantId.Value).TenancyName;
+            }
+        }
+
+        private StringBuilder GetTitleAndSubTitle(int? tenantId, string title, string subTitle)
+        {
+            var emailTemplate = new StringBuilder(_emailTemplateProvider.GetDefaultTemplate(tenantId));
+            emailTemplate.Replace("{EMAIL_TITLE}", title);
+            emailTemplate.Replace("{EMAIL_SUB_TITLE}", subTitle);
+
+            return emailTemplate;
+        }
+
+        private async Task ReplaceBodyAndSend(string emailAddress, string subject, StringBuilder emailTemplate, StringBuilder mailMessage)
+        {
+            //emailTemplate.Replace("{EMAIL_BODY}", mailMessage.ToString());
+            try
+            {
+                ServicePointManager.ServerCertificateValidationCallback = delegate (object s,
+                        System.Security.Cryptography.X509Certificates.X509Certificate certificate,
+                        System.Security.Cryptography.X509Certificates.X509Chain chain,
+                        System.Net.Security.SslPolicyErrors sslPolicyErrors)
+                {
+                    return true;
+                };
+
+                await _emailSender.SendAsync(new MailMessage
+                {
+                    To = { emailAddress },
+                    Subject = subject,
+                    Body = mailMessage.ToString(),
+                    IsBodyHtml = true,
+                });
+            }
+            catch (Exception exception)
+            {
+                var err = exception.Message;
+                if (err == "Failure Sending mail.")
+                {
+                    throw new Exception("Error sending Email. Send Failed.");
+                }
+            }
+        }
+
+        private async Task ReplaceBodyWithAttachmentAndSend(string emailAddress, string subject, StringBuilder emailTemplate, StringBuilder mailMessage)
+        {
+            //emailTemplate.Replace("{EMAIL_BODY}", mailMessage.ToString());
+            try
+            {
+                ServicePointManager.ServerCertificateValidationCallback = delegate (object s,
+                        System.Security.Cryptography.X509Certificates.X509Certificate certificate,
+                        System.Security.Cryptography.X509Certificates.X509Chain chain,
+                        System.Net.Security.SslPolicyErrors sslPolicyErrors)
+                {
+                    return true;
+                };
+                var msg = new MailMessage
+                {
+                    To = { emailAddress },
+                    Subject = subject,
+                    Body = mailMessage.ToString(),
+                    IsBodyHtml = true,
+                };
+
+                msg.Attachments.Add(new Attachment(_webHostEnvironment.WebRootPath + "\\SAVE THE DATE - CHIETA Green Hydrogen Conference.jpg"));
+                await _emailSender.SendAsync(msg);
+            }
+            catch (Exception exception)
+            {
+                var err = exception.Message;
+                if (err == "Failure Sending mail.")
+                {
+                    throw new Exception("Error sending Email. Send Failed.");
+                }
+            }
+        }
+
+        /// <summary>
+        /// Returns link with encrypted parameters
+        /// </summary>
+        /// <param name="link"></param>
+        /// <param name="encrptedParameterName"></param>
+        /// <returns></returns>
+        private string EncryptQueryParameters(string link, string encrptedParameterName = "c")
+        {
+            if (!link.Contains("?"))
+            {
+                return link;
+            }
+
+            var basePath = link.Substring(0, link.IndexOf('?'));
+            var query = link.Substring(link.IndexOf('?')).TrimStart('?');
+
+            return basePath + "?" + encrptedParameterName + "=" + HttpUtility.UrlEncode(SimpleStringCipher.Instance.Encrypt(query));
+        }
+
+        public async Task AssignRSAEmailAsync(string EmailAddress, string SDLNumber, string OrganisationName, string ProjectCode, string ProjectName)
+        {
+
+            if (EmailAddress.IsNullOrEmpty())
+            {
+                throw new Exception("Email should be set before sending.");
+            }
+
+            var mailMessage = new StringBuilder();
+            mailMessage.AppendLine("Dear RSA, " + "<br />" + "<br />");
+            mailMessage.AppendLine("A Grant application has been assigned to you for Review." + "<br />" + "<br />");
+            mailMessage.AppendLine("This application is for: " + "<br />" + "<br />");
+            mailMessage.AppendLine("<b>" + "SDL Number: " + "</b>" + SDLNumber + "<br />");
+            mailMessage.AppendLine("<b>" + "Organisation Name: " + "</b>" + OrganisationName + "<br />");
+            mailMessage.AppendLine("<b>" + "Project: " + "</b>" + ProjectName + "<br />" + "<br />");
+            mailMessage.AppendLine("Please review the application and make a Recommendation.");
+            mailMessage.AppendLine("Regards, " + "<br />");
+            mailMessage.AppendLine("Grants Administrator. " + "<br />");
+            await ReplaceBodyAndSend(EmailAddress, "Grant Application Assignment", null, mailMessage);
+        }
+        public async Task DGSendSubmissionEmailAsync(string EmailAddress, string SDLNumber, string OrganisationName, string ProjectCode, string ProjectName)
+        {
+
+            if (EmailAddress.IsNullOrEmpty())
+            {
+                throw new Exception("Email should be set before sending.");
+            }
+
+            var mailMessage = new StringBuilder();
+            mailMessage.AppendLine("Dear SDF, " + "<br />" + "<br />");
+            mailMessage.AppendLine("Your application for Discretionary Grants Funding has been received by CHIETA." + "<br />" + "<br />");
+            mailMessage.AppendLine("This application is for: " + "<br />" + "<br />");
+            mailMessage.AppendLine("<b>" + "SDL Number: " + "</b>"  + SDLNumber + "<br />");
+            mailMessage.AppendLine("<b>" + "Organisation Name: " + "</b>" + OrganisationName + "<br />");
+            mailMessage.AppendLine("<b>" + "Project: " + "</b>" + ProjectName + "<br />" + "<br />");
+            mailMessage.AppendLine("The next step is the evaluation of the application which will commence as soon as the Grant window is closed. Further communication will follow.");
+            mailMessage.AppendLine("Please contact your CHIETA Regional Office for any further assistance." + "<br />" + "<br />");
+            mailMessage.AppendLine("Please note that All applications will be reviewed in terms of the CHIETA Grants and other related Policies and Legislation. All applications will be reviewed by the various CHIETA Committee and Governing Board approval structures. Award is Subject to a budget being available at the time of final approval." + "<br />" + "<br />");
+            mailMessage.AppendLine("Regards, " + "<br />");
+            mailMessage.AppendLine("Grants Team. " + "<br />");
+            await ReplaceBodyAndSend(EmailAddress, "Grant Application Submission Confirmation", null, mailMessage);
+        }
+
+        public async Task DGSendBulkOutcomeEmailsAsync(string EmailAddress)
+        {
+
+            if (EmailAddress.IsNullOrEmpty())
+            {
+                throw new Exception("Email should be set before sending.");
+            }
+
+            var mailMessage = new StringBuilder();
+            mailMessage.AppendLine("Dear Valued Stakeholder, " + "<br />" + "<br />");
+            mailMessage.AppendLine("Kindly note that your feedback for Strategic Projects for the DG 2022/2023 Cycle 1 are is available on the CHIETA IMS Portal (http://ims.chieta.org.za). Please login using your credentials which you used during the application phase to access the portal. The updated manual can also be downloaded from the portal." + "<br />" + "<br />");
+            mailMessage.AppendLine("Yours Sincerely," + "<br />");
+            mailMessage.AppendLine("CEO O.B.O CHIETA duly appointed Executive Authority");
+            await ReplaceBodyAndSend(EmailAddress, "Grant Application Outcome", null, mailMessage);
+        }
+
+        public async Task DGSendNotificationEmailsAsync(string EmailAddress)
+        {
+
+            if (EmailAddress.IsNullOrEmpty())
+            {
+                throw new Exception("Email should be set before sending.");
+            }
+
+            var mailMessage = new StringBuilder();
+            mailMessage.AppendLine("Dear Valued Stakeholder, " + "<br />" + "<br />");
+            mailMessage.AppendLine("Kindly find SAVE THE DATE attached for the CHIETA Green Hydrogen Economy Conference." + "<br />" + "<br />");
+            mailMessage.AppendLine("Regards," + "<br />");
+            await ReplaceBodyWithAttachmentAndSend(EmailAddress, "CHIETA Green Hydrogen  Economy", null, mailMessage);
+        }
+
+        public async Task StatusUpdateEmailsAsync(string EmailAddress, string Status, string ContractNumber)
+        {
+
+            if (EmailAddress.IsNullOrEmpty())
+            {
+                throw new Exception("Email should be set before sending.");
+            }
+
+            var mailMessage = new StringBuilder();
+            mailMessage.AppendLine("Dear Valued Stakeholder, " + "<br />" + "<br />");
+            mailMessage.AppendLine("Kindly note that your MOA for the DG 2022/2023 Cycle 1 with contract number: " + ContractNumber + ", has not been updated to status: " + Status + ". Further updates will be provided as the status updates occur." + "<br />" + "<br />");
+            mailMessage.AppendLine("Yours Sincerely," + "<br />");
+            mailMessage.AppendLine("CHIETA Grants Team");
+            await ReplaceBodyAndSend(EmailAddress, "MOA Status update", null, mailMessage);
+        }
+
+        public async Task SendBulkTranche1DocRejectionEmailsAsync(string EmailAddress, string Reason, string ContractNum)
+        {
+
+            if (EmailAddress.IsNullOrEmpty())
+            {
+                throw new Exception("Mail Sendng Error.");
+            }
+
+            var mailMessage = new StringBuilder();
+            mailMessage.AppendLine("Dear Valued Stakeholder, " + "<br />" + "<br />");
+            mailMessage.AppendLine("Kindly note that your signed MOA and/or Initiation Form had issues identified during the Evaluation process. The following was identified which requires your attention: " + "<br />" + "<br />");
+            mailMessage.AppendLine("Comment: " + Reason  + "<br />" + "<br />");
+            mailMessage.AppendLine("This outcome relates to contract number: " + ContractNum + "<br />" + "<br />");
+            mailMessage.AppendLine("Kindly review your signed MOA and/or Initiation Form and resubmit for the application to be re-evaluated." + "<br />" + "<br />");
+            mailMessage.AppendLine("Yours Sincerely," + "<br />");
+            mailMessage.AppendLine("CHIETA Grants Team");
+            await ReplaceBodyAndSend(EmailAddress, "MOA/Delivery Plan Update", null, mailMessage);
+        }        
+    }
+}

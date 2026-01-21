@@ -1,0 +1,20 @@
+﻿namespace CHIETAMIS.Authorization
+{
+    public static class PermissionNames
+    {
+        public const string Pages_Tenants = "Pages.Tenants";
+
+        public const string Pages_Users = "Pages.Users";
+        public const string Pages_Users_Activation = "Pages.Users.Activation";
+
+        public const string Pages_Roles = "Pages.Roles";
+
+        public const string Pages_DgApproval = "Pages.DgApproval";
+        public const string Pages_MgApproval = "Pages.MgApproval";
+        public const string Pages_DgManager = "Pages.DgManager";
+        public const string Pages_GEC_Committee = "Pages.GECCommittee";
+        public const string Pages_GAC_Committee = "Pages.GACCommittee";
+        public const string Pages_GC_Committee = "Pages.GCCommittee";
+
+    }
+}

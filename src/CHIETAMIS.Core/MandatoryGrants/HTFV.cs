@@ -1,0 +1,38 @@
+﻿using Abp.Domain.Entities;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CHIETAMIS.MandatoryGrants
+{
+	[Table("tbl_Mandatory_HTVFs")]
+	public class HTVF : Entity
+	{
+		public virtual int ApplicationId { get; set; }
+		public virtual string OCCUPATION_OR_SPECIALISATION_TITLE { get; set; }
+
+		public virtual string OCCUPATION_CODE { get; set; }
+
+		public virtual string PRIMARY_REASON { get; set; }
+
+		public virtual string FURTHER_REASON { get; set; }
+
+		public virtual string FURTHER_REASON_1 { get; set; }
+
+		public virtual string COMMENTS { get; set; }
+
+		public virtual string PROVINCE { get; set; }
+
+		public virtual int NUMBER_OF_VACANCIES { get; set; }
+        public virtual string Comment { get; set; }
+        public virtual string Status { get; set; }
+
+        public virtual int UserId { get; set; }
+		public virtual DateTime DateCreated { get; set; }
+		public virtual int? UsrUpd { get; set; }
+		public virtual DateTime? DteUpd { get; set; }
+	}
+}
