@@ -350,7 +350,7 @@ namespace CHIETAMIS.DiscretionaryProjects
             };
         }
 
-        public async Task<List<ProjectNotificationDto>> GetUserNotificationsAsync(string userId)
+        public async Task<List<ProjectNotificationDto>> GetUserNotificationsAsync(int userId)
         {
             // Efficient single-query join with projects
             var notifications = await (from n in _projectNotificationRepository.GetAll()

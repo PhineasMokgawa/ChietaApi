@@ -10,6 +10,6 @@ namespace CHIETAMIS.DiscretionaryProjects.Dtos
     {
         public int ProjectId { get; set; }
         public int NewStatusId { get; set; }
-        public string UserId { get; set; } = null!;
+        public int UserId { get; set; }
     }
 }
