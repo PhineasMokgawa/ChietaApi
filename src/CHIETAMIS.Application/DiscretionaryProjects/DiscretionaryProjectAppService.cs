@@ -223,72 +223,151 @@ namespace CHIETAMIS.DiscretionaryProjects
 
         public async Task<PagedResultDto<ProjectTimelineDto>> GetProjectTimeline(int OrganisationId)
         {
-            // Fetch project data with status info
-            var projTimeline = await (from discgrant in _discProjRepository.GetAll()
-                                      join org in _orgRepository.GetAll() on discgrant.OrganisationId equals org.Id
-                                      join orgsdf in _orgsdfRepository.GetAll() on discgrant.OrganisationId equals orgsdf.OrganisationId
-                                      join stat in _discStatusRepository.GetAll() on discgrant.ProjectStatusID equals stat.Id
-                                      join wind in _windowRepository.GetAll() on discgrant.GrantWindowId equals wind.Id
-                                      join prms in _windowParamRepository.GetAll() on discgrant.WindowParamId equals prms.Id
-                                      join projtype in _projTypeRepository.GetAll() on discgrant.ProjectTypeId equals projtype.Id
-                                      join focarea in _focusAreaRepository.GetAll() on prms.FocusAreaId equals focarea.Id into foc
-                                      from focs in foc.DefaultIfEmpty()
-                                      join subcat in _adminCritRepository.GetAll() on prms.SubCategoryId equals subcat.Id into sub
-                                      from subs in sub.DefaultIfEmpty()
-                                      join interv in _evalMethodRepository.GetAll() on prms.InterventionId equals interv.Id into inter
-                                      from inters in inter.DefaultIfEmpty()
-                                      where discgrant.OrganisationId == OrganisationId
-                                      orderby discgrant.ProjectStatDte descending
-                                      select new ProjectTimelineDto
-                                      {
-                                          ProjectId = discgrant.Id,
-                                          ProjectName = discgrant.ProjectNam,
-                                          ProjectShortName = discgrant.ProjShortNam,
-                                          Status = stat.StatusDesc,
-                                          StatusChangedDate = (DateTime)discgrant.ProjectStatDte,
-                                          OrganisationName = org.Organisation_Name,
-                                          SDLNo = org.SDL_No,
-                                          FocusArea = focs.FocusAreaDesc,
-                                          SubCategory = subs.AdminDesc,
-                                          Intervention = inters.EvalMthdDesc,
-                                          ProjectType = projtype.ProjTypDesc,
-                                          WindowTitle = wind.Title,
-                                          ProjectEndDate = wind.DeadlineTime
-                                      }).ToListAsync();
+            var projects = await (
+                from discgrant in _discProjRepository.GetAll()
+                join org in _orgRepository.GetAll() on discgrant.OrganisationId equals org.Id
+                join stat in _discStatusRepository.GetAll() on discgrant.ProjectStatusID equals stat.Id
+                join wind in _windowRepository.GetAll() on discgrant.GrantWindowId equals wind.Id
+                where discgrant.OrganisationId == OrganisationId
+                orderby discgrant.ProjectStatDte descending
+                select new
+                {
+                    discgrant.Id,
+                    discgrant.ProjectNam,
+                    discgrant.ProjShortNam,
+                    discgrant.ProjectStatusID,
+                    discgrant.ProjectStatDte,
+                    OrganisationName = org.Organisation_Name,
+                    org.SDL_No,
+                    StatusDesc = stat.StatusDesc,
+                    WindowTitle = wind.Title,
+                    ProjectEndDate = wind.DeadlineTime
+                }
+            ).ToListAsync();
 
-            var totalCount = projTimeline.Count;
+            var timeline = projects.Select(p =>
+            {
+                var statusId = p.ProjectStatusID;
 
-            return new PagedResultDto<ProjectTimelineDto>(totalCount, projTimeline);
+
+                return new ProjectTimelineDto
+                {
+                    ProjectId = p.Id,
+                    ProjectName = p.ProjectNam,
+                    ProjectShortName = p.ProjShortNam,
+
+                    OrganisationName = p.OrganisationName,
+                    SDLNo = p.SDL_No,
+
+                    Status = p.StatusDesc,
+                    StatusChangedDate = p.ProjectStatDte ?? DateTime.Now,
+
+                    WindowTitle = p.WindowTitle,
+                    ProjectEndDate = p.ProjectEndDate,
+
+                    // 🔹 Status flags
+                    ApplicationStarted = statusId >= 9,
+                    ApplicationSubmitted = statusId >= 10,
+                    RsaReviewCompleted = statusId >= 239,
+
+                    GrantsCommitteeReview =
+                        statusId >= 239 &&
+                        statusId != 246 &&
+                        statusId != 89,
+
+                    EvaluationCompleted = statusId == 246,
+                    RejectedAfterAssessment = statusId == 89,
+
+                    IsFinalStage = statusId == 246 || statusId == 89,
+
+                    CurrentStage =
+                        statusId == 9 ? "Application Started" :
+                        statusId == 10 ? "Application Submitted" :
+                        statusId == 239 ? "RSA Review Completed" :
+                        statusId == 246 ? "Evaluation Completed" :
+                        statusId == 89 ? "Rejected After Full Assessment" :
+                                          "Grants Committee Review"
+                };
+            }).ToList();
+
+            return new PagedResultDto<ProjectTimelineDto>(
+                timeline.Count,
+                timeline
+            );
+        }
+
+        public async Task<ProjectNotificationDto> CreateProjectNotificationAsync(CreateProjectNotificationDto input, int previousStatusId)
+        {
+            // Fetch project
+            var project = await _discProjRepository.GetAll()
+                                    .Where(p => p.Id == input.ProjectId)
+                                    .Select(p => new { p.ProjectNam, p.ProjectStatusID })
+                                    .FirstOrDefaultAsync();
+
+            if (project == null)
+                throw new UserFriendlyException("Project not found.");
+
+            // Helper function to convert statusId to friendly text
+            string GetStatusMessage(int statusId) => statusId switch
+            {
+                9 => "Application started",
+                10 => "Application submitted",
+                239 => "RSA review completed",
+                246 => "Evaluation completed",
+                89 => "Rejected after full assessment",
+                _ => "Status updated"
+            };
+
+            var previousStatus = GetStatusMessage(previousStatusId);
+            var newStatus = GetStatusMessage(project.ProjectStatusID);
+
+            // Build message
+            string message = $"Project '{project.ProjectNam}' status has been updated from '{previousStatus}' to '{newStatus}'.";
+
+            // Create the notification
+            var notification = new ProjectNotification
+            {
+                ProjectId = input.ProjectId,
+                UserId = input.UserId,
+                Message = message,
+                CreationTime = DateTime.Now,
+                IsRead = false
+            };
+
+            // Insert into repository
+            await _projectNotificationRepository.InsertAsync(notification);
+            await CurrentUnitOfWork.SaveChangesAsync(); // commit to DB
+
+            // Return DTO
+            return new ProjectNotificationDto
+            {
+                Id = notification.Id,
+                ProjectId = notification.ProjectId,
+                ProjectName = project.ProjectNam ?? "",
+                UserId = notification.UserId,
+                Message = notification.Message,
+                CreatedDate = notification.CreationTime
+            };
         }
 
         public async Task<List<ProjectNotificationDto>> GetUserNotificationsAsync(string userId)
         {
-            var notifications = await _projectNotificationRepository.GetAll()
-                .Where(n => n.UserId == userId)
-                .OrderByDescending(n => n.CreatedDate)
-                .ToListAsync();
+            // Efficient single-query join with projects
+            var notifications = await (from n in _projectNotificationRepository.GetAll()
+                                       join p in _discProjRepository.GetAll() on n.ProjectId equals p.Id
+                                       where n.UserId == userId
+                                       orderby n.CreatedDate descending
+                                       select new ProjectNotificationDto
+                                       {
+                                           Id = n.Id,
+                                           ProjectId = n.ProjectId,
+                                           ProjectName = p.ProjectNam,
+                                           UserId = n.UserId,
+                                           Message = n.Message,
+                                           CreatedDate = n.CreatedDate
+                                       }).ToListAsync();
 
-            var result = new List<ProjectNotificationDto>();
-
-            foreach (var n in notifications)
-            {
-                var projectName = await _discProjRepository.GetAll()
-                                        .Where(p => p.Id == n.ProjectId)
-                                        .Select(p => p.ProjectNam)
-                                        .FirstOrDefaultAsync();
-
-                result.Add(new ProjectNotificationDto
-                {
-                    Id = n.Id,
-                    ProjectId = n.ProjectId,
-                    ProjectName = projectName ?? "",
-                    UserId = n.UserId,
-                    Message = n.Message,
-                    CreatedDate = n.CreatedDate
-                });
-            }
-
-            return result;
+            return notifications;
         }
 
         public async Task NotifyUserOnStatusChangeAsync(NotifyStatusChangeDto input)

@@ -13,10 +13,12 @@ namespace CHIETAMIS.DiscretionaryProjects
     {
         public int ProjectId { get; set; }  // The project this notification belongs to
 
-        public string UserId { get; set; } = null!; // The user to notify
+        public int UserId { get; set; }  // The user to notify
 
         public string Message { get; set; } = null!; // Notification message
 
         public DateTime CreatedDate { get; set; } = DateTime.Now; // Timestamp
+        public bool IsRead { get; set; }
+        public DateTime CreationTime { get; set; }
     }
 }

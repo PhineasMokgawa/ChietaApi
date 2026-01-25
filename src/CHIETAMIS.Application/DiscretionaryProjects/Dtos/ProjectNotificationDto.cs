@@ -10,9 +10,9 @@ namespace CHIETAMIS.DiscretionaryProjects.Dtos
     {
         public int Id { get; set; }
         public int ProjectId { get; set; }
-        public string ProjectName { get; set; } = null!;
-        public string UserId { get; set; } = null!;
-        public string Message { get; set; } = null!;
+        public string ProjectName { get; set; } = "";
+        public int UserId { get; set; }
+        public string Message { get; set; } = "";
         public DateTime CreatedDate { get; set; }
     }
 }
