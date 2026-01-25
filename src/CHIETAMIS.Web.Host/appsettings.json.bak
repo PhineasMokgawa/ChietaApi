@@ -1,28 +1,55 @@
 ﻿{
+
   "ConnectionStrings": {
-    "Default": "Server=ho-ICTSpare3; Database=CHIETA_INTERGRATED_LIVE; User Id=sa;Password=ChietaAdmin123;"
+
+    "Default": "Server=TERACO-VMDG2\\IMS; Database=ims_dev; User ID=chieta;Password=@dm1n#123"
+
   },
+
   "App": {
-    "ServerRootAddress": "https://localhost:44311",
+
+    "ServerRootAddress": "https://ims.chieta.org.za:22743",
+
     "ClientRootAddress": "http://localhost:4200/",
-    "CorsOrigins": "http://localhost:4200"
+
+    "CorsOrigins": "http://localhost:4200,https://ims.chieta.org.za:22743"
+
   },
+
   "Authentication": {
+
     "JwtBearer": {
+
       "IsEnabled": "true",
+
       "SecurityKey": "CHIETAMIS_C421AAEE0D114E9C",
+
       "Issuer": "CHIETAMIS",
+
       "Audience": "CHIETAMIS"
+
     }
+
   },
+
   "Kestrel": {
+
     "Endpoints": {
+
       "Http": {
-        "Url": "https://localhost:44311"
+
+        "Url": "http://0.0.0.0:22743"
+
       }
+
     }
+
   },
+
   "Swagger": {
+
     "ShowSummaries": false
+
   }
+
 }
