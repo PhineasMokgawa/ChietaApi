@@ -41,6 +41,7 @@ namespace CHIETAMIS.DiscretionaryProjects
     public class DiscretionaryProjectAppService : CHIETAMISAppServiceBase
     {
         private readonly IUserEmailer _userEmailer;
+        private readonly IRepository<ProjectNotification> _projectNotificationRepository;
 
         private readonly IRepository<DiscretionaryProject> _discProjRepository;
         private readonly IRepository<Organisation> _orgRepository;
@@ -78,7 +79,7 @@ namespace CHIETAMIS.DiscretionaryProjects
                                               IRepository<BankDetails> bankRepository,
                                               IRepository<OrganisationPhysicalAddress> addressRepository,
                                               IRepository<Document> docRepository,
-                                              IUserEmailer userEmailer)
+                                              IUserEmailer userEmailer, IRepository<ProjectNotification> projectNotificationRepository)
         {
             _discProjRepository = dicprojRepository;
             _orgRepository = orgRepository;
@@ -99,6 +100,7 @@ namespace CHIETAMIS.DiscretionaryProjects
             _addressRepository = addressRepository;
             _docRepository = docRepository;
             _userEmailer = userEmailer;
+            _projectNotificationRepository = projectNotificationRepository; 
         }
 
         public async Task CreateEditApplication(DiscretionaryProjectDto input)
@@ -217,6 +219,104 @@ namespace CHIETAMIS.DiscretionaryProjects
                 discproject.ToList()
             );
         }
+
+
+        public async Task<PagedResultDto<ProjectTimelineDto>> GetProjectTimeline(int OrganisationId)
+        {
+            // Fetch project data with status info
+            var projTimeline = await (from discgrant in _discProjRepository.GetAll()
+                                      join org in _orgRepository.GetAll() on discgrant.OrganisationId equals org.Id
+                                      join orgsdf in _orgsdfRepository.GetAll() on discgrant.OrganisationId equals orgsdf.OrganisationId
+                                      join stat in _discStatusRepository.GetAll() on discgrant.ProjectStatusID equals stat.Id
+                                      join wind in _windowRepository.GetAll() on discgrant.GrantWindowId equals wind.Id
+                                      join prms in _windowParamRepository.GetAll() on discgrant.WindowParamId equals prms.Id
+                                      join projtype in _projTypeRepository.GetAll() on discgrant.ProjectTypeId equals projtype.Id
+                                      join focarea in _focusAreaRepository.GetAll() on prms.FocusAreaId equals focarea.Id into foc
+                                      from focs in foc.DefaultIfEmpty()
+                                      join subcat in _adminCritRepository.GetAll() on prms.SubCategoryId equals subcat.Id into sub
+                                      from subs in sub.DefaultIfEmpty()
+                                      join interv in _evalMethodRepository.GetAll() on prms.InterventionId equals interv.Id into inter
+                                      from inters in inter.DefaultIfEmpty()
+                                      where discgrant.OrganisationId == OrganisationId
+                                      orderby discgrant.ProjectStatDte descending
+                                      select new ProjectTimelineDto
+                                      {
+                                          ProjectId = discgrant.Id,
+                                          ProjectName = discgrant.ProjectNam,
+                                          ProjectShortName = discgrant.ProjShortNam,
+                                          Status = stat.StatusDesc,
+                                          StatusChangedDate = (DateTime)discgrant.ProjectStatDte,
+                                          OrganisationName = org.Organisation_Name,
+                                          SDLNo = org.SDL_No,
+                                          FocusArea = focs.FocusAreaDesc,
+                                          SubCategory = subs.AdminDesc,
+                                          Intervention = inters.EvalMthdDesc,
+                                          ProjectType = projtype.ProjTypDesc,
+                                          WindowTitle = wind.Title,
+                                          ProjectEndDate = wind.DeadlineTime
+                                      }).ToListAsync();
+
+            var totalCount = projTimeline.Count;
+
+            return new PagedResultDto<ProjectTimelineDto>(totalCount, projTimeline);
+        }
+
+        public async Task<List<ProjectNotificationDto>> GetUserNotificationsAsync(string userId)
+        {
+            var notifications = await _projectNotificationRepository.GetAll()
+                .Where(n => n.UserId == userId)
+                .OrderByDescending(n => n.CreatedDate)
+                .ToListAsync();
+
+            var result = new List<ProjectNotificationDto>();
+
+            foreach (var n in notifications)
+            {
+                var projectName = await _discProjRepository.GetAll()
+                                        .Where(p => p.Id == n.ProjectId)
+                                        .Select(p => p.ProjectNam)
+                                        .FirstOrDefaultAsync();
+
+                result.Add(new ProjectNotificationDto
+                {
+                    Id = n.Id,
+                    ProjectId = n.ProjectId,
+                    ProjectName = projectName ?? "",
+                    UserId = n.UserId,
+                    Message = n.Message,
+                    CreatedDate = n.CreatedDate
+                });
+            }
+
+            return result;
+        }
+
+        public async Task NotifyUserOnStatusChangeAsync(NotifyStatusChangeDto input)
+        {
+            var project = await _discProjRepository.GetAll()
+                                .FirstOrDefaultAsync(p => p.Id == input.ProjectId);
+
+            if (project == null)
+                throw new UserFriendlyException("Project not found");
+
+            var status = await _discStatusRepository.GetAll()
+                                .FirstOrDefaultAsync(s => s.Id == input.NewStatusId);
+
+            if (status == null)
+                throw new UserFriendlyException("Status not found");
+
+            var notification = new ProjectNotification
+            {
+                ProjectId = project.Id,
+                UserId = input.UserId,
+                Message = $"Project '{project.ProjectNam}' status has been updated to '{status.StatusDesc}'",
+                CreatedDate = DateTime.Now
+            };
+
+            await _projectNotificationRepository.InsertAsync(notification);
+            await CurrentUnitOfWork.SaveChangesAsync();
+        }
+
 
         public async Task<PagedResultDto<DiscretionaryProjectForViewDto>> GetProjectsLinkedtoSdf(DiscretionaryProjectRequestDto input)
         {
