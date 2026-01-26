@@ -15,7 +15,7 @@ namespace CHIETAMIS.Notifications.Dtos
         public bool Read { get; set; }
         public DateTime Timestamp { get; set; }
         public string Source { get; set; } = null!;
-        public Guid UserId { get; set; }
+        public int UserId { get; set; }
     }
 
 }
