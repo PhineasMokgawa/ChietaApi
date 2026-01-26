@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace CHIETAMIS.Notifications
 {
     [Table("tbl_Notifications")]
-    public class Notification : Entity
+    public class Notification : Entity<int>
     {
        
         public int UserId { get; set; }

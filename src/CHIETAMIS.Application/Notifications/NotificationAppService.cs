@@ -1,7 +1,6 @@
 ﻿using Abp.Application.Services;
+using Abp.Authorization;
 using Abp.Domain.Repositories;
-using Abp.Linq.Extensions;
-using CHIETAMIS.DiscretionaryProjects;
 using CHIETAMIS.Notifications.Dtos;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -15,37 +14,41 @@ namespace CHIETAMIS.Notifications
     {
         private readonly IRepository<Notification, int> _notificationRepository;
 
-        public NotificationAppService(
-            IRepository<Notification, int> notificationRepository)
+        public NotificationAppService(IRepository<Notification, int> notificationRepository)
         {
             _notificationRepository = notificationRepository;
         }
 
         /// <summary>
-        /// PUT: Create notification for a user
+        /// Create notification for a user
         /// </summary>
         public async Task CreateNotificationAsync(Dtos.CreateNotificationDto input)
         {
+            if (!AbpSession.UserId.HasValue)
+            {
+                throw new AbpAuthorizationException("User must be logged in");
+            }
+
             var notification = new Notification
             {
-                UserId = input.UserId,
                 Title = input.Title,
                 Body = input.Body,
                 Data = input.Data,
                 Source = input.Source,
-                Timestamp =DateTime.Now,
-                Read = false
+                Read = false,
+                Timestamp = DateTime.Now,
+                UserId = (int)AbpSession.UserId.Value
             };
 
             await _notificationRepository.InsertAsync(notification);
         }
 
         /// <summary>
-        /// GET: Get notifications for a user
+        /// Get notifications for a user
         /// </summary>
         public async Task<List<Dtos.NotificationDto>> GetByUserAsync(int userId)
         {
-            var notifications = await _notificationRepository
+            return await _notificationRepository
                 .GetAll()
                 .Where(n => n.UserId == userId)
                 .OrderByDescending(n => n.Timestamp)
@@ -59,17 +62,17 @@ namespace CHIETAMIS.Notifications
                     Source = n.Source
                 })
                 .ToListAsync();
-
-            return notifications;
         }
 
         /// <summary>
-        /// PUT: Mark notification as read
+        /// Mark notification as read
         /// </summary>
         public async Task MarkAsReadAsync(int notificationId)
         {
             var notification = await _notificationRepository.GetAsync(notificationId);
             notification.Read = true;
+
+            await CurrentUnitOfWork.SaveChangesAsync();
         }
     }
 }
