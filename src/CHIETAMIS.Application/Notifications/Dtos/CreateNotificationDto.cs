@@ -13,5 +13,6 @@ namespace CHIETAMIS.Notifications.Dtos
         public string Body { get; set; } = null!;
         public string? Data { get; set; }
         public string Source { get; set; } = null!;
+        public int UserId { get; set; }
     }
 }
