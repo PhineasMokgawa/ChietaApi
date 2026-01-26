@@ -4,9 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CHIETAMIS
+namespace CHIETAMIS;
+
+internal class Notification
 {
-    internal class Notifications
-    {
-    }
 }

@@ -24,7 +24,7 @@ namespace CHIETAMIS.Notifications
         /// <summary>
         /// PUT: Create notification for a user
         /// </summary>
-        public async Task CreateNotificationAsync(CreateNotificationDto input)
+        public async Task CreateNotificationAsync(Dtos.CreateNotificationDto input)
         {
             var notification = new Notification
             {
@@ -43,13 +43,13 @@ namespace CHIETAMIS.Notifications
         /// <summary>
         /// GET: Get notifications for a user
         /// </summary>
-        public async Task<List<NotificationDto>> GetByUserAsync(int userId)
+        public async Task<List<Dtos.NotificationDto>> GetByUserAsync(int userId)
         {
             var notifications = await _notificationRepository
                 .GetAll()
                 .Where(n => n.UserId == userId)
                 .OrderByDescending(n => n.Timestamp)
-                .Select(n => new NotificationDto
+                .Select(n => new Dtos.NotificationDto
                 {
                     Id = n.Id,
                     Title = n.Title,

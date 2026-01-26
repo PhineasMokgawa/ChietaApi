@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace CHIETAMIS.Notifications
 {
-<<<<<<< HEAD
     [Table("tbl_Notifications")]
     public class Notification : Entity
     {
@@ -25,22 +24,4 @@ namespace CHIETAMIS.Notifications
         public string Source { get; set; } = null!;
     }
 
-=======
-        [Table("tbl_GeneralNotifications")]
-        public class GeneralNotification : Entity<string> // string Id
-        {
-            public string Title { get; set; } = null!;      // Notification title
-            public string Body { get; set; } = null!;       // Notification body
-            public string? DataJson { get; set; }           // Optional JSON for extra info
-            public long Timestamp { get; set; }             // Unix timestamp
-            public bool Read { get; set; } = false;         // Read/unread
-            public string Source { get; set; } = "local";   // 'local' or 'push'
-
-            public GeneralNotification()
-            {
-                Id = Guid.NewGuid().ToString();
-                Timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-            }
-        }
->>>>>>> 2f4722d0c92878c10b768af41989fa0b63173151
 }
