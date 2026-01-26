@@ -1,40 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using Abp.Linq.Extensions;
-using Abp.Localization;
-using Abp.Runtime.Session;
-using Abp.UI;
-using Microsoft.EntityFrameworkCore;
-using Abp.Application.Services;
-using CHIETAMIS.DiscretionaryProjects.Dtos;
+﻿using Abp.Application.Services;
+using Abp.Application.Services.Dto;
+using Abp.Configuration;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
-using Abp.Application.Services.Dto;
+using Abp.Linq.Extensions;
+using Abp.Localization;
 using Abp.ObjectMapping;
-using System.Text;
-using Abp.Configuration;
+using Abp.Runtime.Session;
+using Abp.UI;
 using Abp.Zero.Configuration;
-using CHIETAMIS.Organisations;
-using CHIETAMIS.Organisations.Dtos;
+using CHIETAMIS.Authorization.Users;
+using CHIETAMIS.Commons.DTOs;
+using CHIETAMIS.DiscretionaryProjects;
+using CHIETAMIS.DiscretionaryProjects.Dtos;
+using CHIETAMIS.DiscretionaryWindows;
 using CHIETAMIS.Documents;
 using CHIETAMIS.Documents.Dtos;
+using CHIETAMIS.Lookups;
+using CHIETAMIS.Organisations;
+using CHIETAMIS.Organisations.Dtos;
+using CHIETAMIS.ProjectNotifications;
 using CHIETAMIS.Sdfs;
 using CHIETAMIS.Sdfs.Dtos;
-using CHIETAMIS.DiscretionaryProjects;
-using CHIETAMIS.DiscretionaryWindows;
 using CHIETAMIS.UnitStandards;
 using CHIETAMIS.UnitStandards.Dtos;
 using Microsoft.AspNetCore.Http;
-using System.IO;
-using System.Configuration;
-using CHIETAMIS.Authorization.Users;
-using CHIETAMIS.Lookups;
-using CHIETAMIS.Commons.DTOs;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Org.BouncyCastle.Crypto;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace CHIETAMIS.DiscretionaryProjects
 {
@@ -331,7 +332,7 @@ namespace CHIETAMIS.DiscretionaryProjects
                 UserId = input.UserId,
                 Message = message,
                 CreationTime = DateTime.Now,
-                IsRead = false
+                Read = false
             };
 
             // Insert into repository
@@ -350,7 +351,7 @@ namespace CHIETAMIS.DiscretionaryProjects
             };
         }
 
-        public async Task<List<ProjectNotificationDto>> GetUserNotificationsAsync(string userId)
+        public async Task<List<ProjectNotificationDto>> GetUserNotificationsAsync(int userId)
         {
             // Efficient single-query join with projects
             var notifications = await (from n in _projectNotificationRepository.GetAll()

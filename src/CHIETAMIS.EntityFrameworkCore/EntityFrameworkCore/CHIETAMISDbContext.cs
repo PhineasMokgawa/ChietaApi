@@ -28,6 +28,8 @@ using CHIETAMIS.Finance;
 using CHIETAMIS.DiscretionaryTranches;
 using CHIETAMIS.Lesedis;
 using CHIETAMIS.Qualifications;
+using CHIETAMIS.Notifications;
+using CHIETAMIS.ProjectNotifications;
 
 namespace CHIETAMIS.EntityFrameworkCore
 {
@@ -80,6 +82,7 @@ namespace CHIETAMIS.EntityFrameworkCore
         public DbSet<BBBeeLevels> BBBeeLevels { get; }
         public DbSet<Chambers> Chambers { get; }
         public DbSet<ProjectNotification> ProjectNotifications { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
 
         public DbSet<CompanySizes> CompanySizes { get; }
         public DbSet<Fintegrate_Payment_Status> Fintegrate_Payment_Status { get; }
