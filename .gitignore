@@ -254,3 +254,5 @@ paket-files/
 src/CHIETAMIS.Web.Mvc/secrets.json
 src/CHIETAMIS.Web.Host/secrets.json
 src/CHIETAMIS.Migrator/secrets.json
+/src/CHIETAMIS.Web.Host/CHIETAMIS.Web.Host.csproj
+/src/CHIETAMIS.Web.Host/appsettings.json
