@@ -256,3 +256,4 @@ src/CHIETAMIS.Web.Host/secrets.json
 src/CHIETAMIS.Migrator/secrets.json
 /src/CHIETAMIS.Web.Host/CHIETAMIS.Web.Host.csproj
 /src/CHIETAMIS.Web.Host/appsettings.json
+/src/CHIETAMIS.Web.Host/App_Data/Logs/Logs.txt
