@@ -210,6 +210,7 @@ namespace CHIETAMIS.EntityFrameworkCore
         public virtual DbSet<DiscLearnerType> DiscLearnerType { get; set; }
         public virtual DbSet<HistoricalPerformance> HistoricalPerformance { get; set; }
 
+        public virtual DbSet<PushNotification> PushNotifications { get; set; }
 
         public CHIETAMISDbContext(DbContextOptions<CHIETAMISDbContext> options)
             : base(options)
