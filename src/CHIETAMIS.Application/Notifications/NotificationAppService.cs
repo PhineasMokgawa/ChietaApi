@@ -140,5 +140,24 @@ namespace CHIETAMIS.Notifications
 
             await _notificationRepository.DeleteAsync(notification);
         }
+
+        public async Task<int> GetUnreadCountByUserAsync(int userId)
+        {
+            if (userId <= 0)
+                throw new UserFriendlyException("Invalid UserId");
+            return await _notificationRepository
+                .GetAll()
+                .Where(n => n.UserId == userId && !n.Read)
+                .CountAsync();
+        }
+
+        public async Task CreateUserNotificationToken(PushNotificationRegisterDto request)
+        {
+            if(request.UserId <= 0)
+                throw new UserFriendlyException("Invalid UserId");
+
+            // Implementation for storing the push notification token
+            
+        }
     }
 }
