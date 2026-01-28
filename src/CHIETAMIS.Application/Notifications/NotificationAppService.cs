@@ -13,15 +13,17 @@ namespace CHIETAMIS.Notifications
     public class NotificationAppService : ApplicationService
     {
         private readonly IRepository<Notification, int> _notificationRepository;
+        private readonly IRepository<PushNotification, int> _pushNotificationRepository;
 
-        public NotificationAppService(IRepository<Notification, int> notificationRepository)
+        public NotificationAppService(
+            IRepository<Notification, int> notificationRepository,
+            IRepository<PushNotification, int> pushNotificationRepository)
         {
             _notificationRepository = notificationRepository;
+            _pushNotificationRepository = pushNotificationRepository;
         }
 
-        /// <summary>
-        /// Create notification for any user
-        /// </summary>
+        ///  Create notification
         public async Task CreateNotificationAsync(CreateNotificationDto input)
         {
             if (input.UserId <= 0)
@@ -41,9 +43,7 @@ namespace CHIETAMIS.Notifications
             await _notificationRepository.InsertAsync(notification);
         }
 
-        /// <summary>
-        /// Get all notifications for a specific user
-        /// </summary>
+        ///  Get all notifications for a user
         public async Task<List<NotificationDto>> GetByUserAsync(int userId)
         {
             if (userId <= 0)
@@ -64,6 +64,8 @@ namespace CHIETAMIS.Notifications
                 })
                 .ToListAsync();
         }
+
+        ///  Update notification
         public async Task UpdateNotificationAsync(UpdateNotificationDto input)
         {
             if (input.Id <= 0)
@@ -73,7 +75,6 @@ namespace CHIETAMIS.Notifications
             if (notification == null)
                 throw new UserFriendlyException("Notification not found.");
 
-            // Update only fields that are provided
             if (!string.IsNullOrWhiteSpace(input.Title))
                 notification.Title = input.Title;
 
@@ -92,12 +93,10 @@ namespace CHIETAMIS.Notifications
             await CurrentUnitOfWork.SaveChangesAsync();
         }
 
-        /// <summary>
-        /// Mark a notification as read
-        /// </summary>
+        ///  Mark as read
         public async Task MarkAsReadAsync(int notificationId)
         {
-            var notification = await _notificationRepository.GetAsync(notificationId);
+            var notification = await _notificationRepository.FirstOrDefaultAsync(notificationId);
             if (notification == null)
                 throw new UserFriendlyException("Notification not found.");
 
@@ -105,9 +104,7 @@ namespace CHIETAMIS.Notifications
             await CurrentUnitOfWork.SaveChangesAsync();
         }
 
-        /// <summary>
-        /// Get unread notifications for a specific user
-        /// </summary>
+        ///  Get unread notifications
         public async Task<List<NotificationDto>> GetUnreadByUserAsync(int userId)
         {
             if (userId <= 0)
@@ -129,9 +126,7 @@ namespace CHIETAMIS.Notifications
                 .ToListAsync();
         }
 
-        /// <summary>
-        /// Delete a notification by Id
-        /// </summary>
+        ///  Delete notification
         public async Task DeleteNotificationAsync(int notificationId)
         {
             var notification = await _notificationRepository.FirstOrDefaultAsync(notificationId);
@@ -141,23 +136,40 @@ namespace CHIETAMIS.Notifications
             await _notificationRepository.DeleteAsync(notification);
         }
 
+        ///  Unread count
         public async Task<int> GetUnreadCountByUserAsync(int userId)
         {
             if (userId <= 0)
                 throw new UserFriendlyException("Invalid UserId");
+
             return await _notificationRepository
                 .GetAll()
-                .Where(n => n.UserId == userId && !n.Read)
-                .CountAsync();
+                .CountAsync(n => n.UserId == userId && !n.Read);
         }
 
-        public async Task CreateUserNotificationToken(PushNotificationRegisterDto request)
+        ///  Register push notification token
+        public async Task CreateUserNotificationToken(PushNotificationDto request)
         {
-            if(request.UserId <= 0)
+            if (request.UserId <= 0)
                 throw new UserFriendlyException("Invalid UserId");
 
-            // Implementation for storing the push notification token
-            
+            if (string.IsNullOrWhiteSpace(request.Token))
+                throw new UserFriendlyException("Invalid push token");
+
+            var exists = await _pushNotificationRepository
+                .GetAll()
+                .AnyAsync(x =>
+                    x.UserId == request.UserId &&
+                    x.Token == request.Token);
+
+            if (!exists)
+            {
+                await _pushNotificationRepository.InsertAsync(new PushNotification
+                {
+                    UserId = request.UserId,
+                    Token = request.Token
+                });
+            }
         }
     }
 }
