@@ -23,7 +23,11 @@ namespace CHIETAMIS.Notifications
             _pushNotificationRepository = pushNotificationRepository;
         }
 
-        // Create notification
+        // ==========================
+        // CREATE / PUSH NOTIFICATIONS
+        // ==========================
+
+        // Create a notification in DB without pushing
         public async Task CreateNotificationAsync(CreateNotificationDto input)
         {
             if (input.UserId <= 0)
@@ -34,13 +38,97 @@ namespace CHIETAMIS.Notifications
                 UserId = input.UserId,
                 Title = input.Title,
                 Message = input.Message,
-                Source = input.Source,
+                Source = input.Source ?? "SYSTEM",
                 IsRead = false,
+                IsPushSent = false,
                 CreatedAt = DateTime.UtcNow
             };
 
             await _notificationRepository.InsertAsync(notification);
         }
+
+        // Create and push a notification to all tokens for a user
+        public async Task SendAndPushNotificationAsync(CreateNotificationDto input)
+        {
+            if (input.UserId <= 0)
+                throw new UserFriendlyException("Invalid UserId");
+
+            if (string.IsNullOrWhiteSpace(input.Title) || string.IsNullOrWhiteSpace(input.Message))
+                throw new UserFriendlyException("Title and message are required");
+
+            // Get all registered tokens for the user
+            var tokens = await _pushNotificationRepository
+                .GetAll()
+                .Where(t => t.UserId == input.UserId)
+                .Select(t => t.Token)
+                .ToListAsync();
+
+            if (!tokens.Any())
+                throw new UserFriendlyException("No registered device tokens for this user.");
+
+            // Insert a notification per token (simulate push)
+            foreach (var token in tokens)
+            {
+                // Ensure token exists (redundant check)
+                var tokenExists = await _pushNotificationRepository
+                    .GetAll()
+                    .AnyAsync(t => t.UserId == input.UserId && t.Token == token);
+
+                if (!tokenExists)
+                {
+                    await _pushNotificationRepository.InsertAsync(new PushNotification
+                    {
+                        UserId = input.UserId,
+                        Token = token
+                    });
+                }
+
+                // Create the notification
+                var notification = new Notification
+                {
+                    UserId = input.UserId,
+                    Title = input.Title,
+                    Message = input.Message,
+                    Source = input.Source ?? "SYSTEM",
+                    IsRead = false,
+                    IsPushSent = true, // mark as pushed
+                    CreatedAt = DateTime.UtcNow
+                };
+
+                await _notificationRepository.InsertAsync(notification);
+            }
+        }
+
+        // ==========================
+        // PUSH TOKEN MANAGEMENT
+        // ==========================
+
+        // Save a push token for a user
+        public async Task CreateUserNotificationToken(PushNotificationDto request)
+        {
+            if (request.UserId <= 0)
+                throw new UserFriendlyException("Invalid UserId");
+
+            if (string.IsNullOrWhiteSpace(request.Token))
+                throw new UserFriendlyException("Invalid push token");
+
+            var exists = await _pushNotificationRepository
+                .GetAll()
+                .AnyAsync(x => x.UserId == request.UserId && x.Token == request.Token);
+
+            if (!exists)
+            {
+                await _pushNotificationRepository.InsertAsync(new PushNotification
+                {
+                    UserId = request.UserId,
+                    Token = request.Token
+                });
+            }
+        }
+
+        // ==========================
+        // GET NOTIFICATIONS
+        // ==========================
 
         // Get all notifications for a user
         public async Task<List<NotificationDto>> GetByUserAsync(int userId)
@@ -66,7 +154,11 @@ namespace CHIETAMIS.Notifications
                 .ToListAsync();
         }
 
-        // Update notification
+        // ==========================
+        // UPDATE / MARK AS READ
+        // ==========================
+
+        // Update a notification
         public async Task UpdateNotificationAsync(UpdateNotificationDto input)
         {
             if (input.Id <= 0)
@@ -90,7 +182,7 @@ namespace CHIETAMIS.Notifications
             await CurrentUnitOfWork.SaveChangesAsync();
         }
 
-        // Mark as read
+        // Mark a notification as read
         public async Task MarkAsReadAsync(int notificationId)
         {
             var notification = await _notificationRepository.FirstOrDefaultAsync(notificationId);
@@ -99,10 +191,15 @@ namespace CHIETAMIS.Notifications
 
             notification.IsRead = true;
             notification.UpdatedAt = DateTime.UtcNow;
+
             await CurrentUnitOfWork.SaveChangesAsync();
         }
 
-        // Delete notification
+        // ==========================
+        // DELETE NOTIFICATION
+        // ==========================
+
+        // Delete a notification
         public async Task DeleteNotificationAsync(int notificationId)
         {
             var notification = await _notificationRepository.FirstOrDefaultAsync(notificationId);
@@ -110,29 +207,6 @@ namespace CHIETAMIS.Notifications
                 throw new UserFriendlyException("Notification not found.");
 
             await _notificationRepository.DeleteAsync(notification);
-        }
-
-        // Push notification token
-        public async Task CreateUserNotificationToken(PushNotificationDto request)
-        {
-            if (request.UserId <= 0)
-                throw new UserFriendlyException("Invalid UserId");
-
-            if (string.IsNullOrWhiteSpace(request.Token))
-                throw new UserFriendlyException("Invalid push token");
-
-            var exists = await _pushNotificationRepository
-                .GetAll()
-                .AnyAsync(x => x.UserId == request.UserId && x.Token == request.Token);
-
-            if (!exists)
-            {
-                await _pushNotificationRepository.InsertAsync(new PushNotification
-                {
-                    UserId = request.UserId,
-                    Token = request.Token
-                });
-            }
         }
     }
 }
