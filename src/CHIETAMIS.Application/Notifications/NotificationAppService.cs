@@ -1,6 +1,6 @@
 ﻿using Abp.Application.Services;
-using Abp.Authorization;
 using Abp.Domain.Repositories;
+using Abp.UI;
 using CHIETAMIS.Notifications.Dtos;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -20,34 +20,35 @@ namespace CHIETAMIS.Notifications
         }
 
         /// <summary>
-        /// Create notification for a user
+        /// Create notification for any user
         /// </summary>
         public async Task CreateNotificationAsync(CreateNotificationDto input)
         {
-            if (!AbpSession.UserId.HasValue)
-            {
-                throw new AbpAuthorizationException("User must be logged in");
-            }
+            if (input.UserId <= 0)
+                throw new UserFriendlyException("Invalid UserId");
 
             var notification = new Notification
             {
+                UserId = input.UserId,
                 Title = input.Title,
                 Body = input.Body,
                 Data = input.Data,
                 Source = input.Source,
                 Read = false,
-                Timestamp = DateTime.Now,
-                UserId = (int)AbpSession.UserId.Value
+                Timestamp = DateTime.UtcNow
             };
 
             await _notificationRepository.InsertAsync(notification);
         }
 
         /// <summary>
-        /// Get notifications for a user
+        /// Get all notifications for a specific user
         /// </summary>
         public async Task<List<NotificationDto>> GetByUserAsync(int userId)
         {
+            if (userId <= 0)
+                throw new UserFriendlyException("Invalid UserId");
+
             return await _notificationRepository
                 .GetAll()
                 .Where(n => n.UserId == userId)
@@ -63,16 +64,81 @@ namespace CHIETAMIS.Notifications
                 })
                 .ToListAsync();
         }
+        public async Task UpdateNotificationAsync(UpdateNotificationDto input)
+        {
+            if (input.Id <= 0)
+                throw new UserFriendlyException("Invalid notification Id.");
+
+            var notification = await _notificationRepository.FirstOrDefaultAsync(input.Id);
+            if (notification == null)
+                throw new UserFriendlyException("Notification not found.");
+
+            // Update only fields that are provided
+            if (!string.IsNullOrWhiteSpace(input.Title))
+                notification.Title = input.Title;
+
+            if (!string.IsNullOrWhiteSpace(input.Body))
+                notification.Body = input.Body;
+
+            if (!string.IsNullOrWhiteSpace(input.Data))
+                notification.Data = input.Data;
+
+            if (!string.IsNullOrWhiteSpace(input.Source))
+                notification.Source = input.Source;
+
+            if (input.Read.HasValue)
+                notification.Read = input.Read.Value;
+
+            await CurrentUnitOfWork.SaveChangesAsync();
+        }
 
         /// <summary>
-        /// Mark notification as read
+        /// Mark a notification as read
         /// </summary>
         public async Task MarkAsReadAsync(int notificationId)
         {
             var notification = await _notificationRepository.GetAsync(notificationId);
-            notification.Read = true;
+            if (notification == null)
+                throw new UserFriendlyException("Notification not found.");
 
+            notification.Read = true;
             await CurrentUnitOfWork.SaveChangesAsync();
+        }
+
+        /// <summary>
+        /// Get unread notifications for a specific user
+        /// </summary>
+        public async Task<List<NotificationDto>> GetUnreadByUserAsync(int userId)
+        {
+            if (userId <= 0)
+                throw new UserFriendlyException("Invalid UserId");
+
+            return await _notificationRepository
+                .GetAll()
+                .Where(n => n.UserId == userId && !n.Read)
+                .OrderByDescending(n => n.Timestamp)
+                .Select(n => new NotificationDto
+                {
+                    Id = n.Id,
+                    Title = n.Title,
+                    Body = n.Body,
+                    Read = n.Read,
+                    Timestamp = n.Timestamp,
+                    Source = n.Source
+                })
+                .ToListAsync();
+        }
+
+        /// <summary>
+        /// Delete a notification by Id
+        /// </summary>
+        public async Task DeleteNotificationAsync(int notificationId)
+        {
+            var notification = await _notificationRepository.FirstOrDefaultAsync(notificationId);
+            if (notification == null)
+                throw new UserFriendlyException("Notification not found.");
+
+            await _notificationRepository.DeleteAsync(notification);
         }
     }
 }
