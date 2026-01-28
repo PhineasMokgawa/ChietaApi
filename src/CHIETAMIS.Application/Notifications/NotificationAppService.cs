@@ -34,6 +34,7 @@ namespace CHIETAMIS.Notifications
                 UserId = input.UserId,
                 Title = input.Title,
                 Message = input.Message,
+                Source = input.Source,
                 IsRead = false,
                 CreatedAt = DateTime.UtcNow
             };

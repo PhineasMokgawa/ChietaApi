@@ -19,6 +19,7 @@ namespace CHIETAMIS.Notifications
         public bool IsPushSent { get; set; } = false; // optional
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow; // was Timestamp
         public DateTime? UpdatedAt { get; set; }
+        public string Source { get; set; } = null!;
     }
 
 }
