@@ -8,11 +8,10 @@ namespace CHIETAMIS.Notifications.Dtos
 {
     public class UpdateNotificationDto
     {
-        public int Id { get; set; }          // Notification to update
-        public string Title { get; set; }    // Optional: new title
-        public string Body { get; set; }     // Optional: new body
-        public string Data { get; set; }     // Optional: new data
-        public string Source { get; set; }   // Optional: new source
-        public bool? Read { get; set; }      // Optional: mark read/unread
+
+        public int Id { get; set; }
+        public string? Title { get; set; }
+        public string? Message { get; set; }
+        public bool? IsRead { get; set; }
     }
 }

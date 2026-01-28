@@ -8,11 +8,9 @@ namespace CHIETAMIS.Notifications.Dtos
 {
     public class CreateNotificationDto
     {
-       
-        public string Title { get; set; } = null!;
-        public string Body { get; set; } = null!;
-        public string? Data { get; set; }
-        public string Source { get; set; } = null!;
+
         public int UserId { get; set; }
+        public string Title { get; set; } = null!;
+        public string Message { get; set; } = null!; // maps to DB Message
     }
 }

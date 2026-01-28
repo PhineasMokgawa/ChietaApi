@@ -10,12 +10,13 @@ namespace CHIETAMIS.Notifications.Dtos
     public class NotificationDto : EntityDto<int>
     {
 
-        public string Title { get; set; } = null!;
-        public string Body { get; set; } = null!;
-        public bool Read { get; set; }
-        public DateTime Timestamp { get; set; }
-        public string Source { get; set; } = null!;
         public int UserId { get; set; }
+        public string Title { get; set; } = null!;
+        public string Message { get; set; } = null!;  // maps to DB Message
+        public bool IsRead { get; set; }              // maps to DB IsRead
+        public bool IsPushSent { get; set; }          // maps to DB IsPushSent
+        public DateTime CreatedAt { get; set; }       // maps to DB CreatedAt
+        public DateTime? UpdatedAt { get; set; }      // maps to DB UpdatedAt
     }
 
 }

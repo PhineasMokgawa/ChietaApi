@@ -13,12 +13,12 @@ namespace CHIETAMIS.Notifications
     {
 
         public int UserId { get; set; }
-        public string Title { get; set; }
-        public string Body { get; set; }
-        public string Data { get; set; }
-        public string Source { get; set; }
-        public bool Read { get; set; }
-        public DateTime Timestamp { get; set; }
+        public string Title { get; set; } = null!;
+        public string Message { get; set; } = null!; // was Body
+        public bool IsRead { get; set; } = false; // was Read
+        public bool IsPushSent { get; set; } = false; // optional
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow; // was Timestamp
+        public DateTime? UpdatedAt { get; set; }
     }
 
 }

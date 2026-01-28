@@ -23,7 +23,7 @@ namespace CHIETAMIS.Notifications
             _pushNotificationRepository = pushNotificationRepository;
         }
 
-        ///  Create notification
+        // Create notification
         public async Task CreateNotificationAsync(CreateNotificationDto input)
         {
             if (input.UserId <= 0)
@@ -33,17 +33,15 @@ namespace CHIETAMIS.Notifications
             {
                 UserId = input.UserId,
                 Title = input.Title,
-                Body = input.Body,
-                Data = input.Data,
-                Source = input.Source,
-                Read = false,
-                Timestamp = DateTime.UtcNow
+                Message = input.Message,
+                IsRead = false,
+                CreatedAt = DateTime.UtcNow
             };
 
             await _notificationRepository.InsertAsync(notification);
         }
 
-        ///  Get all notifications for a user
+        // Get all notifications for a user
         public async Task<List<NotificationDto>> GetByUserAsync(int userId)
         {
             if (userId <= 0)
@@ -52,20 +50,22 @@ namespace CHIETAMIS.Notifications
             return await _notificationRepository
                 .GetAll()
                 .Where(n => n.UserId == userId)
-                .OrderByDescending(n => n.Timestamp)
+                .OrderByDescending(n => n.CreatedAt)
                 .Select(n => new NotificationDto
                 {
                     Id = n.Id,
+                    UserId = n.UserId,
                     Title = n.Title,
-                    Body = n.Body,
-                    Read = n.Read,
-                    Timestamp = n.Timestamp,
-                    Source = n.Source
+                    Message = n.Message,
+                    IsRead = n.IsRead,
+                    IsPushSent = n.IsPushSent,
+                    CreatedAt = n.CreatedAt,
+                    UpdatedAt = n.UpdatedAt
                 })
                 .ToListAsync();
         }
 
-        ///  Update notification
+        // Update notification
         public async Task UpdateNotificationAsync(UpdateNotificationDto input)
         {
             if (input.Id <= 0)
@@ -78,55 +78,30 @@ namespace CHIETAMIS.Notifications
             if (!string.IsNullOrWhiteSpace(input.Title))
                 notification.Title = input.Title;
 
-            if (!string.IsNullOrWhiteSpace(input.Body))
-                notification.Body = input.Body;
+            if (!string.IsNullOrWhiteSpace(input.Message))
+                notification.Message = input.Message;
 
-            if (!string.IsNullOrWhiteSpace(input.Data))
-                notification.Data = input.Data;
+            if (input.IsRead.HasValue)
+                notification.IsRead = input.IsRead.Value;
 
-            if (!string.IsNullOrWhiteSpace(input.Source))
-                notification.Source = input.Source;
-
-            if (input.Read.HasValue)
-                notification.Read = input.Read.Value;
+            notification.UpdatedAt = DateTime.UtcNow;
 
             await CurrentUnitOfWork.SaveChangesAsync();
         }
 
-        ///  Mark as read
+        // Mark as read
         public async Task MarkAsReadAsync(int notificationId)
         {
             var notification = await _notificationRepository.FirstOrDefaultAsync(notificationId);
             if (notification == null)
                 throw new UserFriendlyException("Notification not found.");
 
-            notification.Read = true;
+            notification.IsRead = true;
+            notification.UpdatedAt = DateTime.UtcNow;
             await CurrentUnitOfWork.SaveChangesAsync();
         }
 
-        ///  Get unread notifications
-        public async Task<List<NotificationDto>> GetUnreadByUserAsync(int userId)
-        {
-            if (userId <= 0)
-                throw new UserFriendlyException("Invalid UserId");
-
-            return await _notificationRepository
-                .GetAll()
-                .Where(n => n.UserId == userId && !n.Read)
-                .OrderByDescending(n => n.Timestamp)
-                .Select(n => new NotificationDto
-                {
-                    Id = n.Id,
-                    Title = n.Title,
-                    Body = n.Body,
-                    Read = n.Read,
-                    Timestamp = n.Timestamp,
-                    Source = n.Source
-                })
-                .ToListAsync();
-        }
-
-        ///  Delete notification
+        // Delete notification
         public async Task DeleteNotificationAsync(int notificationId)
         {
             var notification = await _notificationRepository.FirstOrDefaultAsync(notificationId);
@@ -136,18 +111,7 @@ namespace CHIETAMIS.Notifications
             await _notificationRepository.DeleteAsync(notification);
         }
 
-        ///  Unread count
-        public async Task<int> GetUnreadCountByUserAsync(int userId)
-        {
-            if (userId <= 0)
-                throw new UserFriendlyException("Invalid UserId");
-
-            return await _notificationRepository
-                .GetAll()
-                .CountAsync(n => n.UserId == userId && !n.Read);
-        }
-
-        ///  Register push notification token
+        // Push notification token
         public async Task CreateUserNotificationToken(PushNotificationDto request)
         {
             if (request.UserId <= 0)
@@ -158,9 +122,7 @@ namespace CHIETAMIS.Notifications
 
             var exists = await _pushNotificationRepository
                 .GetAll()
-                .AnyAsync(x =>
-                    x.UserId == request.UserId &&
-                    x.Token == request.Token);
+                .AnyAsync(x => x.UserId == request.UserId && x.Token == request.Token);
 
             if (!exists)
             {
