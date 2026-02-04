@@ -902,6 +902,42 @@ namespace CHIETAMIS.DiscretionaryProjects
 
             return proj;
         }
+        public async Task<List<DiscretionaryProjectDetailsApprovalsView>> GetProjectDetailsListView(int projectId)
+        {
+            var proj = (from prdet in _discProjDetRepository.GetAll()
+                        join p in _discProjRepository.GetAll() on prdet.ProjectId equals p.Id
+                        join o in _orgRepository.GetAll() on p.OrganisationId equals o.Id
+                        join prtype in _projTypeRepository.GetAll() on prdet.ProjectTypeId equals prtype.Id
+                        join focarea in _focusAreaRepository.GetAll() on prdet.FocusAreaId equals focarea.Id
+                        join subcat in _adminCritRepository.GetAll() on prdet.SubCategoryId equals subcat.Id
+                        join interv in _evalMethodRepository.GetAll() on prdet.InterventionId equals interv.Id
+                        select new DiscretionaryProjectDetailsApprovalsView
+                        {
+                            Id = prdet.Id,
+                            SDL = o.SDL_No,
+                            Organisation_Name = o.Organisation_Name,
+                            Organisation_Trade_Name = o.Organisation_Trading_Name,
+                            ProjectId = prdet.ProjectId,
+                            Contract_Number = prdet.Contract_Number,
+                            ProjectType = prtype.ProjTypDesc,
+                            FocusArea = focarea.FocusAreaDesc,
+                            SubCategory = subcat.AdminDesc,
+                            Intervention = interv.EvalMthdDesc,
+                            OtherIntervention = prdet.OtherIntervention,
+                            Province = prdet.Province,
+                            Municipality = prdet.Municipality,
+                            GC_New = prdet.GC_New,
+                            GC_Continuing = prdet.GC_Continuing,
+                            GC_CostPerLearner = prdet.GC_CostPerLearner
+                        })
+                        
+                        .Where(a => a.ProjectId == projectId)
+                        .ToList();
+
+            return proj;
+        }
+
+
 
         public async Task<PagedResultDto<DiscretionaryProjectForViewDto>> GetProject(int id)
         {
