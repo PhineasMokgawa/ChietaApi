@@ -146,6 +146,62 @@ namespace CHIETAMIS.DiscretionaryProjects
                 await _discProjRepository.UpdateAsync(cappl);
             }
         }
+        public async Task<PagedResultDto<DiscretionaryProjectForViewDto>> GetUserPendingTask(int userId)
+        {
+            var query =
+                from discgrant in _discProjRepository.GetAll()
+                join org in _orgRepository.GetAll() on discgrant.OrganisationId equals org.Id
+                join orgsdf in _orgsdfRepository.GetAll() on discgrant.OrganisationId equals orgsdf.OrganisationId
+                join stat in _discStatusRepository.GetAll() on discgrant.ProjectStatusID equals stat.Id
+                join wind in _windowRepository.GetAll() on discgrant.GrantWindowId equals wind.Id
+                join prms in _windowParamRepository.GetAll() on discgrant.WindowParamId equals prms.Id
+                join projtype in _projTypeRepository.GetAll() on discgrant.ProjectTypeId equals projtype.Id
+                join focarea in _focusAreaRepository.GetAll() on prms.FocusAreaId equals focarea.Id into foc
+                from focs in foc.DefaultIfEmpty()
+                join subcat in _adminCritRepository.GetAll() on prms.SubCategoryId equals subcat.Id into sub
+                from subs in sub.DefaultIfEmpty()
+                join interv in _evalMethodRepository.GetAll() on prms.InterventionId equals interv.Id into inter
+                from inters in inter.DefaultIfEmpty()
+
+                where orgsdf.UserId == userId
+                       && stat.StatusDesc == "Registered"
+                       && wind.LaunchDte <= DateTime.Today
+                       && wind.DeadlineTime >= DateTime.Today
+
+
+                orderby discgrant.Id descending
+
+                select new DiscretionaryProjectForViewDto
+                {
+                    DiscretionaryProject = new DiscretionaryProjectOutputDto
+                    {
+                        SDLNo = org.SDL_No,
+                        Organisation_Name = org.Organisation_Name,
+                        OrganisationId = org.Id,
+                        SdfId = orgsdf.SdfId,
+                        ProjectId = discgrant.Id,
+                        Title = wind.Title,
+                        ProjType = projtype.ProjTypDesc,
+                        FocusArea = focs.FocusAreaDesc,
+                        SubCategory = subs.AdminDesc,
+                        ProjectStatDte = discgrant.ProjectStatDte,
+                        ProjectEndDate = wind.DeadlineTime,
+                        ProjectStatus = stat.StatusDesc,
+                        ProjShortNam = discgrant.ProjShortNam,
+                        ProjectNam = discgrant.ProjectNam,
+                        SubmissionDte = discgrant.SubmissionDte,
+                        Id = discgrant.Id
+                    }
+                };
+
+            var totalCount = await query.CountAsync();
+            var items = await query.ToListAsync();
+
+            return new PagedResultDto<DiscretionaryProjectForViewDto>(
+                totalCount,
+                items
+            );
+        }
 
         public async Task<PagedResultDto<DiscretionaryProjectForViewDto>> GetOrgProjects(int OrganisationId)
         {

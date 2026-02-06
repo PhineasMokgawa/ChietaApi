@@ -429,6 +429,36 @@ namespace CHIETAMIS.DiscretionaryWindows
                 return new PagedResultDto<FocusAreaDto>(totalCount, query.ToList());
             }
         }
+        public async Task<PagedResultDto<DiscretionaryWindowForViewDto>> GetUpcomingEvents()
+        {
+            var window = _windowRepository
+                .GetAll()
+                .Where(a => a.LaunchDte > DateTime.Now);
+
+            var wind = await (from o in window
+                              select new DiscretionaryWindowForViewDto
+                              {
+                                  DiscretionaryWindow = new DiscretionaryWindowDto
+                                  {
+                                      ProgCd = o.ProgCd,
+                                      Reference = o.Reference,
+                                      Description = o.Description,
+                                      Title = o.Title,
+                                      LaunchDte = o.LaunchDte,
+                                      DeadlineTime = o.DeadlineTime,
+                                      TotBdgt = o.TotBdgt,
+                                      ActiveYN = o.ActiveYN,
+                                      Id = o.Id
+                                  }
+                              }).ToListAsync();
+
+            var totalCount = wind.Count;
+
+            return new PagedResultDto<DiscretionaryWindowForViewDto>(
+                totalCount,
+                wind
+            );
+        }
 
         public async Task<PagedResultDto<FocusAreaDto>> GetFocusArea(int projType)
         {
