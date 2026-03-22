@@ -5,7 +5,6 @@ using Abp.Dependency;
 using CHIETAMIS.Storage;
 using CHIETAMIS.Net.MimeTypes;
 using CHEITAMIS.Dto;
-using CHIETAMIS;
 using OfficeOpenXml;
 
 namespace CHIETAMIS.DataExporting.Excel.EpPlus

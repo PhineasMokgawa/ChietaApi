@@ -8,17 +8,27 @@ using System.Threading.Tasks;
 
 namespace CHIETAMIS.Notifications
 {
-    [Table("tbl_Notifications")]
+    /// <summary>
+    /// Mobile Notification entity for push notifications to mobile devices.
+    /// Separate from web notifications to maintain clean separation of concerns.
+    /// </summary>
+    [Table("tbl_mobile_notifications")]
     public class Notification : Entity<int>
     {
-
         public int UserId { get; set; }
+
         public string Title { get; set; } = null!;
-        public string Message { get; set; } = null!; // was Body
-        public bool IsRead { get; set; } = false; // was Read
-        public bool IsPushSent { get; set; } = false; // optional
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow; // was Timestamp
+
+        public string Message { get; set; } = null!;
+
+        public bool IsRead { get; set; } = false;
+
+        public bool IsPushSent { get; set; } = false;
+
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
         public DateTime? UpdatedAt { get; set; }
+
         public string Source { get; set; } = null!;
     }
 

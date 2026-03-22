@@ -56,6 +56,13 @@ namespace CHIETAMIS.Web.Host.Startup
 
             services.AddSignalR();
 
+            services.AddHttpClient("FileServer")
+                .ConfigurePrimaryHttpMessageHandler(() => new System.Net.Http.HttpClientHandler
+                {
+                    ServerCertificateCustomValidationCallback =
+                        System.Net.Http.HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+                });
+
             // Configure CORS for angular2 UI
             /*services.AddCors(
                 options => options.AddPolicy(

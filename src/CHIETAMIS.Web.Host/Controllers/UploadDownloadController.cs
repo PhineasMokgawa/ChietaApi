@@ -2,17 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Abp.Modules;
-using Abp.Zero;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
-using System.Net.Http.Headers;
+using Microsoft.Extensions.Configuration;
+using System.Net.Http;
+using Newtonsoft.Json.Linq;
 using CHIETAMIS.Controllers;
 
 namespace CHIETAMIS.Web.Host.Controllers
@@ -20,85 +17,150 @@ namespace CHIETAMIS.Web.Host.Controllers
     [ApiController]
     [EnableCors()]
     [Route("api")]
-    //[DependsOn(typeof(AbpZeroCommonModule))]
     public class UploadDownloadController : CHIETAMISControllerBase
     {
-        private IHostingEnvironment _hostingEnvironment;
+        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly IConfiguration _configuration;
 
-        public UploadDownloadController(IHostingEnvironment environment)
+        private string FileServerBaseUrl =>
+            (_configuration["DocumentStorage:FileServerBaseUrl"] ?? "https://ims.chieta.org.za:22742").TrimEnd('/');
+
+        public UploadDownloadController(IHttpClientFactory httpClientFactory, IConfiguration configuration)
         {
-            _hostingEnvironment = environment;
+            _httpClientFactory = httpClientFactory;
+            _configuration = configuration;
         }
 
         [HttpPost, DisableRequestSizeLimit]
         [Route("upload")]
         public async Task<IActionResult> Upload(IFormFile file)
         {
-            string uniquefilename = null;
-            var uploads = Path.Combine(_hostingEnvironment.WebRootPath, "Files");
-            if (!Directory.Exists(uploads))
+            if (file == null || file.Length == 0)
+                return BadRequest(new { error = "No file provided." });
+
+            var client = _httpClientFactory.CreateClient("FileServer");
+
+            using var content = new MultipartFormDataContent();
+            using var fileStream = file.OpenReadStream();
+
+            var streamContent = new StreamContent(fileStream);
+            streamContent.Headers.ContentType =
+                new System.Net.Http.Headers.MediaTypeHeaderValue(
+                    string.IsNullOrWhiteSpace(file.ContentType) ? "application/octet-stream" : file.ContentType);
+            content.Add(streamContent, "file", file.FileName);
+
+            HttpResponseMessage uploadResponse;
+            try
             {
-                Directory.CreateDirectory(uploads);
+                uploadResponse = await client.PostAsync($"{FileServerBaseUrl}/api/upload", content);
             }
-            if (file.Length > 0)
+            catch (Exception ex)
             {
-                uniquefilename = Guid.NewGuid().ToString() + "_" + file.FileName.Trim();
-                var filePath = Path.Combine(uploads, uniquefilename);
-                using (var fileStream = new FileStream(filePath, FileMode.Create))
-                {
-                    await file.CopyToAsync(fileStream);
-                }
+                return StatusCode(502, new { error = "File server is unreachable.", detail = ex.Message });
             }
-            return Ok(uniquefilename);
+
+            var responseBody = await uploadResponse.Content.ReadAsStringAsync();
+
+            if (!uploadResponse.IsSuccessStatusCode)
+                return StatusCode((int)uploadResponse.StatusCode,
+                    new { error = "File server rejected the upload.", detail = responseBody });
+
+            // Parse the stored filename out of the ABP envelope or plain string response
+            string storedFileName;
+            try
+            {
+                var json = JToken.Parse(responseBody);
+                storedFileName = json.Type == JTokenType.String
+                    ? json.Value<string>()
+                    : json["result"]?.Value<string>() ?? json.Value<string>();
+            }
+            catch
+            {
+                storedFileName = responseBody.Trim('"', ' ', '\r', '\n');
+            }
+
+            if (string.IsNullOrWhiteSpace(storedFileName))
+                return StatusCode(502, new { error = "File server returned an empty filename." });
+
+            // Return in the same ABP envelope shape callers already expect
+            return Ok(storedFileName);
         }
 
         [HttpGet, DisableRequestSizeLimit]
         [Route("download")]
         public async Task<ActionResult> Download([FromQuery] string filename)
         {
-            var uploads = Path.Combine(_hostingEnvironment.WebRootPath, "Files");
-            var filePath = Path.Combine(uploads, filename);
-            if (!System.IO.File.Exists(filePath))
-                return NotFound();
+            if (string.IsNullOrWhiteSpace(filename))
+                return BadRequest(new { error = "filename is required." });
 
-            var memory = new MemoryStream();
-            using (var stream = new FileStream(filePath, FileMode.Open))
+            var client = _httpClientFactory.CreateClient("FileServer");
+            var url = $"{FileServerBaseUrl}/Files/{Uri.EscapeDataString(filename)}";
+
+            HttpResponseMessage response;
+            try
             {
-                await stream.CopyToAsync(memory);
+                response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead);
             }
-            memory.Position = 0;
+            catch (Exception ex)
+            {
+                return StatusCode(502, new { error = "File server is unreachable.", detail = ex.Message });
+            }
 
-            return File(memory, GetContentType(filePath), filename);
+            if (!response.IsSuccessStatusCode)
+                return NotFound(new { error = $"File '{filename}' was not found on the file server.", statusCode = (int)response.StatusCode });
+
+            var mimeType = GetContentType(filename);
+            var stream = await response.Content.ReadAsStreamAsync();
+            return File(stream, mimeType, filename);
         }
 
         [HttpGet]
         [Route("files")]
-        public IActionResult Files()
+        public async Task<IActionResult> Files()
         {
-            var result = new List<string>();
+            var client = _httpClientFactory.CreateClient("FileServer");
 
-            var uploads = Path.Combine(_hostingEnvironment.WebRootPath, "Files");
-            if (Directory.Exists(uploads))
+            HttpResponseMessage response;
+            try
             {
-                var provider = _hostingEnvironment.ContentRootFileProvider;
-                foreach (string fileName in Directory.GetFiles(uploads))
-                {
-                    var fileInfo = provider.GetFileInfo(fileName);
-                    result.Add(fileInfo.Name);
-                }
+                response = await client.GetAsync($"{FileServerBaseUrl}/api/files");
             }
-            return Ok(result);
+            catch (Exception ex)
+            {
+                return StatusCode(502, new { error = "File server is unreachable.", detail = ex.Message });
+            }
+
+            if (!response.IsSuccessStatusCode)
+                return StatusCode((int)response.StatusCode, new { error = "Could not retrieve file list from file server." });
+
+            var body = await response.Content.ReadAsStringAsync();
+
+            // Parse the file list — strip full paths, return just filenames
+            try
+            {
+                var json = JToken.Parse(body);
+                var raw = json.Type == JTokenType.Array
+                    ? json
+                    : json["result"] as JArray ?? new JArray();
+
+                var names = raw
+                    .Select(t => Path.GetFileName(t.Value<string>()))
+                    .Where(n => !string.IsNullOrWhiteSpace(n))
+                    .ToList();
+
+                return Ok(names);
+            }
+            catch
+            {
+                return Ok(body);
+            }
         }
 
-
-        private string GetContentType(string path)
+        private static string GetContentType(string path)
         {
             var provider = new FileExtensionContentTypeProvider();
-            string contentType;
-            if (!provider.TryGetContentType(path, out contentType))
-            {
+            if (!provider.TryGetContentType(path, out var contentType))
                 contentType = "application/octet-stream";
-            }
             return contentType;
         }
     }

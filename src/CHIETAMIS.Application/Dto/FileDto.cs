@@ -12,17 +12,19 @@ namespace CHEITAMIS.Dto
 
         [Required]
         public string FileToken { get; set; }
+        public byte[] FileBytes { get; internal set; }
 
-        public FileDto()
-        {
-
-        }
-
-        public FileDto(string fileName, string fileType)
+        public FileDto(string fileName, string fileType, byte[] fileBytes)
         {
             FileName = fileName;
             FileType = fileType;
             FileToken = Guid.NewGuid().ToString("N");
+            FileBytes = fileBytes;
+        }
+
+        public FileDto(string fileName, string applicationVndOpenxmlformatsOfficedocumentSpreadsheetmlSheet)
+        {
+            FileName = fileName;
         }
     }
 }
