@@ -156,7 +156,7 @@ namespace CHIETAMIS.DiscretionaryWindows
                 wind1.Id = w.Id;
                 wind1.Parameters = param;
 
-                windpar.Append(wind1);
+                windpar.Add(wind1);
 
             }
             var totalCount = windpar.Count();
@@ -193,45 +193,37 @@ namespace CHIETAMIS.DiscretionaryWindows
 
         public async Task<PagedResultDto<PagedWindowParamsResultDto>> GetActiveWindowsParams()
         {
+            var now = DateTime.Now;
+            var activeWindows = _windowRepository.GetAll()
+                .Where(a => a.LaunchDte <= now && a.DeadlineTime >= now);
+
             var dgparam = await (from prms in _windowParamRepository.GetAll()
-                                 join dg in _windowRepository.GetAll() on prms.DG_Window_Id equals dg.Id
+                                 join dg in activeWindows on prms.DG_Window_Id equals dg.Id
                                  join projtype in _projTypeRepository.GetAll() on prms.ProjectTypeId equals projtype.Id
-                                 join focarea in _focusAreaRepository.GetAll() on prms.FocusAreaId equals focarea.Id into fap from faps in fap.DefaultIfEmpty()
-                                 join subcat in _adminCritRepository.GetAll() on prms.SubCategoryId equals subcat.Id into scp from scps in scp.DefaultIfEmpty()
-                                 join interv in _evalMethodRepository.GetAll() on prms.InterventionId equals interv.Id into emp from emps in emp.DefaultIfEmpty()
-                                 select new
+                                 join focarea in _focusAreaRepository.GetAll() on prms.FocusAreaId equals focarea.Id into fap
+                                 from faps in fap.DefaultIfEmpty()
+                                 join subcat in _adminCritRepository.GetAll() on prms.SubCategoryId equals subcat.Id into scp
+                                 from scps in scp.DefaultIfEmpty()
+                                 join interv in _evalMethodRepository.GetAll() on prms.InterventionId equals interv.Id into emp
+                                 from emps in emp.DefaultIfEmpty()
+                                 select new PagedWindowParamsResultDto
                                  {
-                                     WindowParams = prms,
-                                     DG_Window = dg,
-                                     Funding_Window = dg.Description,
-                                     Title = dg.Title,
-                                     ProjType = projtype.ProjTypDesc,
-                                     FocusArea = faps.FocusAreaDesc,
-                                     SubCategory = scps.AdminDesc,
-                                     Intervention = emps.EvalMthdDesc,
                                      Id = prms.Id,
+                                     DG_Window = dg.ProgCd,
+                                     ProjType = projtype.ProjTypDesc,
+                                     Title = dg.Title,
+                                     FocusArea = faps != null ? faps.FocusAreaDesc : null,
+                                     SubCategory = scps != null ? scps.AdminDesc : null,
+                                     Intervention = emps != null ? emps.EvalMthdDesc : null,
+                                     ActiveYN = prms.ActiveYN
                                  })
-                 .Where(a => a.DG_Window.LaunchDte <= DateTime.Now && a.DG_Window.DeadlineTime >= DateTime.Now)
                 .ToListAsync();
 
-            var param = (from o in dgparam
-                         select new PagedWindowParamsResultDto
-                         {
-                             Id = o.WindowParams.Id,
-                             DG_Window = o.DG_Window.ProgCd,
-                             ProjType = o.ProjType,
-                             Title = o.Title,
-                             FocusArea = o.FocusArea,
-                             SubCategory = o.SubCategory,
-                             Intervention = o.Intervention,
-                             ActiveYN = o.WindowParams.ActiveYN
-                         });
-
-            var totalCount = param.Count();
+            var totalCount = dgparam.Count();
 
             return new PagedResultDto<PagedWindowParamsResultDto>(
                 totalCount,
-                param.ToList()
+                dgparam
             );
         }
 
