@@ -4,6 +4,7 @@ using CHIETAMIS.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CHIETAMIS.Migrations
 {
     [DbContext(typeof(CHIETAMISDbContext))]
-    partial class CHIETAMISDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260420230546_AddMobileNotificationTables")]
+    partial class AddMobileNotificationTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

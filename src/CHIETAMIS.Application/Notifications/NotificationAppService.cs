@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace CHIETAMIS.Notifications
 {
-    public class NotificationAppService : ApplicationService
+    public class NotificationAppService : ApplicationService, INotificationAppService
     {
         private readonly IRepository<Notification, int> _notificationRepository;
         private readonly IRepository<PushNotification, int> _pushNotificationRepository;
