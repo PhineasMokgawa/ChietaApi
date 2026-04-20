@@ -1,4 +1,5 @@
 ﻿using Abp.Domain.Entities;
+using System;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CHIETAMIS.Notifications
@@ -8,5 +9,6 @@ namespace CHIETAMIS.Notifications
     {
         public int UserId { get; set; }
         public string Token { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
 }

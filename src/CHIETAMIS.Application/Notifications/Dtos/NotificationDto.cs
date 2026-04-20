@@ -11,12 +11,13 @@ namespace CHIETAMIS.Notifications.Dtos
     {
 
         public int UserId { get; set; }
-        public string Title { get; set; } = null!;
-        public string Message { get; set; } = null!;  // maps to DB Message
-        public bool IsRead { get; set; }              // maps to DB IsRead
-        public bool IsPushSent { get; set; }          // maps to DB IsPushSent
-        public DateTime CreatedAt { get; set; }       // maps to DB CreatedAt
-        public DateTime? UpdatedAt { get; set; }      // maps to DB UpdatedAt
+        public string Title { get; set; }
+        public string Message { get; set; }
+        public bool IsRead { get; set; }
+        public bool IsPushSent { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
+        public string Source { get; set; }
     }
 
 }

@@ -1,5 +1,7 @@
-﻿using Abp.Application.Services;
+﻿// CHIETAMIS/Notifications/NotificationAppService.cs
+using Abp.Application.Services;
 using Abp.Domain.Repositories;
+using Abp.Timing;
 using Abp.UI;
 using CHIETAMIS.Notifications.Dtos;
 using Microsoft.EntityFrameworkCore;
@@ -24,86 +26,113 @@ namespace CHIETAMIS.Notifications
         }
 
         // ==========================
-        // CREATE / PUSH NOTIFICATIONS
+        // CREATE NOTIFICATIONS (Single + Multiple Users)
         // ==========================
 
-        // Create a notification in DB without pushing
         public async Task CreateNotificationAsync(CreateNotificationDto input)
         {
-            if (input.UserId <= 0)
-                throw new UserFriendlyException("Invalid UserId");
+            var targetUserIds = ResolveUserIds(input.UserId, input.UserIds);
 
-            var notification = new Notification
+            if (!targetUserIds.Any())
+                throw new UserFriendlyException("No valid UserIds provided.");
+
+            foreach (var userId in targetUserIds)
             {
-                UserId = input.UserId,
-                Title = input.Title,
-                Message = input.Message,
-                Source = input.Source ?? "SYSTEM",
-                IsRead = false,
-                IsPushSent = false,
-                CreatedAt = DateTime.UtcNow
-            };
-
-            await _notificationRepository.InsertAsync(notification);
+                await _notificationRepository.InsertAsync(new Notification
+                {
+                    UserId = userId,
+                    Title = input.Title?.Trim() ?? string.Empty,
+                    Message = input.Message?.Trim() ?? string.Empty,
+                    Source = !string.IsNullOrWhiteSpace(input.Source) ? input.Source.Trim() : "SYSTEM",
+                    IsRead = false,
+                    IsPushSent = false,
+                    CreatedAt = Clock.Now,
+                    UpdatedAt = null
+                    // ✅ Id is NOT set → EF Core performs INSERT, not UPDATE
+                });
+            }
         }
 
-        // Create and push a notification to all tokens for a user
+        // ==========================
+        // CREATE + PUSH NOTIFICATIONS (Single + Multiple Users)
+        // ==========================
+
         public async Task SendAndPushNotificationAsync(CreateNotificationDto input)
         {
-            if (input.UserId <= 0)
-                throw new UserFriendlyException("Invalid UserId");
+            var targetUserIds = ResolveUserIds(input.UserId, input.UserIds);
+
+            if (!targetUserIds.Any())
+                throw new UserFriendlyException("No valid UserIds provided.");
 
             if (string.IsNullOrWhiteSpace(input.Title) || string.IsNullOrWhiteSpace(input.Message))
                 throw new UserFriendlyException("Title and message are required");
 
-            // Get all registered tokens for the user
-            var tokens = await _pushNotificationRepository
+            // Fetch all tokens for target users in a single efficient query
+            var tokensByUser = await _pushNotificationRepository
                 .GetAll()
-                .Where(t => t.UserId == input.UserId)
-                .Select(t => t.Token)
+                .Where(t => targetUserIds.Contains(t.UserId))
+                .Select(t => new { t.UserId, t.Token })
                 .ToListAsync();
 
-            if (!tokens.Any())
-                throw new UserFriendlyException("No registered device tokens for this user.");
+            if (!tokensByUser.Any())
+                throw new UserFriendlyException("No registered device tokens for the specified users.");
 
-            // Insert a notification per token (simulate push)
-            foreach (var token in tokens)
+            var processed = new HashSet<(int, string)>(); // Track (UserId, Token) to avoid duplicates
+
+            foreach (var userId in targetUserIds)
             {
-                // Ensure token exists (redundant check)
-                var tokenExists = await _pushNotificationRepository
-                    .GetAll()
-                    .AnyAsync(t => t.UserId == input.UserId && t.Token == token);
+                var userTokens = tokensByUser
+                    .Where(t => t.UserId == userId)
+                    .Select(t => t.Token)
+                    .Distinct();
 
-                if (!tokenExists)
+                foreach (var token in userTokens)
                 {
-                    await _pushNotificationRepository.InsertAsync(new PushNotification
+                    if (processed.Add((userId, token)))
                     {
-                        UserId = input.UserId,
-                        Token = token
-                    });
+                        await _notificationRepository.InsertAsync(new Notification
+                        {
+                            UserId = userId,
+                            Title = input.Title.Trim(),
+                            Message = input.Message.Trim(),
+                            Source = !string.IsNullOrWhiteSpace(input.Source) ? input.Source.Trim() : "SYSTEM",
+                            IsRead = false,
+                            IsPushSent = true,
+                            CreatedAt = Clock.Now,
+                            UpdatedAt = null
+                        });
+                    }
                 }
-
-                // Create the notification
-                var notification = new Notification
-                {
-                    UserId = input.UserId,
-                    Title = input.Title,
-                    Message = input.Message,
-                    Source = input.Source ?? "SYSTEM",
-                    IsRead = false,
-                    IsPushSent = true, // mark as pushed
-                    CreatedAt = DateTime.UtcNow
-                };
-
-                await _notificationRepository.InsertAsync(notification);
             }
+
+            // TODO: Integrate with Firebase/APNS here to actually send push notifications
+            // Example: await _pushService.SendAsync(tokensByUser.Select(t => t.Token).Distinct(), input.Title, input.Message);
+        }
+
+        // ==========================
+        // HELPER: Resolve UserIds (Single + Multiple)
+        // ==========================
+
+        private List<int> ResolveUserIds(int singleUserId, IEnumerable<int> multipleUserIds)
+        {
+            var result = new HashSet<int>(); // Auto-deduplicate
+
+            if (singleUserId > 0)
+                result.Add(singleUserId);
+
+            if (multipleUserIds?.Any() == true)
+            {
+                foreach (var id in multipleUserIds.Where(id => id > 0))
+                    result.Add(id);
+            }
+
+            return result.ToList();
         }
 
         // ==========================
         // PUSH TOKEN MANAGEMENT
         // ==========================
 
-        // Save a push token for a user
         public async Task CreateUserNotificationToken(PushNotificationDto request)
         {
             if (request.UserId <= 0)
@@ -121,7 +150,8 @@ namespace CHIETAMIS.Notifications
                 await _pushNotificationRepository.InsertAsync(new PushNotification
                 {
                     UserId = request.UserId,
-                    Token = request.Token
+                    Token = request.Token,
+                    CreatedAt = Clock.Now
                 });
             }
         }
@@ -130,7 +160,6 @@ namespace CHIETAMIS.Notifications
         // GET NOTIFICATIONS
         // ==========================
 
-        // Get all notifications for a user
         public async Task<List<NotificationDto>> GetByUserAsync(int userId)
         {
             if (userId <= 0)
@@ -158,7 +187,6 @@ namespace CHIETAMIS.Notifications
         // UPDATE / MARK AS READ
         // ==========================
 
-        // Update a notification
         public async Task UpdateNotificationAsync(UpdateNotificationDto input)
         {
             if (input.Id <= 0)
@@ -177,12 +205,11 @@ namespace CHIETAMIS.Notifications
             if (input.IsRead.HasValue)
                 notification.IsRead = input.IsRead.Value;
 
-            notification.UpdatedAt = DateTime.UtcNow;
+            notification.UpdatedAt = Clock.Now;
 
             await CurrentUnitOfWork.SaveChangesAsync();
         }
 
-        // Mark a notification as read
         public async Task MarkAsReadAsync(int notificationId)
         {
             var notification = await _notificationRepository.FirstOrDefaultAsync(notificationId);
@@ -190,7 +217,7 @@ namespace CHIETAMIS.Notifications
                 throw new UserFriendlyException("Notification not found.");
 
             notification.IsRead = true;
-            notification.UpdatedAt = DateTime.UtcNow;
+            notification.UpdatedAt = Clock.Now;
 
             await CurrentUnitOfWork.SaveChangesAsync();
         }
@@ -199,7 +226,6 @@ namespace CHIETAMIS.Notifications
         // DELETE NOTIFICATION
         // ==========================
 
-        // Delete a notification
         public async Task DeleteNotificationAsync(int notificationId)
         {
             var notification = await _notificationRepository.FirstOrDefaultAsync(notificationId);
