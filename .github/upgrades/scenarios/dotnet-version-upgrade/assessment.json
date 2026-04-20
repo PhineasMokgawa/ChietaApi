@@ -1,0 +1,2754 @@
+{
+  "settings": {
+    "components": {
+      "code": true,
+      "binaries": false
+    },
+    "targetId": "net10.0",
+    "targetDisplayName": ".NETCoreApp,Version=v10.0"
+  },
+  "analysisStartTime": "2026-03-22T19:45:57.225708Z",
+  "analysisEndTime": "2026-03-22T19:46:42.9372357Z",
+  "privacyModeHelpUrl": "https://go.microsoft.com/fwlink/?linkid=2270980",
+  "stats": {
+    "summary": {
+      "projects": 7,
+      "issues": 9,
+      "incidents": 98,
+      "effort": 98
+    },
+    "charts": {
+      "severity": {
+        "Mandatory": 28,
+        "Optional": 0,
+        "Potential": 70,
+        "Information": 0
+      },
+      "category": {
+        "NuGet": 27,
+        "Project": 7,
+        "Api": 64
+      }
+    }
+  },
+  "projects": [
+    {
+      "path": "src\\CHIETAMIS.Application\\CHIETAMIS.Application.csproj",
+      "startingProject": true,
+      "issues": 5,
+      "storyPoints": 9,
+      "properties": {
+        "appName": "CHIETAMIS.Application",
+        "projectKind": "ClassLibrary",
+        "frameworks": [
+          "net6.0"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": true,
+        "numberOfFiles": 587,
+        "numberOfCodeFiles": 587,
+        "linesTotal": 47098,
+        "linesOfCode": 47098,
+        "totalApiScanned": 76281,
+        "minLinesOfCodeToChange": 3,
+        "maxLinesOfCodeToChange": 3
+      },
+      "ruleInstances": [
+        {
+          "incidentId": "3dfe351c-c163-4f15-9606-e76aec79326f",
+          "ruleId": "NuGet.0001",
+          "projectPath": "src\\CHIETAMIS.Application\\CHIETAMIS.Application.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "iTextSharp, 5.5.13.4\n\nRecommendation:\n\niTextSharp, 5.5.13.3",
+              "protected": "iTextSharp, 5.5.13.4\n\nRecommendation:\n\niTextSharp, 5.5.13.3"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Application\\CHIETAMIS.Application.csproj",
+            "snippet": "iTextSharp, 5.5.13.4\n\nRecommendation:\n\niTextSharp, 5.5.13.3",
+            "protectedSnippet": "iTextSharp, 5.5.13.4\n\nRecommendation:\n\niTextSharp, 5.5.13.3",
+            "label": "iTextSharp 5.5.13.4",
+            "properties": {
+              "PackageId": "iTextSharp",
+              "PackageVersion": "5.5.13.4",
+              "PackageNewVersion": "5.5.13.3",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "3c857674-f58f-4fc0-817f-e142d94b6d0e",
+          "ruleId": "NuGet.0002",
+          "projectPath": "src\\CHIETAMIS.Application\\CHIETAMIS.Application.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.EntityFrameworkCore, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore, and replace with new package Microsoft.EntityFrameworkCore 10.0.5",
+              "protected": "Microsoft.EntityFrameworkCore, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore, and replace with new package Microsoft.EntityFrameworkCore 10.0.5"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Application\\CHIETAMIS.Application.csproj",
+            "snippet": "Microsoft.EntityFrameworkCore, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore, and replace with new package Microsoft.EntityFrameworkCore 10.0.5",
+            "protectedSnippet": "Microsoft.EntityFrameworkCore, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore, and replace with new package Microsoft.EntityFrameworkCore 10.0.5",
+            "label": "Microsoft.EntityFrameworkCore 6.0.1",
+            "properties": {
+              "PackageId": "Microsoft.EntityFrameworkCore",
+              "PackageVersion": "6.0.1",
+              "PackageNewVersion": "10.0.5",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "ebdbd314-68bb-45d5-b21c-bdc657a81ef7",
+          "ruleId": "NuGet.0002",
+          "projectPath": "src\\CHIETAMIS.Application\\CHIETAMIS.Application.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.EntityFrameworkCore.Design, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Design, and replace with new package Microsoft.EntityFrameworkCore.Design 10.0.5",
+              "protected": "Microsoft.EntityFrameworkCore.Design, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Design, and replace with new package Microsoft.EntityFrameworkCore.Design 10.0.5"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Application\\CHIETAMIS.Application.csproj",
+            "snippet": "Microsoft.EntityFrameworkCore.Design, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Design, and replace with new package Microsoft.EntityFrameworkCore.Design 10.0.5",
+            "protectedSnippet": "Microsoft.EntityFrameworkCore.Design, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Design, and replace with new package Microsoft.EntityFrameworkCore.Design 10.0.5",
+            "label": "Microsoft.EntityFrameworkCore.Design 6.0.1",
+            "properties": {
+              "PackageId": "Microsoft.EntityFrameworkCore.Design",
+              "PackageVersion": "6.0.1",
+              "PackageNewVersion": "10.0.5",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "8fb23e64-ae85-4975-8000-9e0f6f6e90be",
+          "ruleId": "NuGet.0003",
+          "projectPath": "src\\CHIETAMIS.Application\\CHIETAMIS.Application.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.NETCore.Platforms, 6.0.1\n\nRecommendation:\n\nPackage functionality included with new framework reference",
+              "protected": "Microsoft.NETCore.Platforms, 6.0.1\n\nRecommendation:\n\nPackage functionality included with new framework reference"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Application\\CHIETAMIS.Application.csproj",
+            "snippet": "Microsoft.NETCore.Platforms, 6.0.1\n\nRecommendation:\n\nPackage functionality included with new framework reference",
+            "protectedSnippet": "Microsoft.NETCore.Platforms, 6.0.1\n\nRecommendation:\n\nPackage functionality included with new framework reference",
+            "label": "Microsoft.NETCore.Platforms 6.0.1",
+            "properties": {
+              "PackageId": "Microsoft.NETCore.Platforms",
+              "PackageVersion": "6.0.1",
+              "PackageNewVersion": null,
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "03babb13-f7f2-47c7-8eaa-1fc234a4a074",
+          "ruleId": "NuGet.0001",
+          "projectPath": "src\\CHIETAMIS.Application\\CHIETAMIS.Application.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "PdfiumViewer, 2.13.0\n\nRecommendation:\n\nNo supported version found",
+              "protected": "PdfiumViewer, 2.13.0\n\nRecommendation:\n\nNo supported version found"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Application\\CHIETAMIS.Application.csproj",
+            "snippet": "PdfiumViewer, 2.13.0\n\nRecommendation:\n\nNo supported version found",
+            "protectedSnippet": "PdfiumViewer, 2.13.0\n\nRecommendation:\n\nNo supported version found",
+            "label": "PdfiumViewer 2.13.0",
+            "properties": {
+              "PackageId": "PdfiumViewer",
+              "PackageVersion": "2.13.0",
+              "PackageNewVersion": null,
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "18d05862-3f87-4610-80bb-5d78a97b174f",
+          "ruleId": "Project.0002",
+          "projectPath": "src\\CHIETAMIS.Application\\CHIETAMIS.Application.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Current target framework: net6.0\nRecommended target framework: net10.0",
+              "protected": "Current target framework: net6.0\nRecommended target framework: net10.0"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Application\\CHIETAMIS.Application.csproj",
+            "snippet": "Current target framework: net6.0\nRecommended target framework: net10.0",
+            "protectedSnippet": "Current target framework: net6.0\nRecommended target framework: net10.0",
+            "properties": {
+              "CurrentTargetFramework": "net6.0",
+              "RecommendedTargetFramework": "net10.0"
+            }
+          }
+        },
+        {
+          "incidentId": "211c506b-9665-46a5-86b3-b462b81f4979",
+          "ruleId": "Api.0003",
+          "description": "Breaking change - Streaming HTTP responses enabled by default in browser HTTP clients ",
+          "projectPath": "src\\CHIETAMIS.Application\\CHIETAMIS.Application.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "response.Content.Headers.ContentType = new MediaTypeHeaderValue(\u0022application/pdf\u0022);",
+              "protected": "T:System.Net.Http.HttpContent"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Application\\Authorization\\Accounts\\AccountAppService.cs",
+            "snippet": "response.Content.Headers.ContentType = new MediaTypeHeaderValue(\u0022application/pdf\u0022);",
+            "protectedSnippet": "T:System.Net.Http.HttpContent",
+            "label": "T:System.Net.Http.HttpContent",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/networking/10.0/default-http-streaming.md",
+                "isCustom": false
+              }
+            ],
+            "line": 164,
+            "column": 16
+          }
+        },
+        {
+          "incidentId": "5cdac995-5952-40d4-a49b-55b288f28094",
+          "ruleId": "Api.0003",
+          "description": "Breaking change - Streaming HTTP responses enabled by default in browser HTTP clients ",
+          "projectPath": "src\\CHIETAMIS.Application\\CHIETAMIS.Application.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "response.Content.Headers.ContentDisposition =\r\n                                new ContentDispositionHeaderValue(\u0022attachment\u0022)\r\n                                {\r\n                                    FileName = Path.GetFileName(fStream.Name)\r\n                                };",
+              "protected": "T:System.Net.Http.HttpContent"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Application\\Authorization\\Accounts\\AccountAppService.cs",
+            "snippet": "response.Content.Headers.ContentDisposition =\r\n                                new ContentDispositionHeaderValue(\u0022attachment\u0022)\r\n                                {\r\n                                    FileName = Path.GetFileName(fStream.Name)\r\n                                };",
+            "protectedSnippet": "T:System.Net.Http.HttpContent",
+            "label": "T:System.Net.Http.HttpContent",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/networking/10.0/default-http-streaming.md",
+                "isCustom": false
+              }
+            ],
+            "line": 159,
+            "column": 16
+          }
+        },
+        {
+          "incidentId": "2c2dc591-4f5d-46f8-85ff-b086a9fb5e59",
+          "ruleId": "Api.0003",
+          "description": "Breaking change - Streaming HTTP responses enabled by default in browser HTTP clients ",
+          "projectPath": "src\\CHIETAMIS.Application\\CHIETAMIS.Application.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "response = new HttpResponseMessage\r\n                {\r\n                    StatusCode = HttpStatusCode.OK,\r\n                    Content = new StreamContent(fStream)\r\n                };",
+              "protected": "T:System.Net.Http.HttpContent"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Application\\Authorization\\Accounts\\AccountAppService.cs",
+            "snippet": "response = new HttpResponseMessage\r\n                {\r\n                    StatusCode = HttpStatusCode.OK,\r\n                    Content = new StreamContent(fStream)\r\n                };",
+            "protectedSnippet": "T:System.Net.Http.HttpContent",
+            "label": "T:System.Net.Http.HttpContent",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/networking/10.0/default-http-streaming.md",
+                "isCustom": false
+              }
+            ],
+            "line": 154,
+            "column": 16
+          }
+        }
+      ],
+      "features": []
+    },
+    {
+      "path": "src\\CHIETAMIS.Core\\CHIETAMIS.Core.csproj",
+      "startingProject": true,
+      "issues": 5,
+      "storyPoints": 10,
+      "properties": {
+        "appName": "CHIETAMIS.Core",
+        "projectKind": "ClassLibrary",
+        "frameworks": [
+          "net6.0"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": true,
+        "numberOfFiles": 269,
+        "numberOfCodeFiles": 256,
+        "linesTotal": 9451,
+        "linesOfCode": 8135,
+        "totalApiScanned": 10381,
+        "minLinesOfCodeToChange": 6,
+        "maxLinesOfCodeToChange": 6
+      },
+      "ruleInstances": [
+        {
+          "incidentId": "35dcea48-65e5-49be-9ea1-11f5abceacc0",
+          "ruleId": "NuGet.0002",
+          "projectPath": "src\\CHIETAMIS.Core\\CHIETAMIS.Core.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.EntityFrameworkCore, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore, and replace with new package Microsoft.EntityFrameworkCore 10.0.5",
+              "protected": "Microsoft.EntityFrameworkCore, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore, and replace with new package Microsoft.EntityFrameworkCore 10.0.5"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Core\\CHIETAMIS.Core.csproj",
+            "snippet": "Microsoft.EntityFrameworkCore, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore, and replace with new package Microsoft.EntityFrameworkCore 10.0.5",
+            "protectedSnippet": "Microsoft.EntityFrameworkCore, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore, and replace with new package Microsoft.EntityFrameworkCore 10.0.5",
+            "label": "Microsoft.EntityFrameworkCore 6.0.1",
+            "properties": {
+              "PackageId": "Microsoft.EntityFrameworkCore",
+              "PackageVersion": "6.0.1",
+              "PackageNewVersion": "10.0.5",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "a3148df0-3f56-4898-ae44-78eb206f5214",
+          "ruleId": "NuGet.0002",
+          "projectPath": "src\\CHIETAMIS.Core\\CHIETAMIS.Core.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.EntityFrameworkCore.Design, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Design, and replace with new package Microsoft.EntityFrameworkCore.Design 10.0.5",
+              "protected": "Microsoft.EntityFrameworkCore.Design, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Design, and replace with new package Microsoft.EntityFrameworkCore.Design 10.0.5"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Core\\CHIETAMIS.Core.csproj",
+            "snippet": "Microsoft.EntityFrameworkCore.Design, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Design, and replace with new package Microsoft.EntityFrameworkCore.Design 10.0.5",
+            "protectedSnippet": "Microsoft.EntityFrameworkCore.Design, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Design, and replace with new package Microsoft.EntityFrameworkCore.Design 10.0.5",
+            "label": "Microsoft.EntityFrameworkCore.Design 6.0.1",
+            "properties": {
+              "PackageId": "Microsoft.EntityFrameworkCore.Design",
+              "PackageVersion": "6.0.1",
+              "PackageNewVersion": "10.0.5",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "9f992d94-0589-4213-ac13-83864edbc597",
+          "ruleId": "NuGet.0003",
+          "projectPath": "src\\CHIETAMIS.Core\\CHIETAMIS.Core.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.NETCore.Platforms, 6.0.1\n\nRecommendation:\n\nPackage functionality included with new framework reference",
+              "protected": "Microsoft.NETCore.Platforms, 6.0.1\n\nRecommendation:\n\nPackage functionality included with new framework reference"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Core\\CHIETAMIS.Core.csproj",
+            "snippet": "Microsoft.NETCore.Platforms, 6.0.1\n\nRecommendation:\n\nPackage functionality included with new framework reference",
+            "protectedSnippet": "Microsoft.NETCore.Platforms, 6.0.1\n\nRecommendation:\n\nPackage functionality included with new framework reference",
+            "label": "Microsoft.NETCore.Platforms 6.0.1",
+            "properties": {
+              "PackageId": "Microsoft.NETCore.Platforms",
+              "PackageVersion": "6.0.1",
+              "PackageNewVersion": null,
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "4fbb8173-def3-4b16-9363-aa722c86fbb2",
+          "ruleId": "Project.0002",
+          "projectPath": "src\\CHIETAMIS.Core\\CHIETAMIS.Core.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Current target framework: net6.0\nRecommended target framework: net10.0",
+              "protected": "Current target framework: net6.0\nRecommended target framework: net10.0"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Core\\CHIETAMIS.Core.csproj",
+            "snippet": "Current target framework: net6.0\nRecommended target framework: net10.0",
+            "protectedSnippet": "Current target framework: net6.0\nRecommended target framework: net10.0",
+            "properties": {
+              "CurrentTargetFramework": "net6.0",
+              "RecommendedTargetFramework": "net10.0"
+            }
+          }
+        },
+        {
+          "incidentId": "80f0ae4a-23f3-40f3-a638-c8483106ff77",
+          "ruleId": "Api.0002",
+          "description": "Use TimeProvider instead. Microsoft.Extensions.Internal",
+          "projectPath": "src\\CHIETAMIS.Core\\CHIETAMIS.Core.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "public SecurityStampValidator(\r\n            IOptions\u003CSecurityStampValidatorOptions\u003E options,\r\n            SignInManager signInManager,\r\n            ISystemClock systemClock,\r\n            ILoggerFactory loggerFactory,\r\n            IUnitOfWorkManager unitOfWorkManager)\r\n            : base(options, signInManager, systemClock, loggerFactory, unitOfWorkManager)\r\n        {\r\n        }",
+              "protected": "T:Microsoft.AspNetCore.Authentication.ISystemClock"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Core\\Identity\\SecurityStampValidator.cs",
+            "snippet": "public SecurityStampValidator(\r\n            IOptions\u003CSecurityStampValidatorOptions\u003E options,\r\n            SignInManager signInManager,\r\n            ISystemClock systemClock,\r\n            ILoggerFactory loggerFactory,\r\n            IUnitOfWorkManager unitOfWorkManager)\r\n            : base(options, signInManager, systemClock, loggerFactory, unitOfWorkManager)\r\n        {\r\n        }",
+            "protectedSnippet": "T:Microsoft.AspNetCore.Authentication.ISystemClock",
+            "label": "T:Microsoft.AspNetCore.Authentication.ISystemClock",
+            "line": 14,
+            "column": 8
+          }
+        },
+        {
+          "incidentId": "1160570a-080f-4146-84da-e5314a6f0ab2",
+          "ruleId": "Api.0002",
+          "description": "Use TimeProvider instead. Microsoft.Extensions.Internal",
+          "projectPath": "src\\CHIETAMIS.Core\\CHIETAMIS.Core.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "public SecurityStampValidator(\r\n            IOptions\u003CSecurityStampValidatorOptions\u003E options,\r\n            SignInManager signInManager,\r\n            ISystemClock systemClock,\r\n            ILoggerFactory loggerFactory,\r\n            IUnitOfWorkManager unitOfWorkManager)\r\n            : base(options, signInManager, systemClock, loggerFactory, unitOfWorkManager)\r\n        {\r\n        }",
+              "protected": "T:Microsoft.AspNetCore.Authentication.ISystemClock"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Core\\Identity\\SecurityStampValidator.cs",
+            "snippet": "public SecurityStampValidator(\r\n            IOptions\u003CSecurityStampValidatorOptions\u003E options,\r\n            SignInManager signInManager,\r\n            ISystemClock systemClock,\r\n            ILoggerFactory loggerFactory,\r\n            IUnitOfWorkManager unitOfWorkManager)\r\n            : base(options, signInManager, systemClock, loggerFactory, unitOfWorkManager)\r\n        {\r\n        }",
+            "protectedSnippet": "T:Microsoft.AspNetCore.Authentication.ISystemClock",
+            "label": "T:Microsoft.AspNetCore.Authentication.ISystemClock",
+            "line": 14,
+            "column": 8
+          }
+        },
+        {
+          "incidentId": "1d3f72d1-6a12-428c-929d-64ebbec909de",
+          "ruleId": "Api.0002",
+          "description": "Breaking change: .NET 9 obsoletions with custom IDs ",
+          "projectPath": "src\\CHIETAMIS.Core\\CHIETAMIS.Core.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "ServicePointManager.ServerCertificateValidationCallback = delegate (object s,\r\n                        System.Security.Cryptography.X509Certificates.X509Certificate certificate,\r\n                        System.Security.Cryptography.X509Certificates.X509Chain chain,\r\n                        System.Net.Security.SslPolicyErrors sslPolicyErrors)\r\n                {\r\n                    return true;\r\n                };",
+              "protected": "T:System.Net.ServicePointManager"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Core\\Authorization\\Users\\UserEmailer.cs",
+            "snippet": "ServicePointManager.ServerCertificateValidationCallback = delegate (object s,\r\n                        System.Security.Cryptography.X509Certificates.X509Certificate certificate,\r\n                        System.Security.Cryptography.X509Certificates.X509Chain chain,\r\n                        System.Net.Security.SslPolicyErrors sslPolicyErrors)\r\n                {\r\n                    return true;\r\n                };",
+            "protectedSnippet": "T:System.Net.ServicePointManager",
+            "label": "T:System.Net.ServicePointManager",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/core-libraries/9.0/obsolete-apis-with-custom-diagnostics.md",
+                "isCustom": false
+              }
+            ],
+            "line": 250,
+            "column": 16
+          }
+        },
+        {
+          "incidentId": "9782574d-963f-4898-b8e3-91980d464a33",
+          "ruleId": "Api.0002",
+          "description": "Breaking change: .NET 9 obsoletions with custom IDs ",
+          "projectPath": "src\\CHIETAMIS.Core\\CHIETAMIS.Core.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "ServicePointManager.ServerCertificateValidationCallback = delegate (object s,\r\n                        System.Security.Cryptography.X509Certificates.X509Certificate certificate,\r\n                        System.Security.Cryptography.X509Certificates.X509Chain chain,\r\n                        System.Net.Security.SslPolicyErrors sslPolicyErrors)\r\n                {\r\n                    return true;\r\n                };",
+              "protected": "T:System.Net.ServicePointManager"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Core\\Authorization\\Users\\UserEmailer.cs",
+            "snippet": "ServicePointManager.ServerCertificateValidationCallback = delegate (object s,\r\n                        System.Security.Cryptography.X509Certificates.X509Certificate certificate,\r\n                        System.Security.Cryptography.X509Certificates.X509Chain chain,\r\n                        System.Net.Security.SslPolicyErrors sslPolicyErrors)\r\n                {\r\n                    return true;\r\n                };",
+            "protectedSnippet": "T:System.Net.ServicePointManager",
+            "label": "T:System.Net.ServicePointManager",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/core-libraries/9.0/obsolete-apis-with-custom-diagnostics.md",
+                "isCustom": false
+              }
+            ],
+            "line": 219,
+            "column": 16
+          }
+        },
+        {
+          "incidentId": "777c5d6f-c9f9-4901-98e0-7c5a12295ff2",
+          "ruleId": "Api.0003",
+          "description": "Breaking change: URI length limits removed ",
+          "projectPath": "src\\CHIETAMIS.Core\\CHIETAMIS.Core.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "link = link.Replace(\u0022{resetCode}\u0022, Uri.EscapeDataString(user.PasswordResetCode));",
+              "protected": "T:System.Uri"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Core\\Authorization\\Users\\UserEmailer.cs",
+            "snippet": "link = link.Replace(\u0022{resetCode}\u0022, Uri.EscapeDataString(user.PasswordResetCode));",
+            "protectedSnippet": "T:System.Uri",
+            "label": "T:System.Uri",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/networking/10.0/uri-length-limits-removed.md",
+                "isCustom": false
+              }
+            ],
+            "line": 153,
+            "column": 16
+          }
+        },
+        {
+          "incidentId": "4cb2b8c4-dead-4b19-b68c-028c4fb29b5b",
+          "ruleId": "Api.0003",
+          "description": "Breaking change: URI length limits removed ",
+          "projectPath": "src\\CHIETAMIS.Core\\CHIETAMIS.Core.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "link = link.Replace(\u0022{confirmationCode}\u0022, Uri.EscapeDataString(user.EmailConfirmationCode));",
+              "protected": "T:System.Uri"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Core\\Authorization\\Users\\UserEmailer.cs",
+            "snippet": "link = link.Replace(\u0022{confirmationCode}\u0022, Uri.EscapeDataString(user.EmailConfirmationCode));",
+            "protectedSnippet": "T:System.Uri",
+            "label": "T:System.Uri",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/networking/10.0/uri-length-limits-removed.md",
+                "isCustom": false
+              }
+            ],
+            "line": 86,
+            "column": 12
+          }
+        }
+      ],
+      "features": []
+    },
+    {
+      "path": "src\\CHIETAMIS.EntityFrameworkCore\\CHIETAMIS.EntityFrameworkCore.csproj",
+      "startingProject": true,
+      "issues": 3,
+      "storyPoints": 6,
+      "properties": {
+        "appName": "CHIETAMIS.EntityFrameworkCore",
+        "projectKind": "ClassLibrary",
+        "frameworks": [
+          "net6.0"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": true,
+        "numberOfFiles": 65,
+        "numberOfCodeFiles": 65,
+        "linesTotal": 45741,
+        "linesOfCode": 45741,
+        "totalApiScanned": 68245,
+        "minLinesOfCodeToChange": 0,
+        "maxLinesOfCodeToChange": 0
+      },
+      "ruleInstances": [
+        {
+          "incidentId": "484cbd9e-15f1-422a-b041-f9ae8e490acd",
+          "ruleId": "NuGet.0002",
+          "projectPath": "src\\CHIETAMIS.EntityFrameworkCore\\CHIETAMIS.EntityFrameworkCore.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.EntityFrameworkCore, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore, and replace with new package Microsoft.EntityFrameworkCore 10.0.5",
+              "protected": "Microsoft.EntityFrameworkCore, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore, and replace with new package Microsoft.EntityFrameworkCore 10.0.5"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.EntityFrameworkCore\\CHIETAMIS.EntityFrameworkCore.csproj",
+            "snippet": "Microsoft.EntityFrameworkCore, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore, and replace with new package Microsoft.EntityFrameworkCore 10.0.5",
+            "protectedSnippet": "Microsoft.EntityFrameworkCore, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore, and replace with new package Microsoft.EntityFrameworkCore 10.0.5",
+            "label": "Microsoft.EntityFrameworkCore 6.0.1",
+            "properties": {
+              "PackageId": "Microsoft.EntityFrameworkCore",
+              "PackageVersion": "6.0.1",
+              "PackageNewVersion": "10.0.5",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "b8bd5ff0-2c8b-41f0-9205-90ef0483c7e4",
+          "ruleId": "NuGet.0002",
+          "projectPath": "src\\CHIETAMIS.EntityFrameworkCore\\CHIETAMIS.EntityFrameworkCore.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.EntityFrameworkCore.SqlServer, 6.0.0\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.SqlServer, and replace with new package Microsoft.EntityFrameworkCore.SqlServer 10.0.5",
+              "protected": "Microsoft.EntityFrameworkCore.SqlServer, 6.0.0\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.SqlServer, and replace with new package Microsoft.EntityFrameworkCore.SqlServer 10.0.5"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.EntityFrameworkCore\\CHIETAMIS.EntityFrameworkCore.csproj",
+            "snippet": "Microsoft.EntityFrameworkCore.SqlServer, 6.0.0\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.SqlServer, and replace with new package Microsoft.EntityFrameworkCore.SqlServer 10.0.5",
+            "protectedSnippet": "Microsoft.EntityFrameworkCore.SqlServer, 6.0.0\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.SqlServer, and replace with new package Microsoft.EntityFrameworkCore.SqlServer 10.0.5",
+            "label": "Microsoft.EntityFrameworkCore.SqlServer 6.0.0",
+            "properties": {
+              "PackageId": "Microsoft.EntityFrameworkCore.SqlServer",
+              "PackageVersion": "6.0.0",
+              "PackageNewVersion": "10.0.5",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "8fb9c723-95a2-4308-93ff-5577623731c1",
+          "ruleId": "NuGet.0002",
+          "projectPath": "src\\CHIETAMIS.EntityFrameworkCore\\CHIETAMIS.EntityFrameworkCore.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.EntityFrameworkCore.Tools, 6.0.0\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Tools, and replace with new package Microsoft.EntityFrameworkCore.Tools 10.0.5",
+              "protected": "Microsoft.EntityFrameworkCore.Tools, 6.0.0\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Tools, and replace with new package Microsoft.EntityFrameworkCore.Tools 10.0.5"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.EntityFrameworkCore\\CHIETAMIS.EntityFrameworkCore.csproj",
+            "snippet": "Microsoft.EntityFrameworkCore.Tools, 6.0.0\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Tools, and replace with new package Microsoft.EntityFrameworkCore.Tools 10.0.5",
+            "protectedSnippet": "Microsoft.EntityFrameworkCore.Tools, 6.0.0\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Tools, and replace with new package Microsoft.EntityFrameworkCore.Tools 10.0.5",
+            "label": "Microsoft.EntityFrameworkCore.Tools 6.0.0",
+            "properties": {
+              "PackageId": "Microsoft.EntityFrameworkCore.Tools",
+              "PackageVersion": "6.0.0",
+              "PackageNewVersion": "10.0.5",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "a22e4299-4b6b-4423-a863-01b88bb799cc",
+          "ruleId": "NuGet.0002",
+          "projectPath": "src\\CHIETAMIS.EntityFrameworkCore\\CHIETAMIS.EntityFrameworkCore.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.EntityFrameworkCore.Design, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Design, and replace with new package Microsoft.EntityFrameworkCore.Design 10.0.5",
+              "protected": "Microsoft.EntityFrameworkCore.Design, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Design, and replace with new package Microsoft.EntityFrameworkCore.Design 10.0.5"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.EntityFrameworkCore\\CHIETAMIS.EntityFrameworkCore.csproj",
+            "snippet": "Microsoft.EntityFrameworkCore.Design, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Design, and replace with new package Microsoft.EntityFrameworkCore.Design 10.0.5",
+            "protectedSnippet": "Microsoft.EntityFrameworkCore.Design, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Design, and replace with new package Microsoft.EntityFrameworkCore.Design 10.0.5",
+            "label": "Microsoft.EntityFrameworkCore.Design 6.0.1",
+            "properties": {
+              "PackageId": "Microsoft.EntityFrameworkCore.Design",
+              "PackageVersion": "6.0.1",
+              "PackageNewVersion": "10.0.5",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "c0e61f08-229e-478d-988f-0d121635d7a8",
+          "ruleId": "NuGet.0003",
+          "projectPath": "src\\CHIETAMIS.EntityFrameworkCore\\CHIETAMIS.EntityFrameworkCore.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.NETCore.Platforms, 6.0.1\n\nRecommendation:\n\nPackage functionality included with new framework reference",
+              "protected": "Microsoft.NETCore.Platforms, 6.0.1\n\nRecommendation:\n\nPackage functionality included with new framework reference"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.EntityFrameworkCore\\CHIETAMIS.EntityFrameworkCore.csproj",
+            "snippet": "Microsoft.NETCore.Platforms, 6.0.1\n\nRecommendation:\n\nPackage functionality included with new framework reference",
+            "protectedSnippet": "Microsoft.NETCore.Platforms, 6.0.1\n\nRecommendation:\n\nPackage functionality included with new framework reference",
+            "label": "Microsoft.NETCore.Platforms 6.0.1",
+            "properties": {
+              "PackageId": "Microsoft.NETCore.Platforms",
+              "PackageVersion": "6.0.1",
+              "PackageNewVersion": null,
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "fd48e666-cdaa-4b21-8ee7-865941377439",
+          "ruleId": "Project.0002",
+          "projectPath": "src\\CHIETAMIS.EntityFrameworkCore\\CHIETAMIS.EntityFrameworkCore.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Current target framework: net6.0\nRecommended target framework: net10.0",
+              "protected": "Current target framework: net6.0\nRecommended target framework: net10.0"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.EntityFrameworkCore\\CHIETAMIS.EntityFrameworkCore.csproj",
+            "snippet": "Current target framework: net6.0\nRecommended target framework: net10.0",
+            "protectedSnippet": "Current target framework: net6.0\nRecommended target framework: net10.0",
+            "properties": {
+              "CurrentTargetFramework": "net6.0",
+              "RecommendedTargetFramework": "net10.0"
+            }
+          }
+        }
+      ],
+      "features": []
+    },
+    {
+      "path": "src\\CHIETAMIS.Migrator\\CHIETAMIS.Migrator.csproj",
+      "startingProject": true,
+      "issues": 3,
+      "storyPoints": 4,
+      "properties": {
+        "appName": "CHIETAMIS.Migrator",
+        "projectKind": "DotNetCoreApp",
+        "frameworks": [
+          "net6.0"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": true,
+        "numberOfFiles": 6,
+        "numberOfCodeFiles": 6,
+        "linesTotal": 303,
+        "linesOfCode": 303,
+        "totalApiScanned": 295,
+        "minLinesOfCodeToChange": 0,
+        "maxLinesOfCodeToChange": 0
+      },
+      "ruleInstances": [
+        {
+          "incidentId": "0ce11978-589b-4c62-b8c7-9dbd3b6be621",
+          "ruleId": "NuGet.0002",
+          "projectPath": "src\\CHIETAMIS.Migrator\\CHIETAMIS.Migrator.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.EntityFrameworkCore, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore, and replace with new package Microsoft.EntityFrameworkCore 10.0.5",
+              "protected": "Microsoft.EntityFrameworkCore, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore, and replace with new package Microsoft.EntityFrameworkCore 10.0.5"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Migrator\\CHIETAMIS.Migrator.csproj",
+            "snippet": "Microsoft.EntityFrameworkCore, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore, and replace with new package Microsoft.EntityFrameworkCore 10.0.5",
+            "protectedSnippet": "Microsoft.EntityFrameworkCore, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore, and replace with new package Microsoft.EntityFrameworkCore 10.0.5",
+            "label": "Microsoft.EntityFrameworkCore 6.0.1",
+            "properties": {
+              "PackageId": "Microsoft.EntityFrameworkCore",
+              "PackageVersion": "6.0.1",
+              "PackageNewVersion": "10.0.5",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "e36c2669-af64-409f-89e1-fe03ad95518b",
+          "ruleId": "NuGet.0002",
+          "projectPath": "src\\CHIETAMIS.Migrator\\CHIETAMIS.Migrator.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.EntityFrameworkCore.Design, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Design, and replace with new package Microsoft.EntityFrameworkCore.Design 10.0.5",
+              "protected": "Microsoft.EntityFrameworkCore.Design, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Design, and replace with new package Microsoft.EntityFrameworkCore.Design 10.0.5"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Migrator\\CHIETAMIS.Migrator.csproj",
+            "snippet": "Microsoft.EntityFrameworkCore.Design, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Design, and replace with new package Microsoft.EntityFrameworkCore.Design 10.0.5",
+            "protectedSnippet": "Microsoft.EntityFrameworkCore.Design, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Design, and replace with new package Microsoft.EntityFrameworkCore.Design 10.0.5",
+            "label": "Microsoft.EntityFrameworkCore.Design 6.0.1",
+            "properties": {
+              "PackageId": "Microsoft.EntityFrameworkCore.Design",
+              "PackageVersion": "6.0.1",
+              "PackageNewVersion": "10.0.5",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "1364d70b-bbd0-48e7-8aeb-4e82532024e6",
+          "ruleId": "NuGet.0003",
+          "projectPath": "src\\CHIETAMIS.Migrator\\CHIETAMIS.Migrator.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.NETCore.Platforms, 6.0.1\n\nRecommendation:\n\nPackage functionality included with new framework reference",
+              "protected": "Microsoft.NETCore.Platforms, 6.0.1\n\nRecommendation:\n\nPackage functionality included with new framework reference"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Migrator\\CHIETAMIS.Migrator.csproj",
+            "snippet": "Microsoft.NETCore.Platforms, 6.0.1\n\nRecommendation:\n\nPackage functionality included with new framework reference",
+            "protectedSnippet": "Microsoft.NETCore.Platforms, 6.0.1\n\nRecommendation:\n\nPackage functionality included with new framework reference",
+            "label": "Microsoft.NETCore.Platforms 6.0.1",
+            "properties": {
+              "PackageId": "Microsoft.NETCore.Platforms",
+              "PackageVersion": "6.0.1",
+              "PackageNewVersion": null,
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "44ff35ec-8b9e-4289-ac66-b8fecb033b4a",
+          "ruleId": "Project.0002",
+          "projectPath": "src\\CHIETAMIS.Migrator\\CHIETAMIS.Migrator.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Current target framework: net6.0\nRecommended target framework: net10.0",
+              "protected": "Current target framework: net6.0\nRecommended target framework: net10.0"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Migrator\\CHIETAMIS.Migrator.csproj",
+            "snippet": "Current target framework: net6.0\nRecommended target framework: net10.0",
+            "protectedSnippet": "Current target framework: net6.0\nRecommended target framework: net10.0",
+            "properties": {
+              "CurrentTargetFramework": "net6.0",
+              "RecommendedTargetFramework": "net10.0"
+            }
+          }
+        }
+      ],
+      "features": []
+    },
+    {
+      "path": "test\\CHIETAMIS.Tests\\CHIETAMIS.Tests.csproj",
+      "startingProject": true,
+      "issues": 4,
+      "storyPoints": 6,
+      "properties": {
+        "appName": "CHIETAMIS.Tests",
+        "projectKind": "DotNetCoreApp",
+        "frameworks": [
+          "net6.0"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": true,
+        "numberOfFiles": 12,
+        "numberOfCodeFiles": 9,
+        "linesTotal": 2540,
+        "linesOfCode": 514,
+        "totalApiScanned": 547,
+        "minLinesOfCodeToChange": 1,
+        "maxLinesOfCodeToChange": 1
+      },
+      "ruleInstances": [
+        {
+          "incidentId": "207e5f2c-2d80-4b11-99d4-042ef6888da7",
+          "ruleId": "NuGet.0002",
+          "projectPath": "test\\CHIETAMIS.Tests\\CHIETAMIS.Tests.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.EntityFrameworkCore, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore, and replace with new package Microsoft.EntityFrameworkCore 10.0.5",
+              "protected": "Microsoft.EntityFrameworkCore, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore, and replace with new package Microsoft.EntityFrameworkCore 10.0.5"
+            },
+            "kind": "File",
+            "path": "test\\CHIETAMIS.Tests\\CHIETAMIS.Tests.csproj",
+            "snippet": "Microsoft.EntityFrameworkCore, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore, and replace with new package Microsoft.EntityFrameworkCore 10.0.5",
+            "protectedSnippet": "Microsoft.EntityFrameworkCore, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore, and replace with new package Microsoft.EntityFrameworkCore 10.0.5",
+            "label": "Microsoft.EntityFrameworkCore 6.0.1",
+            "properties": {
+              "PackageId": "Microsoft.EntityFrameworkCore",
+              "PackageVersion": "6.0.1",
+              "PackageNewVersion": "10.0.5",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "051cbc74-c3fe-4fbc-898c-43280e597fe7",
+          "ruleId": "NuGet.0002",
+          "projectPath": "test\\CHIETAMIS.Tests\\CHIETAMIS.Tests.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.EntityFrameworkCore.Design, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Design, and replace with new package Microsoft.EntityFrameworkCore.Design 10.0.5",
+              "protected": "Microsoft.EntityFrameworkCore.Design, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Design, and replace with new package Microsoft.EntityFrameworkCore.Design 10.0.5"
+            },
+            "kind": "File",
+            "path": "test\\CHIETAMIS.Tests\\CHIETAMIS.Tests.csproj",
+            "snippet": "Microsoft.EntityFrameworkCore.Design, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Design, and replace with new package Microsoft.EntityFrameworkCore.Design 10.0.5",
+            "protectedSnippet": "Microsoft.EntityFrameworkCore.Design, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Design, and replace with new package Microsoft.EntityFrameworkCore.Design 10.0.5",
+            "label": "Microsoft.EntityFrameworkCore.Design 6.0.1",
+            "properties": {
+              "PackageId": "Microsoft.EntityFrameworkCore.Design",
+              "PackageVersion": "6.0.1",
+              "PackageNewVersion": "10.0.5",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "9dd442fd-6352-414b-9c61-4abfba22e7ea",
+          "ruleId": "NuGet.0003",
+          "projectPath": "test\\CHIETAMIS.Tests\\CHIETAMIS.Tests.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.NETCore.Platforms, 6.0.1\n\nRecommendation:\n\nPackage functionality included with new framework reference",
+              "protected": "Microsoft.NETCore.Platforms, 6.0.1\n\nRecommendation:\n\nPackage functionality included with new framework reference"
+            },
+            "kind": "File",
+            "path": "test\\CHIETAMIS.Tests\\CHIETAMIS.Tests.csproj",
+            "snippet": "Microsoft.NETCore.Platforms, 6.0.1\n\nRecommendation:\n\nPackage functionality included with new framework reference",
+            "protectedSnippet": "Microsoft.NETCore.Platforms, 6.0.1\n\nRecommendation:\n\nPackage functionality included with new framework reference",
+            "label": "Microsoft.NETCore.Platforms 6.0.1",
+            "properties": {
+              "PackageId": "Microsoft.NETCore.Platforms",
+              "PackageVersion": "6.0.1",
+              "PackageNewVersion": null,
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "78691088-343c-407e-a87a-ddb45b5484eb",
+          "ruleId": "NuGet.0002",
+          "projectPath": "test\\CHIETAMIS.Tests\\CHIETAMIS.Tests.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.EntityFrameworkCore.InMemory, 6.0.0\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.InMemory, and replace with new package Microsoft.EntityFrameworkCore.InMemory 10.0.5",
+              "protected": "Microsoft.EntityFrameworkCore.InMemory, 6.0.0\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.InMemory, and replace with new package Microsoft.EntityFrameworkCore.InMemory 10.0.5"
+            },
+            "kind": "File",
+            "path": "test\\CHIETAMIS.Tests\\CHIETAMIS.Tests.csproj",
+            "snippet": "Microsoft.EntityFrameworkCore.InMemory, 6.0.0\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.InMemory, and replace with new package Microsoft.EntityFrameworkCore.InMemory 10.0.5",
+            "protectedSnippet": "Microsoft.EntityFrameworkCore.InMemory, 6.0.0\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.InMemory, and replace with new package Microsoft.EntityFrameworkCore.InMemory 10.0.5",
+            "label": "Microsoft.EntityFrameworkCore.InMemory 6.0.0",
+            "properties": {
+              "PackageId": "Microsoft.EntityFrameworkCore.InMemory",
+              "PackageVersion": "6.0.0",
+              "PackageNewVersion": "10.0.5",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "3a3e2563-728e-4fb8-b1e8-184441999388",
+          "ruleId": "Project.0002",
+          "projectPath": "test\\CHIETAMIS.Tests\\CHIETAMIS.Tests.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Current target framework: net6.0\nRecommended target framework: net10.0",
+              "protected": "Current target framework: net6.0\nRecommended target framework: net10.0"
+            },
+            "kind": "File",
+            "path": "test\\CHIETAMIS.Tests\\CHIETAMIS.Tests.csproj",
+            "snippet": "Current target framework: net6.0\nRecommended target framework: net10.0",
+            "protectedSnippet": "Current target framework: net6.0\nRecommended target framework: net10.0",
+            "properties": {
+              "CurrentTargetFramework": "net6.0",
+              "RecommendedTargetFramework": "net10.0"
+            }
+          }
+        },
+        {
+          "incidentId": "ae2982bf-cdb1-4213-9c33-7d063ca1b148",
+          "ruleId": "Api.0002",
+          "description": "Breaking change: New TimeSpan.From*() overloads that take integers ",
+          "projectPath": "test\\CHIETAMIS.Tests\\CHIETAMIS.Tests.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Configuration.UnitOfWork.Timeout = TimeSpan.FromMinutes(30);",
+              "protected": "M:System.TimeSpan.FromMinutes(System.Double)"
+            },
+            "kind": "File",
+            "path": "test\\CHIETAMIS.Tests\\CHIETAMISTestModule.cs",
+            "snippet": "Configuration.UnitOfWork.Timeout = TimeSpan.FromMinutes(30);",
+            "protectedSnippet": "M:System.TimeSpan.FromMinutes(System.Double)",
+            "label": "M:System.TimeSpan.FromMinutes(System.Double)",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/core-libraries/9.0/timespan-from-overloads.md",
+                "isCustom": false
+              }
+            ],
+            "line": 31,
+            "column": 12
+          }
+        }
+      ],
+      "features": []
+    },
+    {
+      "path": "src\\CHIETAMIS.Web.Core\\CHIETAMIS.Web.Core.csproj",
+      "startingProject": true,
+      "issues": 5,
+      "storyPoints": 17,
+      "properties": {
+        "appName": "CHIETAMIS.Web.Core",
+        "projectKind": "ClassLibrary",
+        "frameworks": [
+          "net6.0"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": true,
+        "numberOfFiles": 23,
+        "numberOfCodeFiles": 23,
+        "linesTotal": 850,
+        "linesOfCode": 850,
+        "totalApiScanned": 888,
+        "minLinesOfCodeToChange": 12,
+        "maxLinesOfCodeToChange": 12
+      },
+      "ruleInstances": [
+        {
+          "incidentId": "23eb4351-0b8c-423d-b70c-7980ba0f00c1",
+          "ruleId": "NuGet.0002",
+          "projectPath": "src\\CHIETAMIS.Web.Core\\CHIETAMIS.Web.Core.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.AspNetCore.Authentication.JwtBearer, 6.0.0\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Authentication.JwtBearer, and replace with new package Microsoft.AspNetCore.Authentication.JwtBearer 10.0.5",
+              "protected": "Microsoft.AspNetCore.Authentication.JwtBearer, 6.0.0\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Authentication.JwtBearer, and replace with new package Microsoft.AspNetCore.Authentication.JwtBearer 10.0.5"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Core\\CHIETAMIS.Web.Core.csproj",
+            "snippet": "Microsoft.AspNetCore.Authentication.JwtBearer, 6.0.0\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Authentication.JwtBearer, and replace with new package Microsoft.AspNetCore.Authentication.JwtBearer 10.0.5",
+            "protectedSnippet": "Microsoft.AspNetCore.Authentication.JwtBearer, 6.0.0\n\nRecommendation:\n\nRemove Microsoft.AspNetCore.Authentication.JwtBearer, and replace with new package Microsoft.AspNetCore.Authentication.JwtBearer 10.0.5",
+            "label": "Microsoft.AspNetCore.Authentication.JwtBearer 6.0.0",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Authentication.JwtBearer",
+              "PackageVersion": "6.0.0",
+              "PackageNewVersion": "10.0.5",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "d6dc6dc8-7d90-4d78-882d-9c17b0fe8f19",
+          "ruleId": "NuGet.0002",
+          "projectPath": "src\\CHIETAMIS.Web.Core\\CHIETAMIS.Web.Core.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.EntityFrameworkCore, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore, and replace with new package Microsoft.EntityFrameworkCore 10.0.5",
+              "protected": "Microsoft.EntityFrameworkCore, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore, and replace with new package Microsoft.EntityFrameworkCore 10.0.5"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Core\\CHIETAMIS.Web.Core.csproj",
+            "snippet": "Microsoft.EntityFrameworkCore, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore, and replace with new package Microsoft.EntityFrameworkCore 10.0.5",
+            "protectedSnippet": "Microsoft.EntityFrameworkCore, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore, and replace with new package Microsoft.EntityFrameworkCore 10.0.5",
+            "label": "Microsoft.EntityFrameworkCore 6.0.1",
+            "properties": {
+              "PackageId": "Microsoft.EntityFrameworkCore",
+              "PackageVersion": "6.0.1",
+              "PackageNewVersion": "10.0.5",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "63b92515-a8d1-43a3-9d5c-ce634653dd72",
+          "ruleId": "NuGet.0002",
+          "projectPath": "src\\CHIETAMIS.Web.Core\\CHIETAMIS.Web.Core.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.EntityFrameworkCore.Design, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Design, and replace with new package Microsoft.EntityFrameworkCore.Design 10.0.5",
+              "protected": "Microsoft.EntityFrameworkCore.Design, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Design, and replace with new package Microsoft.EntityFrameworkCore.Design 10.0.5"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Core\\CHIETAMIS.Web.Core.csproj",
+            "snippet": "Microsoft.EntityFrameworkCore.Design, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Design, and replace with new package Microsoft.EntityFrameworkCore.Design 10.0.5",
+            "protectedSnippet": "Microsoft.EntityFrameworkCore.Design, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Design, and replace with new package Microsoft.EntityFrameworkCore.Design 10.0.5",
+            "label": "Microsoft.EntityFrameworkCore.Design 6.0.1",
+            "properties": {
+              "PackageId": "Microsoft.EntityFrameworkCore.Design",
+              "PackageVersion": "6.0.1",
+              "PackageNewVersion": "10.0.5",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "fc96051e-db97-4d09-accb-6c2ad67b5b59",
+          "ruleId": "NuGet.0003",
+          "projectPath": "src\\CHIETAMIS.Web.Core\\CHIETAMIS.Web.Core.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.NETCore.Platforms, 6.0.1\n\nRecommendation:\n\nPackage functionality included with new framework reference",
+              "protected": "Microsoft.NETCore.Platforms, 6.0.1\n\nRecommendation:\n\nPackage functionality included with new framework reference"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Core\\CHIETAMIS.Web.Core.csproj",
+            "snippet": "Microsoft.NETCore.Platforms, 6.0.1\n\nRecommendation:\n\nPackage functionality included with new framework reference",
+            "protectedSnippet": "Microsoft.NETCore.Platforms, 6.0.1\n\nRecommendation:\n\nPackage functionality included with new framework reference",
+            "label": "Microsoft.NETCore.Platforms 6.0.1",
+            "properties": {
+              "PackageId": "Microsoft.NETCore.Platforms",
+              "PackageVersion": "6.0.1",
+              "PackageNewVersion": null,
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "14fcaeba-a008-4337-a425-51f2e01d06cc",
+          "ruleId": "Project.0002",
+          "projectPath": "src\\CHIETAMIS.Web.Core\\CHIETAMIS.Web.Core.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Current target framework: net6.0\nRecommended target framework: net10.0",
+              "protected": "Current target framework: net6.0\nRecommended target framework: net10.0"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Core\\CHIETAMIS.Web.Core.csproj",
+            "snippet": "Current target framework: net6.0\nRecommended target framework: net10.0",
+            "protectedSnippet": "Current target framework: net6.0\nRecommended target framework: net10.0",
+            "properties": {
+              "CurrentTargetFramework": "net6.0",
+              "RecommendedTargetFramework": "net10.0"
+            }
+          }
+        },
+        {
+          "incidentId": "4ee3a34e-8cc9-416d-803d-c4e3ea4d17e7",
+          "ruleId": "Api.0001",
+          "description": "API is unavailable in net8.0 ",
+          "projectPath": "src\\CHIETAMIS.Web.Core\\CHIETAMIS.Web.Core.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "claims.AddRange(new[]\r\n            {\r\n                new Claim(JwtRegisteredClaimNames.Sub, nameIdClaim.Value),\r\n                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),\r\n                new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.Now.ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64)\r\n            });",
+              "protected": "T:System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Core\\Controllers\\TokenAuthController.cs",
+            "snippet": "claims.AddRange(new[]\r\n            {\r\n                new Claim(JwtRegisteredClaimNames.Sub, nameIdClaim.Value),\r\n                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),\r\n                new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.Now.ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64)\r\n            });",
+            "protectedSnippet": "T:System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames",
+            "label": "T:System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames",
+            "line": 220,
+            "column": 12
+          }
+        },
+        {
+          "incidentId": "507e3f70-92df-4580-a214-5c06a7c26e12",
+          "ruleId": "Api.0001",
+          "description": "API is unavailable in net8.0 ",
+          "projectPath": "src\\CHIETAMIS.Web.Core\\CHIETAMIS.Web.Core.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "claims.AddRange(new[]\r\n            {\r\n                new Claim(JwtRegisteredClaimNames.Sub, nameIdClaim.Value),\r\n                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),\r\n                new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.Now.ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64)\r\n            });",
+              "protected": "F:System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Iat"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Core\\Controllers\\TokenAuthController.cs",
+            "snippet": "claims.AddRange(new[]\r\n            {\r\n                new Claim(JwtRegisteredClaimNames.Sub, nameIdClaim.Value),\r\n                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),\r\n                new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.Now.ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64)\r\n            });",
+            "protectedSnippet": "F:System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Iat",
+            "label": "F:System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Iat",
+            "line": 220,
+            "column": 12
+          }
+        },
+        {
+          "incidentId": "611abc5e-cf3d-4ed3-8327-d08bfe0918ce",
+          "ruleId": "Api.0001",
+          "description": "API is unavailable in net8.0 ",
+          "projectPath": "src\\CHIETAMIS.Web.Core\\CHIETAMIS.Web.Core.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "claims.AddRange(new[]\r\n            {\r\n                new Claim(JwtRegisteredClaimNames.Sub, nameIdClaim.Value),\r\n                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),\r\n                new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.Now.ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64)\r\n            });",
+              "protected": "T:System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Core\\Controllers\\TokenAuthController.cs",
+            "snippet": "claims.AddRange(new[]\r\n            {\r\n                new Claim(JwtRegisteredClaimNames.Sub, nameIdClaim.Value),\r\n                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),\r\n                new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.Now.ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64)\r\n            });",
+            "protectedSnippet": "T:System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames",
+            "label": "T:System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames",
+            "line": 220,
+            "column": 12
+          }
+        },
+        {
+          "incidentId": "1a68a1fe-5df1-4c26-b022-88447c83f82c",
+          "ruleId": "Api.0001",
+          "description": "API is unavailable in net8.0 ",
+          "projectPath": "src\\CHIETAMIS.Web.Core\\CHIETAMIS.Web.Core.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "claims.AddRange(new[]\r\n            {\r\n                new Claim(JwtRegisteredClaimNames.Sub, nameIdClaim.Value),\r\n                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),\r\n                new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.Now.ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64)\r\n            });",
+              "protected": "F:System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Jti"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Core\\Controllers\\TokenAuthController.cs",
+            "snippet": "claims.AddRange(new[]\r\n            {\r\n                new Claim(JwtRegisteredClaimNames.Sub, nameIdClaim.Value),\r\n                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),\r\n                new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.Now.ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64)\r\n            });",
+            "protectedSnippet": "F:System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Jti",
+            "label": "F:System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Jti",
+            "line": 220,
+            "column": 12
+          }
+        },
+        {
+          "incidentId": "0b01dd0d-1777-41b0-b749-f24a858612d4",
+          "ruleId": "Api.0001",
+          "description": "API is unavailable in net8.0 ",
+          "projectPath": "src\\CHIETAMIS.Web.Core\\CHIETAMIS.Web.Core.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "claims.AddRange(new[]\r\n            {\r\n                new Claim(JwtRegisteredClaimNames.Sub, nameIdClaim.Value),\r\n                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),\r\n                new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.Now.ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64)\r\n            });",
+              "protected": "T:System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Core\\Controllers\\TokenAuthController.cs",
+            "snippet": "claims.AddRange(new[]\r\n            {\r\n                new Claim(JwtRegisteredClaimNames.Sub, nameIdClaim.Value),\r\n                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),\r\n                new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.Now.ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64)\r\n            });",
+            "protectedSnippet": "T:System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames",
+            "label": "T:System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames",
+            "line": 220,
+            "column": 12
+          }
+        },
+        {
+          "incidentId": "ec4ee51e-c1f0-4cc2-a041-eb92e5029f6a",
+          "ruleId": "Api.0001",
+          "description": "API is unavailable in net8.0 ",
+          "projectPath": "src\\CHIETAMIS.Web.Core\\CHIETAMIS.Web.Core.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "claims.AddRange(new[]\r\n            {\r\n                new Claim(JwtRegisteredClaimNames.Sub, nameIdClaim.Value),\r\n                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),\r\n                new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.Now.ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64)\r\n            });",
+              "protected": "F:System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Sub"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Core\\Controllers\\TokenAuthController.cs",
+            "snippet": "claims.AddRange(new[]\r\n            {\r\n                new Claim(JwtRegisteredClaimNames.Sub, nameIdClaim.Value),\r\n                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),\r\n                new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.Now.ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64)\r\n            });",
+            "protectedSnippet": "F:System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Sub",
+            "label": "F:System.IdentityModel.Tokens.Jwt.JwtRegisteredClaimNames.Sub",
+            "line": 220,
+            "column": 12
+          }
+        },
+        {
+          "incidentId": "a99a0caa-286b-4aa7-ad44-1ca46f2ebf2f",
+          "ruleId": "Api.0001",
+          "description": "API is unavailable in net8.0 ",
+          "projectPath": "src\\CHIETAMIS.Web.Core\\CHIETAMIS.Web.Core.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "return new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);",
+              "protected": "T:System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Core\\Controllers\\TokenAuthController.cs",
+            "snippet": "return new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);",
+            "protectedSnippet": "T:System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler",
+            "label": "T:System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler",
+            "line": 211,
+            "column": 12
+          }
+        },
+        {
+          "incidentId": "99ab89ed-085b-4c48-81e9-e4e1bcd56ecb",
+          "ruleId": "Api.0001",
+          "description": "API is unavailable in net8.0 ",
+          "projectPath": "src\\CHIETAMIS.Web.Core\\CHIETAMIS.Web.Core.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "return new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);",
+              "protected": "M:System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.#ctor"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Core\\Controllers\\TokenAuthController.cs",
+            "snippet": "return new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);",
+            "protectedSnippet": "M:System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.#ctor",
+            "label": "M:System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.#ctor",
+            "line": 211,
+            "column": 12
+          }
+        },
+        {
+          "incidentId": "a50117d6-06b5-42c5-a711-1b6fcacf56c4",
+          "ruleId": "Api.0001",
+          "description": "API is unavailable in net8.0 ",
+          "projectPath": "src\\CHIETAMIS.Web.Core\\CHIETAMIS.Web.Core.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "return new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);",
+              "protected": "M:System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.WriteToken(Microsoft.IdentityModel.Tokens.SecurityToken)"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Core\\Controllers\\TokenAuthController.cs",
+            "snippet": "return new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);",
+            "protectedSnippet": "M:System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.WriteToken(Microsoft.IdentityModel.Tokens.SecurityToken)",
+            "label": "M:System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler.WriteToken(Microsoft.IdentityModel.Tokens.SecurityToken)",
+            "line": 211,
+            "column": 12
+          }
+        },
+        {
+          "incidentId": "16e349a0-9af4-4979-ac76-df9be7813edd",
+          "ruleId": "Api.0001",
+          "description": "API is unavailable in net8.0 ",
+          "projectPath": "src\\CHIETAMIS.Web.Core\\CHIETAMIS.Web.Core.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "var jwtSecurityToken = new JwtSecurityToken(\r\n                issuer: _configuration.Issuer,\r\n                audience: _configuration.Audience,\r\n                claims: claims,\r\n                notBefore: now,\r\n                expires: now.Add(expiration ?? _configuration.Expiration),\r\n                signingCredentials: _configuration.SigningCredentials\r\n            );",
+              "protected": "T:System.IdentityModel.Tokens.Jwt.JwtSecurityToken"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Core\\Controllers\\TokenAuthController.cs",
+            "snippet": "var jwtSecurityToken = new JwtSecurityToken(\r\n                issuer: _configuration.Issuer,\r\n                audience: _configuration.Audience,\r\n                claims: claims,\r\n                notBefore: now,\r\n                expires: now.Add(expiration ?? _configuration.Expiration),\r\n                signingCredentials: _configuration.SigningCredentials\r\n            );",
+            "protectedSnippet": "T:System.IdentityModel.Tokens.Jwt.JwtSecurityToken",
+            "label": "T:System.IdentityModel.Tokens.Jwt.JwtSecurityToken",
+            "line": 202,
+            "column": 12
+          }
+        },
+        {
+          "incidentId": "1720e618-89c3-4f0e-933e-2e1d53a7add2",
+          "ruleId": "Api.0001",
+          "description": "API is unavailable in net8.0 ",
+          "projectPath": "src\\CHIETAMIS.Web.Core\\CHIETAMIS.Web.Core.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "var jwtSecurityToken = new JwtSecurityToken(\r\n                issuer: _configuration.Issuer,\r\n                audience: _configuration.Audience,\r\n                claims: claims,\r\n                notBefore: now,\r\n                expires: now.Add(expiration ?? _configuration.Expiration),\r\n                signingCredentials: _configuration.SigningCredentials\r\n            );",
+              "protected": "M:System.IdentityModel.Tokens.Jwt.JwtSecurityToken.#ctor(System.String,System.String,System.Collections.Generic.IEnumerable{System.Security.Claims.Claim},System.Nullable{System.DateTime},System.Nullable{System.DateTime},Microsoft.IdentityModel.Tokens.SigningCredentials)"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Core\\Controllers\\TokenAuthController.cs",
+            "snippet": "var jwtSecurityToken = new JwtSecurityToken(\r\n                issuer: _configuration.Issuer,\r\n                audience: _configuration.Audience,\r\n                claims: claims,\r\n                notBefore: now,\r\n                expires: now.Add(expiration ?? _configuration.Expiration),\r\n                signingCredentials: _configuration.SigningCredentials\r\n            );",
+            "protectedSnippet": "M:System.IdentityModel.Tokens.Jwt.JwtSecurityToken.#ctor(System.String,System.String,System.Collections.Generic.IEnumerable{System.Security.Claims.Claim},System.Nullable{System.DateTime},System.Nullable{System.DateTime},Microsoft.IdentityModel.Tokens.SigningCredentials)",
+            "label": "M:System.IdentityModel.Tokens.Jwt.JwtSecurityToken.#ctor(System.String,System.String,System.Collections.Generic.IEnumerable{System.Security.Claims.Claim},System.Nullable{System.DateTime},System.Nullable{System.DateTime},Microsoft.IdentityModel.Tokens.SigningCredentials)",
+            "line": 202,
+            "column": 12
+          }
+        },
+        {
+          "incidentId": "795a79be-8317-4ac7-ae1a-81f774a2d6a8",
+          "ruleId": "Api.0002",
+          "description": "Breaking change: New TimeSpan.From*() overloads that take integers ",
+          "projectPath": "src\\CHIETAMIS.Web.Core\\CHIETAMIS.Web.Core.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "tokenAuthConfig.Expiration = TimeSpan.FromDays(1);",
+              "protected": "M:System.TimeSpan.FromDays(System.Double)"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Core\\CHIETAMISWebCoreModule.cs",
+            "snippet": "tokenAuthConfig.Expiration = TimeSpan.FromDays(1);",
+            "protectedSnippet": "M:System.TimeSpan.FromDays(System.Double)",
+            "label": "M:System.TimeSpan.FromDays(System.Double)",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/core-libraries/9.0/timespan-from-overloads.md",
+                "isCustom": false
+              }
+            ],
+            "line": 61,
+            "column": 12
+          }
+        }
+      ],
+      "features": [
+        {
+          "featureId": "IdentityModel",
+          "incidents": [
+            "1720e618-89c3-4f0e-933e-2e1d53a7add2",
+            "16e349a0-9af4-4979-ac76-df9be7813edd",
+            "a50117d6-06b5-42c5-a711-1b6fcacf56c4",
+            "99ab89ed-085b-4c48-81e9-e4e1bcd56ecb",
+            "a99a0caa-286b-4aa7-ad44-1ca46f2ebf2f",
+            "ec4ee51e-c1f0-4cc2-a041-eb92e5029f6a",
+            "0b01dd0d-1777-41b0-b749-f24a858612d4",
+            "1a68a1fe-5df1-4c26-b022-88447c83f82c",
+            "611abc5e-cf3d-4ed3-8327-d08bfe0918ce",
+            "507e3f70-92df-4580-a214-5c06a7c26e12",
+            "4ee3a34e-8cc9-416d-803d-c4e3ea4d17e7"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+      "startingProject": true,
+      "issues": 6,
+      "storyPoints": 46,
+      "properties": {
+        "appName": "CHIETAMIS.Web.Host",
+        "projectKind": "AspNetCore",
+        "frameworks": [
+          "net6.0"
+        ],
+        "languages": [
+          "C#"
+        ],
+        "tools": [
+          "MSBuild"
+        ],
+        "isSdkStyle": true,
+        "numberOfFiles": 199,
+        "numberOfCodeFiles": 11,
+        "linesTotal": 14853863,
+        "linesOfCode": 2549,
+        "totalApiScanned": 4634,
+        "minLinesOfCodeToChange": 42,
+        "maxLinesOfCodeToChange": 42
+      },
+      "ruleInstances": [
+        {
+          "incidentId": "9bc59cea-1412-442a-95c2-b6f09cf797b0",
+          "ruleId": "NuGet.0002",
+          "projectPath": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.EntityFrameworkCore, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore, and replace with new package Microsoft.EntityFrameworkCore 10.0.5",
+              "protected": "Microsoft.EntityFrameworkCore, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore, and replace with new package Microsoft.EntityFrameworkCore 10.0.5"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+            "snippet": "Microsoft.EntityFrameworkCore, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore, and replace with new package Microsoft.EntityFrameworkCore 10.0.5",
+            "protectedSnippet": "Microsoft.EntityFrameworkCore, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore, and replace with new package Microsoft.EntityFrameworkCore 10.0.5",
+            "label": "Microsoft.EntityFrameworkCore 6.0.1",
+            "properties": {
+              "PackageId": "Microsoft.EntityFrameworkCore",
+              "PackageVersion": "6.0.1",
+              "PackageNewVersion": "10.0.5",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "b0023282-cbe3-442a-83fe-afacb0451f3a",
+          "ruleId": "NuGet.0002",
+          "projectPath": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.EntityFrameworkCore.Design, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Design, and replace with new package Microsoft.EntityFrameworkCore.Design 10.0.5",
+              "protected": "Microsoft.EntityFrameworkCore.Design, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Design, and replace with new package Microsoft.EntityFrameworkCore.Design 10.0.5"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+            "snippet": "Microsoft.EntityFrameworkCore.Design, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Design, and replace with new package Microsoft.EntityFrameworkCore.Design 10.0.5",
+            "protectedSnippet": "Microsoft.EntityFrameworkCore.Design, 6.0.1\n\nRecommendation:\n\nRemove Microsoft.EntityFrameworkCore.Design, and replace with new package Microsoft.EntityFrameworkCore.Design 10.0.5",
+            "label": "Microsoft.EntityFrameworkCore.Design 6.0.1",
+            "properties": {
+              "PackageId": "Microsoft.EntityFrameworkCore.Design",
+              "PackageVersion": "6.0.1",
+              "PackageNewVersion": "10.0.5",
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "4de56d68-30e1-45d6-80e8-28afa3f41aa9",
+          "ruleId": "NuGet.0003",
+          "projectPath": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Microsoft.NETCore.Platforms, 6.0.1\n\nRecommendation:\n\nPackage functionality included with new framework reference",
+              "protected": "Microsoft.NETCore.Platforms, 6.0.1\n\nRecommendation:\n\nPackage functionality included with new framework reference"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+            "snippet": "Microsoft.NETCore.Platforms, 6.0.1\n\nRecommendation:\n\nPackage functionality included with new framework reference",
+            "protectedSnippet": "Microsoft.NETCore.Platforms, 6.0.1\n\nRecommendation:\n\nPackage functionality included with new framework reference",
+            "label": "Microsoft.NETCore.Platforms 6.0.1",
+            "properties": {
+              "PackageId": "Microsoft.NETCore.Platforms",
+              "PackageVersion": "6.0.1",
+              "PackageNewVersion": null,
+              "PackageReplacements": null
+            }
+          }
+        },
+        {
+          "incidentId": "856cf3ff-88e3-4a7d-ad88-720df1c35c1f",
+          "ruleId": "Project.0002",
+          "projectPath": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Current target framework: net6.0\nRecommended target framework: net10.0",
+              "protected": "Current target framework: net6.0\nRecommended target framework: net10.0"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+            "snippet": "Current target framework: net6.0\nRecommended target framework: net10.0",
+            "protectedSnippet": "Current target framework: net6.0\nRecommended target framework: net10.0",
+            "properties": {
+              "CurrentTargetFramework": "net6.0",
+              "RecommendedTargetFramework": "net10.0"
+            }
+          }
+        },
+        {
+          "incidentId": "8327eeef-095b-46cc-ba52-df86948b1bfd",
+          "ruleId": "Api.0002",
+          "description": "API is available in package System.Configuration.ConfigurationManager, 9.0.0-preview.6.24302.3. Add package reference to System.Configuration.ConfigurationManager, 9.0.0-preview.6.24302.3",
+          "projectPath": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "return ConfigurationManager.ConnectionStrings[\u0022connstring\u0022].ConnectionString;",
+              "protected": "T:System.Configuration.ConfigurationManager"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Host\\Controllers\\BulkInsertController.cs",
+            "snippet": "return ConfigurationManager.ConnectionStrings[\u0022connstring\u0022].ConnectionString;",
+            "protectedSnippet": "T:System.Configuration.ConfigurationManager",
+            "label": "T:System.Configuration.ConfigurationManager",
+            "properties": {
+              "PackageId": "System.Configuration.ConfigurationManager",
+              "PackageNewVersion": "9.0.0-preview.6.24302.3"
+            },
+            "line": 42,
+            "column": 12
+          }
+        },
+        {
+          "incidentId": "1bddeda8-68fa-4eb4-a1eb-8761d55cc285",
+          "ruleId": "Api.0002",
+          "description": "API is available in package System.Configuration.ConfigurationManager, 9.0.0-preview.6.24302.3. Add package reference to System.Configuration.ConfigurationManager, 9.0.0-preview.6.24302.3",
+          "projectPath": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "return ConfigurationManager.ConnectionStrings[\u0022connstring\u0022].ConnectionString;",
+              "protected": "T:System.Configuration.ConnectionStringSettingsCollection"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Host\\Controllers\\BulkInsertController.cs",
+            "snippet": "return ConfigurationManager.ConnectionStrings[\u0022connstring\u0022].ConnectionString;",
+            "protectedSnippet": "T:System.Configuration.ConnectionStringSettingsCollection",
+            "label": "T:System.Configuration.ConnectionStringSettingsCollection",
+            "properties": {
+              "PackageId": "System.Configuration.ConfigurationManager",
+              "PackageNewVersion": "9.0.0-preview.6.24302.3"
+            },
+            "line": 42,
+            "column": 12
+          }
+        },
+        {
+          "incidentId": "02c59dbb-f2cf-406b-a5a9-3bf0e3f3907b",
+          "ruleId": "Api.0002",
+          "description": "API is available in package System.Configuration.ConfigurationManager, 9.0.0-preview.6.24302.3. Add package reference to System.Configuration.ConfigurationManager, 9.0.0-preview.6.24302.3",
+          "projectPath": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "return ConfigurationManager.ConnectionStrings[\u0022connstring\u0022].ConnectionString;",
+              "protected": "P:System.Configuration.ConfigurationManager.ConnectionStrings"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Host\\Controllers\\BulkInsertController.cs",
+            "snippet": "return ConfigurationManager.ConnectionStrings[\u0022connstring\u0022].ConnectionString;",
+            "protectedSnippet": "P:System.Configuration.ConfigurationManager.ConnectionStrings",
+            "label": "P:System.Configuration.ConfigurationManager.ConnectionStrings",
+            "properties": {
+              "PackageId": "System.Configuration.ConfigurationManager",
+              "PackageNewVersion": "9.0.0-preview.6.24302.3"
+            },
+            "line": 42,
+            "column": 12
+          }
+        },
+        {
+          "incidentId": "c168666a-c0b8-47d5-8636-c987d898a079",
+          "ruleId": "Api.0002",
+          "description": "API is available in package System.Configuration.ConfigurationManager, 9.0.0-preview.6.24302.3. Add package reference to System.Configuration.ConfigurationManager, 9.0.0-preview.6.24302.3",
+          "projectPath": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "return ConfigurationManager.ConnectionStrings[\u0022connstring\u0022].ConnectionString;",
+              "protected": "T:System.Configuration.ConnectionStringSettings"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Host\\Controllers\\BulkInsertController.cs",
+            "snippet": "return ConfigurationManager.ConnectionStrings[\u0022connstring\u0022].ConnectionString;",
+            "protectedSnippet": "T:System.Configuration.ConnectionStringSettings",
+            "label": "T:System.Configuration.ConnectionStringSettings",
+            "properties": {
+              "PackageId": "System.Configuration.ConfigurationManager",
+              "PackageNewVersion": "9.0.0-preview.6.24302.3"
+            },
+            "line": 42,
+            "column": 12
+          }
+        },
+        {
+          "incidentId": "847922f3-b0d2-456a-84b8-792cd62a19a4",
+          "ruleId": "Api.0002",
+          "description": "API is available in package System.Configuration.ConfigurationManager, 9.0.0-preview.6.24302.3. Add package reference to System.Configuration.ConfigurationManager, 9.0.0-preview.6.24302.3",
+          "projectPath": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "return ConfigurationManager.ConnectionStrings[\u0022connstring\u0022].ConnectionString;",
+              "protected": "P:System.Configuration.ConnectionStringSettingsCollection.Item(System.String)"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Host\\Controllers\\BulkInsertController.cs",
+            "snippet": "return ConfigurationManager.ConnectionStrings[\u0022connstring\u0022].ConnectionString;",
+            "protectedSnippet": "P:System.Configuration.ConnectionStringSettingsCollection.Item(System.String)",
+            "label": "P:System.Configuration.ConnectionStringSettingsCollection.Item(System.String)",
+            "properties": {
+              "PackageId": "System.Configuration.ConfigurationManager",
+              "PackageNewVersion": "9.0.0-preview.6.24302.3"
+            },
+            "line": 42,
+            "column": 12
+          }
+        },
+        {
+          "incidentId": "97b0fdf4-98af-4132-8ebd-c9950398a962",
+          "ruleId": "Api.0002",
+          "description": "API is available in package System.Configuration.ConfigurationManager, 9.0.0-preview.6.24302.3. Add package reference to System.Configuration.ConfigurationManager, 9.0.0-preview.6.24302.3",
+          "projectPath": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "return ConfigurationManager.ConnectionStrings[\u0022connstring\u0022].ConnectionString;",
+              "protected": "P:System.Configuration.ConnectionStringSettings.ConnectionString"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Host\\Controllers\\BulkInsertController.cs",
+            "snippet": "return ConfigurationManager.ConnectionStrings[\u0022connstring\u0022].ConnectionString;",
+            "protectedSnippet": "P:System.Configuration.ConnectionStringSettings.ConnectionString",
+            "label": "P:System.Configuration.ConnectionStringSettings.ConnectionString",
+            "properties": {
+              "PackageId": "System.Configuration.ConfigurationManager",
+              "PackageNewVersion": "9.0.0-preview.6.24302.3"
+            },
+            "line": 42,
+            "column": 12
+          }
+        },
+        {
+          "incidentId": "cbf52efb-f3b9-4690-a030-379dc2f34b01",
+          "ruleId": "Api.0003",
+          "description": "Breaking change - Streaming HTTP responses enabled by default in browser HTTP clients ",
+          "projectPath": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "var stream = await response.Content.ReadAsStreamAsync();",
+              "protected": "T:System.Net.Http.HttpContent"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Host\\Controllers\\DocumentDownloadController.cs",
+            "snippet": "var stream = await response.Content.ReadAsStreamAsync();",
+            "protectedSnippet": "T:System.Net.Http.HttpContent",
+            "label": "T:System.Net.Http.HttpContent",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/networking/10.0/default-http-streaming.md",
+                "isCustom": false
+              }
+            ],
+            "line": 380,
+            "column": 12
+          }
+        },
+        {
+          "incidentId": "45baac45-fce7-424e-9dc0-c9175dbb9d4c",
+          "ruleId": "Api.0003",
+          "description": "Breaking change - Streaming HTTP responses enabled by default in browser HTTP clients ",
+          "projectPath": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "var stream = await response.Content.ReadAsStreamAsync();",
+              "protected": "M:System.Net.Http.HttpContent.ReadAsStreamAsync"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Host\\Controllers\\DocumentDownloadController.cs",
+            "snippet": "var stream = await response.Content.ReadAsStreamAsync();",
+            "protectedSnippet": "M:System.Net.Http.HttpContent.ReadAsStreamAsync",
+            "label": "M:System.Net.Http.HttpContent.ReadAsStreamAsync",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/networking/10.0/default-http-streaming.md",
+                "isCustom": false
+              }
+            ],
+            "line": 380,
+            "column": 12
+          }
+        },
+        {
+          "incidentId": "e8799ccd-528b-4b42-bfb7-e98d14849c9e",
+          "ruleId": "Api.0003",
+          "description": "Breaking change - Streaming HTTP responses enabled by default in browser HTTP clients ",
+          "projectPath": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "var resolvedMime = ResolveMimeType(\r\n                mimeType,\r\n                response.Content.Headers.ContentType?.MediaType,\r\n                originalFileName);",
+              "protected": "T:System.Net.Http.HttpContent"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Host\\Controllers\\DocumentDownloadController.cs",
+            "snippet": "var resolvedMime = ResolveMimeType(\r\n                mimeType,\r\n                response.Content.Headers.ContentType?.MediaType,\r\n                originalFileName);",
+            "protectedSnippet": "T:System.Net.Http.HttpContent",
+            "label": "T:System.Net.Http.HttpContent",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/networking/10.0/default-http-streaming.md",
+                "isCustom": false
+              }
+            ],
+            "line": 375,
+            "column": 12
+          }
+        },
+        {
+          "incidentId": "e9aa1168-019d-47fe-ae3b-0e01d0105bdc",
+          "ruleId": "Api.0003",
+          "description": "Breaking change: URI length limits removed ",
+          "projectPath": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "Uri.EscapeDataString(storedFileName)",
+              "protected": "T:System.Uri"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Host\\Controllers\\DocumentDownloadController.cs",
+            "snippet": "Uri.EscapeDataString(storedFileName)",
+            "protectedSnippet": "T:System.Uri",
+            "label": "T:System.Uri",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/networking/10.0/uri-length-limits-removed.md",
+                "isCustom": false
+              }
+            ],
+            "line": 337,
+            "column": 41
+          }
+        },
+        {
+          "incidentId": "26370550-9d08-48b8-8f8a-4b0545296ea5",
+          "ruleId": "Api.0003",
+          "description": "Breaking change - Streaming HTTP responses enabled by default in browser HTTP clients ",
+          "projectPath": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "return Ok(new\r\n                {\r\n                    documentId,\r\n                    storedFileName = doc.newfilename,\r\n                    originalFileName = doc.filename,\r\n                    fileServerUrl = url,\r\n                    statusCode = (int)response.StatusCode,\r\n                    accessible = response.IsSuccessStatusCode,\r\n                    contentType = response.Content.Headers.ContentType?.ToString(),\r\n                    contentLength = response.Content.Headers.ContentLength\r\n                });",
+              "protected": "T:System.Net.Http.HttpContent"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Host\\Controllers\\DocumentDownloadController.cs",
+            "snippet": "return Ok(new\r\n                {\r\n                    documentId,\r\n                    storedFileName = doc.newfilename,\r\n                    originalFileName = doc.filename,\r\n                    fileServerUrl = url,\r\n                    statusCode = (int)response.StatusCode,\r\n                    accessible = response.IsSuccessStatusCode,\r\n                    contentType = response.Content.Headers.ContentType?.ToString(),\r\n                    contentLength = response.Content.Headers.ContentLength\r\n                });",
+            "protectedSnippet": "T:System.Net.Http.HttpContent",
+            "label": "T:System.Net.Http.HttpContent",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/networking/10.0/default-http-streaming.md",
+                "isCustom": false
+              }
+            ],
+            "line": 314,
+            "column": 16
+          }
+        },
+        {
+          "incidentId": "f916167e-061c-4c7f-acb4-3c678b26e200",
+          "ruleId": "Api.0003",
+          "description": "Breaking change - Streaming HTTP responses enabled by default in browser HTTP clients ",
+          "projectPath": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "return Ok(new\r\n                {\r\n                    documentId,\r\n                    storedFileName = doc.newfilename,\r\n                    originalFileName = doc.filename,\r\n                    fileServerUrl = url,\r\n                    statusCode = (int)response.StatusCode,\r\n                    accessible = response.IsSuccessStatusCode,\r\n                    contentType = response.Content.Headers.ContentType?.ToString(),\r\n                    contentLength = response.Content.Headers.ContentLength\r\n                });",
+              "protected": "T:System.Net.Http.HttpContent"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Host\\Controllers\\DocumentDownloadController.cs",
+            "snippet": "return Ok(new\r\n                {\r\n                    documentId,\r\n                    storedFileName = doc.newfilename,\r\n                    originalFileName = doc.filename,\r\n                    fileServerUrl = url,\r\n                    statusCode = (int)response.StatusCode,\r\n                    accessible = response.IsSuccessStatusCode,\r\n                    contentType = response.Content.Headers.ContentType?.ToString(),\r\n                    contentLength = response.Content.Headers.ContentLength\r\n                });",
+            "protectedSnippet": "T:System.Net.Http.HttpContent",
+            "label": "T:System.Net.Http.HttpContent",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/networking/10.0/default-http-streaming.md",
+                "isCustom": false
+              }
+            ],
+            "line": 314,
+            "column": 16
+          }
+        },
+        {
+          "incidentId": "ac6a2818-7d51-489e-961d-3af5a4950684",
+          "ruleId": "Api.0003",
+          "description": "Breaking change - Streaming HTTP responses enabled by default in browser HTTP clients ",
+          "projectPath": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "var responseBody = await uploadResponse.Content.ReadAsStringAsync();",
+              "protected": "T:System.Net.Http.HttpContent"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Host\\Controllers\\DocumentDownloadController.cs",
+            "snippet": "var responseBody = await uploadResponse.Content.ReadAsStringAsync();",
+            "protectedSnippet": "T:System.Net.Http.HttpContent",
+            "label": "T:System.Net.Http.HttpContent",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/networking/10.0/default-http-streaming.md",
+                "isCustom": false
+              }
+            ],
+            "line": 84,
+            "column": 20
+          }
+        },
+        {
+          "incidentId": "0b9465d1-2b65-4dd2-8df7-093bb4440280",
+          "ruleId": "Api.0003",
+          "description": "Breaking change - Streaming HTTP responses enabled by default in browser HTTP clients ",
+          "projectPath": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "var body = await uploadResponse.Content.ReadAsStringAsync();",
+              "protected": "T:System.Net.Http.HttpContent"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Host\\Controllers\\DocumentDownloadController.cs",
+            "snippet": "var body = await uploadResponse.Content.ReadAsStringAsync();",
+            "protectedSnippet": "T:System.Net.Http.HttpContent",
+            "label": "T:System.Net.Http.HttpContent",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/networking/10.0/default-http-streaming.md",
+                "isCustom": false
+              }
+            ],
+            "line": 78,
+            "column": 24
+          }
+        },
+        {
+          "incidentId": "f9ebe4c9-0b86-44e7-b410-0c736af400a1",
+          "ruleId": "Api.0003",
+          "description": "Breaking change - Streaming HTTP responses enabled by default in browser HTTP clients ",
+          "projectPath": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "var body = await response.Content.ReadAsStringAsync();",
+              "protected": "T:System.Net.Http.HttpContent"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Host\\Controllers\\UploadDownloadController.cs",
+            "snippet": "var body = await response.Content.ReadAsStringAsync();",
+            "protectedSnippet": "T:System.Net.Http.HttpContent",
+            "label": "T:System.Net.Http.HttpContent",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/networking/10.0/default-http-streaming.md",
+                "isCustom": false
+              }
+            ],
+            "line": 135,
+            "column": 12
+          }
+        },
+        {
+          "incidentId": "abd150ca-fb5b-4505-9a26-344dcd7c11f2",
+          "ruleId": "Api.0003",
+          "description": "Breaking change - Streaming HTTP responses enabled by default in browser HTTP clients ",
+          "projectPath": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "var stream = await response.Content.ReadAsStreamAsync();",
+              "protected": "T:System.Net.Http.HttpContent"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Host\\Controllers\\UploadDownloadController.cs",
+            "snippet": "var stream = await response.Content.ReadAsStreamAsync();",
+            "protectedSnippet": "T:System.Net.Http.HttpContent",
+            "label": "T:System.Net.Http.HttpContent",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/networking/10.0/default-http-streaming.md",
+                "isCustom": false
+              }
+            ],
+            "line": 112,
+            "column": 12
+          }
+        },
+        {
+          "incidentId": "28b3f5be-85af-43e0-ad6b-650d242575a0",
+          "ruleId": "Api.0003",
+          "description": "Breaking change - Streaming HTTP responses enabled by default in browser HTTP clients ",
+          "projectPath": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "var stream = await response.Content.ReadAsStreamAsync();",
+              "protected": "M:System.Net.Http.HttpContent.ReadAsStreamAsync"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Host\\Controllers\\UploadDownloadController.cs",
+            "snippet": "var stream = await response.Content.ReadAsStreamAsync();",
+            "protectedSnippet": "M:System.Net.Http.HttpContent.ReadAsStreamAsync",
+            "label": "M:System.Net.Http.HttpContent.ReadAsStreamAsync",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/networking/10.0/default-http-streaming.md",
+                "isCustom": false
+              }
+            ],
+            "line": 112,
+            "column": 12
+          }
+        },
+        {
+          "incidentId": "4953cc88-4f96-4129-96f1-fec2e0f9aead",
+          "ruleId": "Api.0003",
+          "description": "Breaking change: URI length limits removed ",
+          "projectPath": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "var url = $\u0022{FileServerBaseUrl}/Files/{Uri.EscapeDataString(filename)}\u0022;",
+              "protected": "T:System.Uri"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Host\\Controllers\\UploadDownloadController.cs",
+            "snippet": "var url = $\u0022{FileServerBaseUrl}/Files/{Uri.EscapeDataString(filename)}\u0022;",
+            "protectedSnippet": "T:System.Uri",
+            "label": "T:System.Uri",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/networking/10.0/uri-length-limits-removed.md",
+                "isCustom": false
+              }
+            ],
+            "line": 96,
+            "column": 12
+          }
+        },
+        {
+          "incidentId": "e5fe2730-ffa6-4955-8ced-ec9f6284fcd4",
+          "ruleId": "Api.0003",
+          "description": "Breaking change - Streaming HTTP responses enabled by default in browser HTTP clients ",
+          "projectPath": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "var responseBody = await uploadResponse.Content.ReadAsStringAsync();",
+              "protected": "T:System.Net.Http.HttpContent"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Host\\Controllers\\UploadDownloadController.cs",
+            "snippet": "var responseBody = await uploadResponse.Content.ReadAsStringAsync();",
+            "protectedSnippet": "T:System.Net.Http.HttpContent",
+            "label": "T:System.Net.Http.HttpContent",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/networking/10.0/default-http-streaming.md",
+                "isCustom": false
+              }
+            ],
+            "line": 61,
+            "column": 12
+          }
+        },
+        {
+          "incidentId": "8a5a52a6-df40-44ec-a3a9-8f685142ad1f",
+          "ruleId": "Api.0002",
+          "description": "WebHostBuilder, IWebHost, and WebHost are obsolete ",
+          "projectPath": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "public static IWebHost BuildWebHost(string[] args)",
+              "protected": "T:Microsoft.AspNetCore.Hosting.IWebHost"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Host\\Startup\\Program.cs",
+            "snippet": "public static IWebHost BuildWebHost(string[] args)",
+            "protectedSnippet": "T:Microsoft.AspNetCore.Hosting.IWebHost",
+            "label": "T:Microsoft.AspNetCore.Hosting.IWebHost",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/aspnet-core/10/webhostbuilder-deprecated.md",
+                "isCustom": false
+              }
+            ],
+            "line": 14,
+            "column": 8
+          }
+        },
+        {
+          "incidentId": "329af8ff-be23-4718-adf0-480540ef440d",
+          "ruleId": "Api.0002",
+          "description": "WebHostBuilder, IWebHost, and WebHost are obsolete ",
+          "projectPath": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "return WebHost.CreateDefaultBuilder(args)\r\n                .UseStartup\u003CStartup\u003E()\r\n                .Build();",
+              "protected": "T:Microsoft.AspNetCore.WebHost"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Host\\Startup\\Program.cs",
+            "snippet": "return WebHost.CreateDefaultBuilder(args)\r\n                .UseStartup\u003CStartup\u003E()\r\n                .Build();",
+            "protectedSnippet": "T:Microsoft.AspNetCore.WebHost",
+            "label": "T:Microsoft.AspNetCore.WebHost",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/aspnet-core/10/webhostbuilder-deprecated.md",
+                "isCustom": false
+              }
+            ],
+            "line": 16,
+            "column": 12
+          }
+        },
+        {
+          "incidentId": "f6367891-9f6d-4e1e-923f-91ad120e11ed",
+          "ruleId": "Api.0002",
+          "description": "WebHostBuilder, IWebHost, and WebHost are obsolete ",
+          "projectPath": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "return WebHost.CreateDefaultBuilder(args)\r\n                .UseStartup\u003CStartup\u003E()\r\n                .Build();",
+              "protected": "T:Microsoft.AspNetCore.Hosting.IWebHost"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Host\\Startup\\Program.cs",
+            "snippet": "return WebHost.CreateDefaultBuilder(args)\r\n                .UseStartup\u003CStartup\u003E()\r\n                .Build();",
+            "protectedSnippet": "T:Microsoft.AspNetCore.Hosting.IWebHost",
+            "label": "T:Microsoft.AspNetCore.Hosting.IWebHost",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/aspnet-core/10/webhostbuilder-deprecated.md",
+                "isCustom": false
+              }
+            ],
+            "line": 16,
+            "column": 12
+          }
+        },
+        {
+          "incidentId": "3a975e90-f0ab-4c31-970c-7c012920b8af",
+          "ruleId": "Api.0002",
+          "description": "WebHostBuilder, IWebHost, and WebHost are obsolete ",
+          "projectPath": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "BuildWebHost(args).Run();",
+              "protected": "T:Microsoft.AspNetCore.Hosting.IWebHost"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Host\\Startup\\Program.cs",
+            "snippet": "BuildWebHost(args).Run();",
+            "protectedSnippet": "T:Microsoft.AspNetCore.Hosting.IWebHost",
+            "label": "T:Microsoft.AspNetCore.Hosting.IWebHost",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/aspnet-core/10/webhostbuilder-deprecated.md",
+                "isCustom": false
+              }
+            ],
+            "line": 11,
+            "column": 12
+          }
+        },
+        {
+          "incidentId": "37a9b43f-375c-4b1b-90c5-1ece6b75723d",
+          "ruleId": "Api.0001",
+          "description": "Breaking change: DynamicallyAccessedMembers annotation removed from trim-unsafe configuration APIs ",
+          "projectPath": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "bool canShowSummaries = _appConfiguration.GetValue\u003Cbool\u003E(\u0022Swagger:ShowSummaries\u0022);",
+              "protected": "M:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue\u0060\u00601(Microsoft.Extensions.Configuration.IConfiguration,System.String)"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Host\\Startup\\Startup.cs",
+            "snippet": "bool canShowSummaries = _appConfiguration.GetValue\u003Cbool\u003E(\u0022Swagger:ShowSummaries\u0022);",
+            "protectedSnippet": "M:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue\u0060\u00601(Microsoft.Extensions.Configuration.IConfiguration,System.String)",
+            "label": "M:Microsoft.Extensions.Configuration.ConfigurationBinder.GetValue\u0060\u00601(Microsoft.Extensions.Configuration.IConfiguration,System.String)",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/extensions/10.0/dynamically-accessed-members-configuration.md",
+                "isCustom": false
+              }
+            ],
+            "line": 172,
+            "column": 16
+          }
+        },
+        {
+          "incidentId": "90e93dc1-8cf2-43d2-aa8e-317b4bb0c6da",
+          "ruleId": "Api.0003",
+          "description": "Breaking change: URI length limits removed ",
+          "projectPath": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "options.SwaggerDoc(_apiVersion, new OpenApiInfo\r\n                {\r\n                    Version = _apiVersion,\r\n                    Title = \u0022CHIETAMIS API\u0022,\r\n                    Description = \u0022CHIETAMIS\u0022,\r\n                    // uncomment if needed TermsOfService = new Uri(\u0022https://example.com/terms\u0022),\r\n                    Contact = new OpenApiContact\r\n                    {\r\n                        Name = \u0022CHIETAMIS\u0022,\r\n                        Email = string.Empty,\r\n                        Url = new Uri(\u0022https://twitter.com/aspboilerplate\u0022),\r\n                    },\r\n                    License = new OpenApiLicense\r\n                    {\r\n                        Name = \u0022MIT License\u0022,\r\n                        Url = new Uri(\u0022https://github.com/aspnetboilerplate/aspnetboilerplate/blob/dev/LICENSE\u0022),\r\n                    }\r\n                });",
+              "protected": "T:System.Uri"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Host\\Startup\\Startup.cs",
+            "snippet": "options.SwaggerDoc(_apiVersion, new OpenApiInfo\r\n                {\r\n                    Version = _apiVersion,\r\n                    Title = \u0022CHIETAMIS API\u0022,\r\n                    Description = \u0022CHIETAMIS\u0022,\r\n                    // uncomment if needed TermsOfService = new Uri(\u0022https://example.com/terms\u0022),\r\n                    Contact = new OpenApiContact\r\n                    {\r\n                        Name = \u0022CHIETAMIS\u0022,\r\n                        Email = string.Empty,\r\n                        Url = new Uri(\u0022https://twitter.com/aspboilerplate\u0022),\r\n                    },\r\n                    License = new OpenApiLicense\r\n                    {\r\n                        Name = \u0022MIT License\u0022,\r\n                        Url = new Uri(\u0022https://github.com/aspnetboilerplate/aspnetboilerplate/blob/dev/LICENSE\u0022),\r\n                    }\r\n                });",
+            "protectedSnippet": "T:System.Uri",
+            "label": "T:System.Uri",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/networking/10.0/uri-length-limits-removed.md",
+                "isCustom": false
+              }
+            ],
+            "line": 141,
+            "column": 16
+          }
+        },
+        {
+          "incidentId": "3709db47-10b5-4256-afe4-efb041fe40d5",
+          "ruleId": "Api.0003",
+          "description": "Breaking change: URI length limits removed ",
+          "projectPath": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "options.SwaggerDoc(_apiVersion, new OpenApiInfo\r\n                {\r\n                    Version = _apiVersion,\r\n                    Title = \u0022CHIETAMIS API\u0022,\r\n                    Description = \u0022CHIETAMIS\u0022,\r\n                    // uncomment if needed TermsOfService = new Uri(\u0022https://example.com/terms\u0022),\r\n                    Contact = new OpenApiContact\r\n                    {\r\n                        Name = \u0022CHIETAMIS\u0022,\r\n                        Email = string.Empty,\r\n                        Url = new Uri(\u0022https://twitter.com/aspboilerplate\u0022),\r\n                    },\r\n                    License = new OpenApiLicense\r\n                    {\r\n                        Name = \u0022MIT License\u0022,\r\n                        Url = new Uri(\u0022https://github.com/aspnetboilerplate/aspnetboilerplate/blob/dev/LICENSE\u0022),\r\n                    }\r\n                });",
+              "protected": "M:System.Uri.#ctor(System.String)"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Host\\Startup\\Startup.cs",
+            "snippet": "options.SwaggerDoc(_apiVersion, new OpenApiInfo\r\n                {\r\n                    Version = _apiVersion,\r\n                    Title = \u0022CHIETAMIS API\u0022,\r\n                    Description = \u0022CHIETAMIS\u0022,\r\n                    // uncomment if needed TermsOfService = new Uri(\u0022https://example.com/terms\u0022),\r\n                    Contact = new OpenApiContact\r\n                    {\r\n                        Name = \u0022CHIETAMIS\u0022,\r\n                        Email = string.Empty,\r\n                        Url = new Uri(\u0022https://twitter.com/aspboilerplate\u0022),\r\n                    },\r\n                    License = new OpenApiLicense\r\n                    {\r\n                        Name = \u0022MIT License\u0022,\r\n                        Url = new Uri(\u0022https://github.com/aspnetboilerplate/aspnetboilerplate/blob/dev/LICENSE\u0022),\r\n                    }\r\n                });",
+            "protectedSnippet": "M:System.Uri.#ctor(System.String)",
+            "label": "M:System.Uri.#ctor(System.String)",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/networking/10.0/uri-length-limits-removed.md",
+                "isCustom": false
+              }
+            ],
+            "line": 141,
+            "column": 16
+          }
+        },
+        {
+          "incidentId": "58dc3f2a-0eed-4b46-9654-011b0a5cd8d9",
+          "ruleId": "Api.0003",
+          "description": "Breaking change: URI length limits removed ",
+          "projectPath": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "options.SwaggerDoc(_apiVersion, new OpenApiInfo\r\n                {\r\n                    Version = _apiVersion,\r\n                    Title = \u0022CHIETAMIS API\u0022,\r\n                    Description = \u0022CHIETAMIS\u0022,\r\n                    // uncomment if needed TermsOfService = new Uri(\u0022https://example.com/terms\u0022),\r\n                    Contact = new OpenApiContact\r\n                    {\r\n                        Name = \u0022CHIETAMIS\u0022,\r\n                        Email = string.Empty,\r\n                        Url = new Uri(\u0022https://twitter.com/aspboilerplate\u0022),\r\n                    },\r\n                    License = new OpenApiLicense\r\n                    {\r\n                        Name = \u0022MIT License\u0022,\r\n                        Url = new Uri(\u0022https://github.com/aspnetboilerplate/aspnetboilerplate/blob/dev/LICENSE\u0022),\r\n                    }\r\n                });",
+              "protected": "T:System.Uri"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Host\\Startup\\Startup.cs",
+            "snippet": "options.SwaggerDoc(_apiVersion, new OpenApiInfo\r\n                {\r\n                    Version = _apiVersion,\r\n                    Title = \u0022CHIETAMIS API\u0022,\r\n                    Description = \u0022CHIETAMIS\u0022,\r\n                    // uncomment if needed TermsOfService = new Uri(\u0022https://example.com/terms\u0022),\r\n                    Contact = new OpenApiContact\r\n                    {\r\n                        Name = \u0022CHIETAMIS\u0022,\r\n                        Email = string.Empty,\r\n                        Url = new Uri(\u0022https://twitter.com/aspboilerplate\u0022),\r\n                    },\r\n                    License = new OpenApiLicense\r\n                    {\r\n                        Name = \u0022MIT License\u0022,\r\n                        Url = new Uri(\u0022https://github.com/aspnetboilerplate/aspnetboilerplate/blob/dev/LICENSE\u0022),\r\n                    }\r\n                });",
+            "protectedSnippet": "T:System.Uri",
+            "label": "T:System.Uri",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/networking/10.0/uri-length-limits-removed.md",
+                "isCustom": false
+              }
+            ],
+            "line": 141,
+            "column": 16
+          }
+        },
+        {
+          "incidentId": "e6811fc5-47aa-4a21-a05f-b1e2b0ee00f6",
+          "ruleId": "Api.0003",
+          "description": "Breaking change: URI length limits removed ",
+          "projectPath": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "options.SwaggerDoc(_apiVersion, new OpenApiInfo\r\n                {\r\n                    Version = _apiVersion,\r\n                    Title = \u0022CHIETAMIS API\u0022,\r\n                    Description = \u0022CHIETAMIS\u0022,\r\n                    // uncomment if needed TermsOfService = new Uri(\u0022https://example.com/terms\u0022),\r\n                    Contact = new OpenApiContact\r\n                    {\r\n                        Name = \u0022CHIETAMIS\u0022,\r\n                        Email = string.Empty,\r\n                        Url = new Uri(\u0022https://twitter.com/aspboilerplate\u0022),\r\n                    },\r\n                    License = new OpenApiLicense\r\n                    {\r\n                        Name = \u0022MIT License\u0022,\r\n                        Url = new Uri(\u0022https://github.com/aspnetboilerplate/aspnetboilerplate/blob/dev/LICENSE\u0022),\r\n                    }\r\n                });",
+              "protected": "T:System.Uri"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Host\\Startup\\Startup.cs",
+            "snippet": "options.SwaggerDoc(_apiVersion, new OpenApiInfo\r\n                {\r\n                    Version = _apiVersion,\r\n                    Title = \u0022CHIETAMIS API\u0022,\r\n                    Description = \u0022CHIETAMIS\u0022,\r\n                    // uncomment if needed TermsOfService = new Uri(\u0022https://example.com/terms\u0022),\r\n                    Contact = new OpenApiContact\r\n                    {\r\n                        Name = \u0022CHIETAMIS\u0022,\r\n                        Email = string.Empty,\r\n                        Url = new Uri(\u0022https://twitter.com/aspboilerplate\u0022),\r\n                    },\r\n                    License = new OpenApiLicense\r\n                    {\r\n                        Name = \u0022MIT License\u0022,\r\n                        Url = new Uri(\u0022https://github.com/aspnetboilerplate/aspnetboilerplate/blob/dev/LICENSE\u0022),\r\n                    }\r\n                });",
+            "protectedSnippet": "T:System.Uri",
+            "label": "T:System.Uri",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/networking/10.0/uri-length-limits-removed.md",
+                "isCustom": false
+              }
+            ],
+            "line": 141,
+            "column": 16
+          }
+        },
+        {
+          "incidentId": "fb3592ad-0571-4d75-9d29-9afc88503722",
+          "ruleId": "Api.0003",
+          "description": "Breaking change: URI length limits removed ",
+          "projectPath": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "options.SwaggerDoc(_apiVersion, new OpenApiInfo\r\n                {\r\n                    Version = _apiVersion,\r\n                    Title = \u0022CHIETAMIS API\u0022,\r\n                    Description = \u0022CHIETAMIS\u0022,\r\n                    // uncomment if needed TermsOfService = new Uri(\u0022https://example.com/terms\u0022),\r\n                    Contact = new OpenApiContact\r\n                    {\r\n                        Name = \u0022CHIETAMIS\u0022,\r\n                        Email = string.Empty,\r\n                        Url = new Uri(\u0022https://twitter.com/aspboilerplate\u0022),\r\n                    },\r\n                    License = new OpenApiLicense\r\n                    {\r\n                        Name = \u0022MIT License\u0022,\r\n                        Url = new Uri(\u0022https://github.com/aspnetboilerplate/aspnetboilerplate/blob/dev/LICENSE\u0022),\r\n                    }\r\n                });",
+              "protected": "M:System.Uri.#ctor(System.String)"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Host\\Startup\\Startup.cs",
+            "snippet": "options.SwaggerDoc(_apiVersion, new OpenApiInfo\r\n                {\r\n                    Version = _apiVersion,\r\n                    Title = \u0022CHIETAMIS API\u0022,\r\n                    Description = \u0022CHIETAMIS\u0022,\r\n                    // uncomment if needed TermsOfService = new Uri(\u0022https://example.com/terms\u0022),\r\n                    Contact = new OpenApiContact\r\n                    {\r\n                        Name = \u0022CHIETAMIS\u0022,\r\n                        Email = string.Empty,\r\n                        Url = new Uri(\u0022https://twitter.com/aspboilerplate\u0022),\r\n                    },\r\n                    License = new OpenApiLicense\r\n                    {\r\n                        Name = \u0022MIT License\u0022,\r\n                        Url = new Uri(\u0022https://github.com/aspnetboilerplate/aspnetboilerplate/blob/dev/LICENSE\u0022),\r\n                    }\r\n                });",
+            "protectedSnippet": "M:System.Uri.#ctor(System.String)",
+            "label": "M:System.Uri.#ctor(System.String)",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/networking/10.0/uri-length-limits-removed.md",
+                "isCustom": false
+              }
+            ],
+            "line": 141,
+            "column": 16
+          }
+        },
+        {
+          "incidentId": "63736098-8097-4886-ba50-7af454c39144",
+          "ruleId": "Api.0003",
+          "description": "Breaking change: URI length limits removed ",
+          "projectPath": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "options.SwaggerDoc(_apiVersion, new OpenApiInfo\r\n                {\r\n                    Version = _apiVersion,\r\n                    Title = \u0022CHIETAMIS API\u0022,\r\n                    Description = \u0022CHIETAMIS\u0022,\r\n                    // uncomment if needed TermsOfService = new Uri(\u0022https://example.com/terms\u0022),\r\n                    Contact = new OpenApiContact\r\n                    {\r\n                        Name = \u0022CHIETAMIS\u0022,\r\n                        Email = string.Empty,\r\n                        Url = new Uri(\u0022https://twitter.com/aspboilerplate\u0022),\r\n                    },\r\n                    License = new OpenApiLicense\r\n                    {\r\n                        Name = \u0022MIT License\u0022,\r\n                        Url = new Uri(\u0022https://github.com/aspnetboilerplate/aspnetboilerplate/blob/dev/LICENSE\u0022),\r\n                    }\r\n                });",
+              "protected": "T:System.Uri"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Host\\Startup\\Startup.cs",
+            "snippet": "options.SwaggerDoc(_apiVersion, new OpenApiInfo\r\n                {\r\n                    Version = _apiVersion,\r\n                    Title = \u0022CHIETAMIS API\u0022,\r\n                    Description = \u0022CHIETAMIS\u0022,\r\n                    // uncomment if needed TermsOfService = new Uri(\u0022https://example.com/terms\u0022),\r\n                    Contact = new OpenApiContact\r\n                    {\r\n                        Name = \u0022CHIETAMIS\u0022,\r\n                        Email = string.Empty,\r\n                        Url = new Uri(\u0022https://twitter.com/aspboilerplate\u0022),\r\n                    },\r\n                    License = new OpenApiLicense\r\n                    {\r\n                        Name = \u0022MIT License\u0022,\r\n                        Url = new Uri(\u0022https://github.com/aspnetboilerplate/aspnetboilerplate/blob/dev/LICENSE\u0022),\r\n                    }\r\n                });",
+            "protectedSnippet": "T:System.Uri",
+            "label": "T:System.Uri",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/networking/10.0/uri-length-limits-removed.md",
+                "isCustom": false
+              }
+            ],
+            "line": 141,
+            "column": 16
+          }
+        },
+        {
+          "incidentId": "a604cb61-ac41-4ee7-8535-8bf555248f88",
+          "ruleId": "Api.0003",
+          "description": "URI query redaction in IHttpClientFactory logs ",
+          "projectPath": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "services.AddHttpClient(\u0022FileServer\u0022)\r\n                .ConfigurePrimaryHttpMessageHandler(() =\u003E new System.Net.Http.HttpClientHandler\r\n                {\r\n                    ServerCertificateCustomValidationCallback =\r\n                        System.Net.Http.HttpClientHandler.DangerousAcceptAnyServerCertificateValidator\r\n                });",
+              "protected": "M:Microsoft.Extensions.DependencyInjection.HttpClientFactoryServiceCollectionExtensions.AddHttpClient(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String)"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Host\\Startup\\Startup.cs",
+            "snippet": "services.AddHttpClient(\u0022FileServer\u0022)\r\n                .ConfigurePrimaryHttpMessageHandler(() =\u003E new System.Net.Http.HttpClientHandler\r\n                {\r\n                    ServerCertificateCustomValidationCallback =\r\n                        System.Net.Http.HttpClientHandler.DangerousAcceptAnyServerCertificateValidator\r\n                });",
+            "protectedSnippet": "M:Microsoft.Extensions.DependencyInjection.HttpClientFactoryServiceCollectionExtensions.AddHttpClient(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String)",
+            "label": "M:Microsoft.Extensions.DependencyInjection.HttpClientFactoryServiceCollectionExtensions.AddHttpClient(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String)",
+            "links": [
+              {
+                "title": "API documentation",
+                "url": "https://github.com/dotnet/docs/blob/main/docs/core/compatibility/networking/9.0/query-redaction-logs.md",
+                "isCustom": false
+              }
+            ],
+            "line": 58,
+            "column": 12
+          }
+        },
+        {
+          "incidentId": "97a65827-bffc-4665-b836-8d34eb890561",
+          "ruleId": "Api.0002",
+          "description": "API is available in package Microsoft.AspNetCore.Authentication.JwtBearer, 8.0.6. Add package reference to Microsoft.AspNetCore.Authentication.JwtBearer, 8.0.6",
+          "projectPath": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "private static Task QueryStringTokenResolver(MessageReceivedContext context)",
+              "protected": "T:Microsoft.AspNetCore.Authentication.JwtBearer.MessageReceivedContext"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Host\\Startup\\AuthConfigurer.cs",
+            "snippet": "private static Task QueryStringTokenResolver(MessageReceivedContext context)",
+            "protectedSnippet": "T:Microsoft.AspNetCore.Authentication.JwtBearer.MessageReceivedContext",
+            "label": "T:Microsoft.AspNetCore.Authentication.JwtBearer.MessageReceivedContext",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Authentication.JwtBearer",
+              "PackageNewVersion": "8.0.6"
+            },
+            "line": 56,
+            "column": 8
+          }
+        },
+        {
+          "incidentId": "70f30920-3f63-477a-87f5-0be10f743317",
+          "ruleId": "Api.0002",
+          "description": "API is available in package Microsoft.AspNetCore.Authentication.JwtBearer, 8.0.6. Add package reference to Microsoft.AspNetCore.Authentication.JwtBearer, 8.0.6",
+          "projectPath": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "context.Token = SimpleStringCipher.Instance.Decrypt(qsAuthToken);",
+              "protected": "P:Microsoft.AspNetCore.Authentication.JwtBearer.MessageReceivedContext.Token"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Host\\Startup\\AuthConfigurer.cs",
+            "snippet": "context.Token = SimpleStringCipher.Instance.Decrypt(qsAuthToken);",
+            "protectedSnippet": "P:Microsoft.AspNetCore.Authentication.JwtBearer.MessageReceivedContext.Token",
+            "label": "P:Microsoft.AspNetCore.Authentication.JwtBearer.MessageReceivedContext.Token",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Authentication.JwtBearer",
+              "PackageNewVersion": "8.0.6"
+            },
+            "line": 73,
+            "column": 12
+          }
+        },
+        {
+          "incidentId": "0043819b-f71e-4eab-92ac-efd55024d5eb",
+          "ruleId": "Api.0002",
+          "description": "API is available in package Microsoft.AspNetCore.Authentication.JwtBearer, 8.0.6. Add package reference to Microsoft.AspNetCore.Authentication.JwtBearer, 8.0.6",
+          "projectPath": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "options.Events = new JwtBearerEvents\r\n                    {\r\n                        OnMessageReceived = QueryStringTokenResolver\r\n                    };",
+              "protected": "P:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerEvents.OnMessageReceived"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Host\\Startup\\AuthConfigurer.cs",
+            "snippet": "options.Events = new JwtBearerEvents\r\n                    {\r\n                        OnMessageReceived = QueryStringTokenResolver\r\n                    };",
+            "protectedSnippet": "P:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerEvents.OnMessageReceived",
+            "label": "P:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerEvents.OnMessageReceived",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Authentication.JwtBearer",
+              "PackageNewVersion": "8.0.6"
+            },
+            "line": 46,
+            "column": 20
+          }
+        },
+        {
+          "incidentId": "6b22b0d9-aaba-4d8e-9665-266fa281881c",
+          "ruleId": "Api.0002",
+          "description": "API is available in package Microsoft.AspNetCore.Authentication.JwtBearer, 8.0.6. Add package reference to Microsoft.AspNetCore.Authentication.JwtBearer, 8.0.6",
+          "projectPath": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "options.Events = new JwtBearerEvents\r\n                    {\r\n                        OnMessageReceived = QueryStringTokenResolver\r\n                    };",
+              "protected": "T:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerEvents"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Host\\Startup\\AuthConfigurer.cs",
+            "snippet": "options.Events = new JwtBearerEvents\r\n                    {\r\n                        OnMessageReceived = QueryStringTokenResolver\r\n                    };",
+            "protectedSnippet": "T:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerEvents",
+            "label": "T:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerEvents",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Authentication.JwtBearer",
+              "PackageNewVersion": "8.0.6"
+            },
+            "line": 46,
+            "column": 20
+          }
+        },
+        {
+          "incidentId": "a6a06df7-4c67-40c4-9f55-318f3311dbf5",
+          "ruleId": "Api.0002",
+          "description": "API is available in package Microsoft.AspNetCore.Authentication.JwtBearer, 8.0.6. Add package reference to Microsoft.AspNetCore.Authentication.JwtBearer, 8.0.6",
+          "projectPath": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "options.Events = new JwtBearerEvents\r\n                    {\r\n                        OnMessageReceived = QueryStringTokenResolver\r\n                    };",
+              "protected": "M:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerEvents.#ctor"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Host\\Startup\\AuthConfigurer.cs",
+            "snippet": "options.Events = new JwtBearerEvents\r\n                    {\r\n                        OnMessageReceived = QueryStringTokenResolver\r\n                    };",
+            "protectedSnippet": "M:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerEvents.#ctor",
+            "label": "M:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerEvents.#ctor",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Authentication.JwtBearer",
+              "PackageNewVersion": "8.0.6"
+            },
+            "line": 46,
+            "column": 20
+          }
+        },
+        {
+          "incidentId": "a718495c-c693-4eb6-9712-b52db13c74f9",
+          "ruleId": "Api.0002",
+          "description": "API is available in package Microsoft.AspNetCore.Authentication.JwtBearer, 8.0.6. Add package reference to Microsoft.AspNetCore.Authentication.JwtBearer, 8.0.6",
+          "projectPath": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "options.Events = new JwtBearerEvents\r\n                    {\r\n                        OnMessageReceived = QueryStringTokenResolver\r\n                    };",
+              "protected": "T:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerEvents"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Host\\Startup\\AuthConfigurer.cs",
+            "snippet": "options.Events = new JwtBearerEvents\r\n                    {\r\n                        OnMessageReceived = QueryStringTokenResolver\r\n                    };",
+            "protectedSnippet": "T:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerEvents",
+            "label": "T:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerEvents",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Authentication.JwtBearer",
+              "PackageNewVersion": "8.0.6"
+            },
+            "line": 46,
+            "column": 20
+          }
+        },
+        {
+          "incidentId": "20d3f624-2975-401e-b20d-c1968b6899f8",
+          "ruleId": "Api.0002",
+          "description": "API is available in package Microsoft.AspNetCore.Authentication.JwtBearer, 8.0.6. Add package reference to Microsoft.AspNetCore.Authentication.JwtBearer, 8.0.6",
+          "projectPath": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "options.Events = new JwtBearerEvents\r\n                    {\r\n                        OnMessageReceived = QueryStringTokenResolver\r\n                    };",
+              "protected": "P:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions.Events"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Host\\Startup\\AuthConfigurer.cs",
+            "snippet": "options.Events = new JwtBearerEvents\r\n                    {\r\n                        OnMessageReceived = QueryStringTokenResolver\r\n                    };",
+            "protectedSnippet": "P:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions.Events",
+            "label": "P:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions.Events",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Authentication.JwtBearer",
+              "PackageNewVersion": "8.0.6"
+            },
+            "line": 46,
+            "column": 20
+          }
+        },
+        {
+          "incidentId": "aba42fec-b289-4e62-a2a5-8df544bf7ff1",
+          "ruleId": "Api.0002",
+          "description": "API is available in package Microsoft.AspNetCore.Authentication.JwtBearer, 8.0.6. Add package reference to Microsoft.AspNetCore.Authentication.JwtBearer, 8.0.6",
+          "projectPath": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "options.TokenValidationParameters = new TokenValidationParameters\r\n                    {\r\n                        // The signing key must match!\r\n                        ValidateIssuerSigningKey = true,\r\n                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration[\u0022Authentication:JwtBearer:SecurityKey\u0022])),\r\n\r\n                        // Validate the JWT Issuer (iss) claim\r\n                        ValidateIssuer = true,\r\n                        ValidIssuer = configuration[\u0022Authentication:JwtBearer:Issuer\u0022],\r\n\r\n                        // Validate the JWT Audience (aud) claim\r\n                        ValidateAudience = true,\r\n                        ValidAudience = configuration[\u0022Authentication:JwtBearer:Audience\u0022],\r\n\r\n                        // Validate the token expiry\r\n                        ValidateLifetime = true,\r\n\r\n                        // If you want to allow a certain amount of clock drift, set that here\r\n                        ClockSkew = TimeSpan.Zero\r\n                    };",
+              "protected": "P:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions.TokenValidationParameters"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Host\\Startup\\AuthConfigurer.cs",
+            "snippet": "options.TokenValidationParameters = new TokenValidationParameters\r\n                    {\r\n                        // The signing key must match!\r\n                        ValidateIssuerSigningKey = true,\r\n                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration[\u0022Authentication:JwtBearer:SecurityKey\u0022])),\r\n\r\n                        // Validate the JWT Issuer (iss) claim\r\n                        ValidateIssuer = true,\r\n                        ValidIssuer = configuration[\u0022Authentication:JwtBearer:Issuer\u0022],\r\n\r\n                        // Validate the JWT Audience (aud) claim\r\n                        ValidateAudience = true,\r\n                        ValidAudience = configuration[\u0022Authentication:JwtBearer:Audience\u0022],\r\n\r\n                        // Validate the token expiry\r\n                        ValidateLifetime = true,\r\n\r\n                        // If you want to allow a certain amount of clock drift, set that here\r\n                        ClockSkew = TimeSpan.Zero\r\n                    };",
+            "protectedSnippet": "P:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions.TokenValidationParameters",
+            "label": "P:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions.TokenValidationParameters",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Authentication.JwtBearer",
+              "PackageNewVersion": "8.0.6"
+            },
+            "line": 25,
+            "column": 20
+          }
+        },
+        {
+          "incidentId": "2d1034a7-60d0-433c-bbbb-fe29cb23003a",
+          "ruleId": "Api.0002",
+          "description": "API is available in package Microsoft.AspNetCore.Authentication.JwtBearer, 8.0.6. Add package reference to Microsoft.AspNetCore.Authentication.JwtBearer, 8.0.6",
+          "projectPath": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "options.Audience = configuration[\u0022Authentication:JwtBearer:Audience\u0022];",
+              "protected": "P:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions.Audience"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Host\\Startup\\AuthConfigurer.cs",
+            "snippet": "options.Audience = configuration[\u0022Authentication:JwtBearer:Audience\u0022];",
+            "protectedSnippet": "P:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions.Audience",
+            "label": "P:Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions.Audience",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Authentication.JwtBearer",
+              "PackageNewVersion": "8.0.6"
+            },
+            "line": 23,
+            "column": 20
+          }
+        },
+        {
+          "incidentId": "ac074737-21fa-47e9-9c18-ddca099b043d",
+          "ruleId": "Api.0002",
+          "description": "API is available in package Microsoft.AspNetCore.Authentication.JwtBearer, 8.0.6. Add package reference to Microsoft.AspNetCore.Authentication.JwtBearer, 8.0.6",
+          "projectPath": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "services.AddAuthentication(options =\u003E {\r\n                    options.DefaultAuthenticateScheme = \u0022JwtBearer\u0022;\r\n                    options.DefaultChallengeScheme = \u0022JwtBearer\u0022;\r\n                }).AddJwtBearer(\u0022JwtBearer\u0022, options =\u003E\r\n                {\r\n                    options.Audience = configuration[\u0022Authentication:JwtBearer:Audience\u0022];\r\n\r\n                    options.TokenValidationParameters = new TokenValidationParameters\r\n                    {\r\n                        // The signing key must match!\r\n                        ValidateIssuerSigningKey = true,\r\n                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration[\u0022Authentication:JwtBearer:SecurityKey\u0022])),\r\n\r\n                        // Validate the JWT Issuer (iss) claim\r\n                        ValidateIssuer = true,\r\n                        ValidIssuer = configuration[\u0022Authentication:JwtBearer:Issuer\u0022],\r\n\r\n                        // Validate the JWT Audience (aud) claim\r\n                        ValidateAudience = true,\r\n                        ValidAudience = configuration[\u0022Authentication:JwtBearer:Audience\u0022],\r\n\r\n                        // Validate the token expiry\r\n                        ValidateLifetime = true,\r\n\r\n                        // If you want to allow a certain amount of clock drift, set that here\r\n                        ClockSkew = TimeSpan.Zero\r\n                    };\r\n\r\n                    options.Events = new JwtBearerEvents\r\n                    {\r\n                        OnMessageReceived = QueryStringTokenResolver\r\n                    };\r\n                });",
+              "protected": "T:Microsoft.Extensions.DependencyInjection.JwtBearerExtensions"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Host\\Startup\\AuthConfigurer.cs",
+            "snippet": "services.AddAuthentication(options =\u003E {\r\n                    options.DefaultAuthenticateScheme = \u0022JwtBearer\u0022;\r\n                    options.DefaultChallengeScheme = \u0022JwtBearer\u0022;\r\n                }).AddJwtBearer(\u0022JwtBearer\u0022, options =\u003E\r\n                {\r\n                    options.Audience = configuration[\u0022Authentication:JwtBearer:Audience\u0022];\r\n\r\n                    options.TokenValidationParameters = new TokenValidationParameters\r\n                    {\r\n                        // The signing key must match!\r\n                        ValidateIssuerSigningKey = true,\r\n                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration[\u0022Authentication:JwtBearer:SecurityKey\u0022])),\r\n\r\n                        // Validate the JWT Issuer (iss) claim\r\n                        ValidateIssuer = true,\r\n                        ValidIssuer = configuration[\u0022Authentication:JwtBearer:Issuer\u0022],\r\n\r\n                        // Validate the JWT Audience (aud) claim\r\n                        ValidateAudience = true,\r\n                        ValidAudience = configuration[\u0022Authentication:JwtBearer:Audience\u0022],\r\n\r\n                        // Validate the token expiry\r\n                        ValidateLifetime = true,\r\n\r\n                        // If you want to allow a certain amount of clock drift, set that here\r\n                        ClockSkew = TimeSpan.Zero\r\n                    };\r\n\r\n                    options.Events = new JwtBearerEvents\r\n                    {\r\n                        OnMessageReceived = QueryStringTokenResolver\r\n                    };\r\n                });",
+            "protectedSnippet": "T:Microsoft.Extensions.DependencyInjection.JwtBearerExtensions",
+            "label": "T:Microsoft.Extensions.DependencyInjection.JwtBearerExtensions",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Authentication.JwtBearer",
+              "PackageNewVersion": "8.0.6"
+            },
+            "line": 18,
+            "column": 16
+          }
+        },
+        {
+          "incidentId": "5c5ae3c4-e462-458f-acc1-ad19b1f18079",
+          "ruleId": "Api.0002",
+          "description": "API is available in package Microsoft.AspNetCore.Authentication.JwtBearer, 8.0.6. Add package reference to Microsoft.AspNetCore.Authentication.JwtBearer, 8.0.6",
+          "projectPath": "src\\CHIETAMIS.Web.Host\\CHIETAMIS.Web.Host.csproj",
+          "state": "Active",
+          "location": {
+            "snippetModel": {
+              "unrestricted": "services.AddAuthentication(options =\u003E {\r\n                    options.DefaultAuthenticateScheme = \u0022JwtBearer\u0022;\r\n                    options.DefaultChallengeScheme = \u0022JwtBearer\u0022;\r\n                }).AddJwtBearer(\u0022JwtBearer\u0022, options =\u003E\r\n                {\r\n                    options.Audience = configuration[\u0022Authentication:JwtBearer:Audience\u0022];\r\n\r\n                    options.TokenValidationParameters = new TokenValidationParameters\r\n                    {\r\n                        // The signing key must match!\r\n                        ValidateIssuerSigningKey = true,\r\n                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration[\u0022Authentication:JwtBearer:SecurityKey\u0022])),\r\n\r\n                        // Validate the JWT Issuer (iss) claim\r\n                        ValidateIssuer = true,\r\n                        ValidIssuer = configuration[\u0022Authentication:JwtBearer:Issuer\u0022],\r\n\r\n                        // Validate the JWT Audience (aud) claim\r\n                        ValidateAudience = true,\r\n                        ValidAudience = configuration[\u0022Authentication:JwtBearer:Audience\u0022],\r\n\r\n                        // Validate the token expiry\r\n                        ValidateLifetime = true,\r\n\r\n                        // If you want to allow a certain amount of clock drift, set that here\r\n                        ClockSkew = TimeSpan.Zero\r\n                    };\r\n\r\n                    options.Events = new JwtBearerEvents\r\n                    {\r\n                        OnMessageReceived = QueryStringTokenResolver\r\n                    };\r\n                });",
+              "protected": "M:Microsoft.Extensions.DependencyInjection.JwtBearerExtensions.AddJwtBearer(Microsoft.AspNetCore.Authentication.AuthenticationBuilder,System.String,System.Action{Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions})"
+            },
+            "kind": "File",
+            "path": "src\\CHIETAMIS.Web.Host\\Startup\\AuthConfigurer.cs",
+            "snippet": "services.AddAuthentication(options =\u003E {\r\n                    options.DefaultAuthenticateScheme = \u0022JwtBearer\u0022;\r\n                    options.DefaultChallengeScheme = \u0022JwtBearer\u0022;\r\n                }).AddJwtBearer(\u0022JwtBearer\u0022, options =\u003E\r\n                {\r\n                    options.Audience = configuration[\u0022Authentication:JwtBearer:Audience\u0022];\r\n\r\n                    options.TokenValidationParameters = new TokenValidationParameters\r\n                    {\r\n                        // The signing key must match!\r\n                        ValidateIssuerSigningKey = true,\r\n                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration[\u0022Authentication:JwtBearer:SecurityKey\u0022])),\r\n\r\n                        // Validate the JWT Issuer (iss) claim\r\n                        ValidateIssuer = true,\r\n                        ValidIssuer = configuration[\u0022Authentication:JwtBearer:Issuer\u0022],\r\n\r\n                        // Validate the JWT Audience (aud) claim\r\n                        ValidateAudience = true,\r\n                        ValidAudience = configuration[\u0022Authentication:JwtBearer:Audience\u0022],\r\n\r\n                        // Validate the token expiry\r\n                        ValidateLifetime = true,\r\n\r\n                        // If you want to allow a certain amount of clock drift, set that here\r\n                        ClockSkew = TimeSpan.Zero\r\n                    };\r\n\r\n                    options.Events = new JwtBearerEvents\r\n                    {\r\n                        OnMessageReceived = QueryStringTokenResolver\r\n                    };\r\n                });",
+            "protectedSnippet": "M:Microsoft.Extensions.DependencyInjection.JwtBearerExtensions.AddJwtBearer(Microsoft.AspNetCore.Authentication.AuthenticationBuilder,System.String,System.Action{Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions})",
+            "label": "M:Microsoft.Extensions.DependencyInjection.JwtBearerExtensions.AddJwtBearer(Microsoft.AspNetCore.Authentication.AuthenticationBuilder,System.String,System.Action{Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerOptions})",
+            "properties": {
+              "PackageId": "Microsoft.AspNetCore.Authentication.JwtBearer",
+              "PackageNewVersion": "8.0.6"
+            },
+            "line": 18,
+            "column": 16
+          }
+        }
+      ],
+      "features": [
+        {
+          "featureId": "LegacyConfiguration",
+          "incidents": [
+            "97b0fdf4-98af-4132-8ebd-c9950398a962",
+            "847922f3-b0d2-456a-84b8-792cd62a19a4",
+            "c168666a-c0b8-47d5-8636-c987d898a079",
+            "02c59dbb-f2cf-406b-a5a9-3bf0e3f3907b",
+            "1bddeda8-68fa-4eb4-a1eb-8761d55cc285",
+            "8327eeef-095b-46cc-ba52-df86948b1bfd"
+          ]
+        }
+      ]
+    }
+  ],
+  "rules": {
+    "NuGet.0002": {
+      "id": "NuGet.0002",
+      "isFeature": false,
+      "description": "NuGet package upgrade is recommended for selected target framework.\n\nStandard .NET packages are recommended to have versions matching version of .NET that project targets.\n\nSome other packages also are known to work better for selected target frameworks.",
+      "label": "NuGet package upgrade is recommended",
+      "severity": "Potential",
+      "effort": 1,
+      "links": [
+        {
+          "url": "https://go.microsoft.com/fwlink/?linkid=2262530",
+          "isCustom": false
+        }
+      ]
+    },
+    "NuGet.0003": {
+      "id": "NuGet.0003",
+      "isFeature": false,
+      "description": "NuGet package functionality is included with framework reference.\n\nPackage needs to be removed.",
+      "label": "NuGet package functionality is included with framework reference",
+      "severity": "Mandatory",
+      "effort": 1,
+      "links": [
+        {
+          "url": "https://go.microsoft.com/fwlink/?linkid=2262609",
+          "isCustom": false
+        }
+      ]
+    },
+    "Project.0002": {
+      "id": "Project.0002",
+      "isFeature": false,
+      "description": "Project\u0027s target framework(s) needs to be changed to the new target framework that you selected for this upgrade.\n\nDuring upgrade target framework will be adjusted to corresponding platform when applicable. In some cases project would result in multiple target frameworks after the upgrade if it was using features that now have their own platforms in modern .NET frameworks (windows, iOS, Android etc).",
+      "label": "Project\u0027s target framework(s) needs to be changed",
+      "severity": "Mandatory",
+      "effort": 1,
+      "links": [
+        {
+          "title": "Overview of porting from .NET Framework to .NET",
+          "url": "https://go.microsoft.com/fwlink/?linkid=2265227",
+          "isCustom": false
+        },
+        {
+          "title": ".NET project SDKs",
+          "url": "https://go.microsoft.com/fwlink/?linkid=2265226",
+          "isCustom": false
+        }
+      ]
+    },
+    "Api.0002": {
+      "id": "Api.0002",
+      "isFeature": false,
+      "description": "API is source incompatible for selected .NET version: requires code changes to compile successfully when targeting a new version, such as removing obsolete APIs or changing method signatures.",
+      "label": "Source incompatible for selected .NET version",
+      "severity": "Potential",
+      "effort": 1,
+      "links": [
+        {
+          "title": "Breaking changes in .NET",
+          "url": "https://go.microsoft.com/fwlink/?linkid=2262679",
+          "isCustom": false
+        }
+      ]
+    },
+    "Api.0003": {
+      "id": "Api.0003",
+      "isFeature": false,
+      "description": "API has a behavioral change in selected .NET version: code and binaries may behave differently at runtime without needing recompilation, but the new behavior might be undesirable and require updates.",
+      "label": "Behavioral change in selected .NET version",
+      "severity": "Potential",
+      "effort": 1
+    },
+    "NuGet.0001": {
+      "id": "NuGet.0001",
+      "isFeature": false,
+      "description": "NuGet package is incompatible with selected target framework.\n\nPackage needs to be upgraded to a version supporting selected project target framework. If there no new package versions supporting new target framework, different package needs to be used and all code needs to be upgraded to new API.",
+      "label": "NuGet package is incompatible",
+      "severity": "Mandatory",
+      "effort": 1,
+      "links": [
+        {
+          "url": "https://go.microsoft.com/fwlink/?linkid=2262529",
+          "isCustom": false
+        }
+      ]
+    },
+    "Api.0001": {
+      "id": "Api.0001",
+      "isFeature": false,
+      "description": "API is binary incompatible for selected .NET version: affects existing binaries, often requiring recompilation, because the API has changed in a way that prevents older binaries from loading or executing.",
+      "label": "Binary incompatible for selected .NET version",
+      "severity": "Mandatory",
+      "effort": 1,
+      "links": [
+        {
+          "title": "Breaking changes in .NET",
+          "url": "https://go.microsoft.com/fwlink/?linkid=2262679",
+          "isCustom": false
+        }
+      ]
+    },
+    "IdentityModel": {
+      "id": "IdentityModel",
+      "isFeature": false,
+      "description": "Windows Identity Foundation (WIF), SAML, and claims-based authentication APIs that have been replaced by modern identity libraries. WIF was the original identity framework for .NET Framework. Migrate to Microsoft.IdentityModel.* packages (modern identity stack).",
+      "label": "IdentityModel \u0026 Claims-based Security",
+      "severity": "Mandatory",
+      "effort": 4,
+      "links": [
+        {
+          "title": "Microsoft.IdentityModel packages",
+          "url": "https://go.microsoft.com/fwlink/?linkid=2341614",
+          "isCustom": false
+        }
+      ]
+    },
+    "LegacyConfiguration": {
+      "id": "LegacyConfiguration",
+      "isFeature": false,
+      "description": "Legacy XML-based configuration system (app.config/web.config) that has been replaced by a more flexible configuration model in .NET Core. The old system was rigid and XML-based. Migrate to Microsoft.Extensions.Configuration with JSON/environment variables; use System.Configuration.ConfigurationManager NuGet package as interim bridge if needed.",
+      "label": "Legacy Configuration System",
+      "severity": "Mandatory",
+      "effort": 2,
+      "links": [
+        {
+          "title": "Configuration in .NET",
+          "url": "https://go.microsoft.com/fwlink/?linkid=2341702",
+          "isCustom": false
+        }
+      ]
+    }
+  }
+}

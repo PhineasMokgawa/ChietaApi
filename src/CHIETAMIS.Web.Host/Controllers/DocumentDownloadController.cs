@@ -9,9 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.Configuration;
 using System;
-using System.Net.Http;
 using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json.Linq;
 
 namespace CHIETAMIS.Web.Host.Controllers
 {
@@ -20,19 +18,13 @@ namespace CHIETAMIS.Web.Host.Controllers
     {
         private readonly DocumentsAppService _documentsAppService;
         private readonly IConfiguration _configuration;
-        private readonly IHttpClientFactory _httpClientFactory;
-
-        private string FileServerBaseUrl =>
-            (_configuration["DocumentStorage:FileServerBaseUrl"] ?? "https://ims.chieta.org.za:22742").TrimEnd('/');
 
         public DocumentDownloadController(
             DocumentsAppService documentsAppService,
-            IConfiguration configuration,
-            IHttpClientFactory httpClientFactory)
+            IConfiguration configuration)
         {
             _documentsAppService = documentsAppService;
             _configuration = configuration;
-            _httpClientFactory = httpClientFactory;
         }
 
         // ─────────────────────────────────────────────────────────────
@@ -40,7 +32,7 @@ namespace CHIETAMIS.Web.Host.Controllers
         // ─────────────────────────────────────────────────────────────
 
         /// <summary>
-        /// Upload a document and store it on the file server, then save/update the DB record.
+        /// Upload a document and save it directly to the configured storage path, then save/update the DB record.
         /// POST: /api/DocumentDownload/UploadDocument
         /// Form fields: file (required), entityId, userId, documentType, module
         /// </summary>
@@ -57,74 +49,43 @@ namespace CHIETAMIS.Web.Host.Controllers
 
             try
             {
-                // 1. Forward the file to the remote file server's /api/upload endpoint
-                var client = _httpClientFactory.CreateClient("FileServer");
-                string storedFileName;
+                var filesPath = _configuration["DocumentStorage:FilesPath"];
+                if (string.IsNullOrWhiteSpace(filesPath))
+                    return StatusCode(500, new { error = "DocumentStorage:FilesPath is not configured." });
 
-                using (var content = new MultipartFormDataContent())
-                using (var fileStream = file.OpenReadStream())
-                {
-                    var streamContent = new StreamContent(fileStream);
-                    streamContent.Headers.ContentType =
-                        new System.Net.Http.Headers.MediaTypeHeaderValue(
-                            string.IsNullOrWhiteSpace(file.ContentType) ? "application/octet-stream" : file.ContentType);
+                Directory.CreateDirectory(filesPath);
 
-                    content.Add(streamContent, "file", file.FileName);
+                // Generate a unique filename using the same convention as the file server
+                var storedFileName = $"{Guid.NewGuid()}_{file.FileName}";
+                var fullPath = Path.Combine(filesPath, storedFileName);
 
-                    var uploadUrl = $"{FileServerBaseUrl}/api/upload";
-                    var uploadResponse = await client.PostAsync(uploadUrl, content);
+                using (var fs = new FileStream(fullPath, FileMode.Create, FileAccess.Write, FileShare.None))
+                    await file.CopyToAsync(fs);
 
-                    if (!uploadResponse.IsSuccessStatusCode)
-                    {
-                        var body = await uploadResponse.Content.ReadAsStringAsync();
-                        Logger.Error($"[UploadDocument] File server rejected upload. Status={uploadResponse.StatusCode}, Body={body}");
-                        return StatusCode((int)uploadResponse.StatusCode,
-                            new { error = "File server rejected the upload.", detail = body });
-                    }
+                Logger.Info($"[UploadDocument] Saved '{file.FileName}' to '{fullPath}'");
 
-                    var responseBody = await uploadResponse.Content.ReadAsStringAsync();
-                    // The existing upload endpoint returns the uniquefilename as a plain JSON string
-                    // e.g.: "\"guid_filename.pdf\"" or wrapped in ABP envelope {"result":"..."}
-                    try
-                    {
-                        var json = JToken.Parse(responseBody);
-                        storedFileName = json.Type == JTokenType.String
-                            ? json.Value<string>()
-                            : json["result"]?.Value<string>() ?? json.Value<string>();
-                    }
-                    catch
-                    {
-                        storedFileName = responseBody.Trim('"', ' ', '\r', '\n');
-                    }
-                }
-
-                if (string.IsNullOrWhiteSpace(storedFileName))
-                    return StatusCode(502, new { error = "File server returned an empty filename." });
-
-                // 2. Save / update the document record in the database
+                // Save / update the document record in the database
                 var docDto = new DocumentDto
                 {
-                    entityid      = entityId,
-                    newfilename   = storedFileName,
-                    filename      = file.FileName,
-                    size          = file.Length.ToString(),
-                    type          = file.ContentType,
-                    documenttype  = documentType,
-                    module        = module,
+                    entityid         = entityId,
+                    newfilename      = storedFileName,
+                    filename         = file.FileName,
+                    size             = file.Length.ToString(),
+                    type             = file.ContentType,
+                    documenttype     = documentType,
+                    module           = module,
                     lastmodifieddate = DateTime.UtcNow.ToString("o"),
-                    DateCreated   = DateTime.Now,
-                    UserId        = userId
+                    DateCreated      = DateTime.Now,
+                    UserId           = userId
                 };
 
                 await _documentsAppService.FileUpload(docDto);
 
-                // 3. Return the stored metadata + download URL
                 var serverRoot = _configuration["App:ServerRootAddress"]?.TrimEnd('/');
                 return Ok(new
                 {
                     storedFileName,
                     originalFileName = file.FileName,
-                    fileServerUrl    = BuildFileUrl(storedFileName),
                     downloadUrl      = $"{serverRoot}/api/DocumentDownload/DownloadById",
                     entityId,
                     userId,
@@ -154,7 +115,7 @@ namespace CHIETAMIS.Web.Host.Controllers
             try
             {
                 var doc = await _documentsAppService.GetDocumentRecordById(documentId);
-                return await ProxyFileAsync(doc.newfilename, doc.filename, doc.type);
+                return ServeFileFromDisk(doc.newfilename, doc.filename, doc.type);
             }
             catch (UserFriendlyException ex)
             {
@@ -187,7 +148,7 @@ namespace CHIETAMIS.Web.Host.Controllers
                     Module = module,
                     UserId = userId
                 });
-                return await ProxyFileAsync(doc.newfilename, doc.filename, doc.type);
+                return ServeFileFromDisk(doc.newfilename, doc.filename, doc.type);
             }
             catch (UserFriendlyException ex)
             {
@@ -298,30 +259,19 @@ namespace CHIETAMIS.Web.Host.Controllers
             try
             {
                 var doc = await _documentsAppService.GetDocumentRecordById(documentId);
-                var url = BuildFileUrl(doc.newfilename);
-
-                var client = _httpClientFactory.CreateClient("FileServer");
-                HttpResponseMessage response;
-                try
+                var candidatePaths = GetCandidateFilePaths(doc.newfilename).ToList();
+                var probeResults = candidatePaths.Select(p => new
                 {
-                    response = await client.SendAsync(
-                        new HttpRequestMessage(HttpMethod.Head, url));
-                }
-                catch (Exception ex)
-                {
-                    return StatusCode(502, new { error = "Could not reach file server.", detail = ex.Message, url });
-                }
+                    path   = p,
+                    exists = System.IO.File.Exists(p)
+                }).ToList();
 
                 return Ok(new
                 {
                     documentId,
-                    storedFileName = doc.newfilename,
+                    storedFileName   = doc.newfilename,
                     originalFileName = doc.filename,
-                    fileServerUrl = url,
-                    statusCode = (int)response.StatusCode,
-                    accessible = response.IsSuccessStatusCode,
-                    contentType = response.Content.Headers.ContentType?.ToString(),
-                    contentLength = response.Content.Headers.ContentLength
+                    probeResults
                 });
             }
             catch (Exception ex)
@@ -334,52 +284,68 @@ namespace CHIETAMIS.Web.Host.Controllers
         // PRIVATE HELPERS
         // ─────────────────────────────────────────────────────────────
 
-        private string BuildFileUrl(string storedFileName) =>
-            $"{FileServerBaseUrl}/Files/{Uri.EscapeDataString(storedFileName)}";
+        /// <summary>
+        /// Returns the ordered set of absolute filesystem paths to probe for a stored file.
+        /// Checks DocumentStorage:FilesPath first, then every entry in DocumentStorage:FallbackPaths.
+        /// Handles the case where storedFileName was recorded as a full path or URL by
+        /// always resolving to the bare filename before joining with each directory.
+        /// </summary>
+        private IEnumerable<string> GetCandidateFilePaths(string storedFileName)
+        {
+            if (string.IsNullOrWhiteSpace(storedFileName))
+                yield break;
+
+            // Normalise: regardless of whether the DB has a bare name, a full path, or a URL,
+            // we only ever store/retrieve by the leaf filename.
+            var bareName = Path.GetFileName(storedFileName);
+            if (string.IsNullOrWhiteSpace(bareName))
+                bareName = storedFileName;
+
+            var primary = _configuration["DocumentStorage:FilesPath"];
+            var fallbacks = _configuration.GetSection("DocumentStorage:FallbackPaths")
+                                          .Get<string[]>() ?? Array.Empty<string>();
+
+            foreach (var dir in new[] { primary }.Concat(fallbacks)
+                                                  .Where(d => !string.IsNullOrWhiteSpace(d))
+                                                  .Distinct(StringComparer.OrdinalIgnoreCase))
+            {
+                yield return Path.Combine(dir, bareName);
+            }
+        }
 
         /// <summary>
-        /// Fetches the file from the remote file server and streams it to the caller.
+        /// Locates the file on the local filesystem across all configured storage paths
+        /// and streams it directly to the caller. This approach works for both old files
+        /// (stored under Files/) and new files (stored under Attachment/ or any future path)
+        /// without relying on the remote file-server HTTP endpoint.
         /// </summary>
-        private async Task<IActionResult> ProxyFileAsync(string storedFileName, string originalFileName, string mimeType)
+        private IActionResult ServeFileFromDisk(string storedFileName, string originalFileName, string mimeType)
         {
             if (string.IsNullOrWhiteSpace(storedFileName))
                 return BadRequest(new { error = "Document record has no stored filename." });
 
-            var url = BuildFileUrl(storedFileName);
-            var client = _httpClientFactory.CreateClient("FileServer");
-
-            HttpResponseMessage response;
-            try
+            foreach (var path in GetCandidateFilePaths(storedFileName))
             {
-                response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead);
-            }
-            catch (Exception ex)
-            {
-                Logger.Error($"[DocumentDownload] File server unreachable for '{storedFileName}': {ex.Message}");
-                return StatusCode(502, new { error = "File server is unreachable.", detail = ex.Message });
-            }
-
-            if (!response.IsSuccessStatusCode)
-            {
-                Logger.Warn($"[DocumentDownload] File server returned {(int)response.StatusCode} for '{storedFileName}' — URL: {url}");
-                return NotFound(new
+                if (!System.IO.File.Exists(path))
                 {
-                    error = $"File '{originalFileName}' was not found on the file server.",
-                    storedFileName,
-                    fileServerUrl = url,
-                    statusCode = (int)response.StatusCode
-                });
+                    Logger.Info($"[DocumentDownload] Not found at '{path}'");
+                    continue;
+                }
+
+                Logger.Info($"[DocumentDownload] Serving '{originalFileName}' from '{path}'");
+                var resolvedMime = ResolveMimeType(mimeType, null, originalFileName);
+                var stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
+                return File(stream, resolvedMime, originalFileName);
             }
 
-            Logger.Info($"[DocumentDownload] Streaming '{originalFileName}' from {url}");
-
-            var resolvedMime = ResolveMimeType(
-                mimeType,
-                response.Content.Headers.ContentType?.MediaType,
-                originalFileName);
-
-            var stream = await response.Content.ReadAsStreamAsync();
-            return File(stream, resolvedMime, originalFileName);
+            var tried = string.Join(", ", GetCandidateFilePaths(storedFileName));
+            Logger.Error($"[DocumentDownload] File not found on disk for '{storedFileName}'. Paths tried: {tried}");
+            return NotFound(new
+            {
+                error        = $"File '{originalFileName}' was not found.",
+                storedFileName,
+                statusCode   = 404
+            });
         }
         private void EnrichWithDownloadUrls(IEnumerable<DocumentDownloadInfoDto> items)
         {

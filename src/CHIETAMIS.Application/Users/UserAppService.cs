@@ -259,22 +259,21 @@ namespace CHIETAMIS.Users
         {
             var user = await _userManager.FindByIdAsync(input.UserId.ToString());
 
-            if (user == null || user.PasswordResetCode != input.ResetCode)
+            if (user == null
+                || string.IsNullOrEmpty(user.PasswordResetCode)
+                || user.PasswordResetCode != input.ResetCode)
             {
                 throw new UserFriendlyException("The token may have expired, please try resetting your password again.");
             }
 
-           // Throws an exception if the token is invalid
-           (await _userManager.ResetPasswordAsync(user, user.PasswordResetCode, input.Password)).CheckErrors();
+            // Use ABP’s direct ChangePasswordAsync overload rather than
+            // ResetPasswordAsync, which expects a cryptographic token produced
+            // by GeneratePasswordResetTokenAsync — not a 6-digit OTP string.
+            (await _userManager.ChangePasswordAsync(user, input.Password)).CheckErrors();
 
-            // todo: I would like to automatically confirm the users email after restting their password but.. 
-            // can't use 'user.EmailConfirmed = true;' and need email token to confirm the email when using the _userManager.
-            // The only way to do it currently is to use 'GenerateChangeEmailTokenAsync'
-            //await _userManager.ConfirmEmailAsync(user, await _userManager.GenerateChangeEmailTokenAsync(user, user.Email));
-
+            // Invalidate the OTP so it cannot be reused.
             user.PasswordResetCode = null;
-
-            await _userManager.UpdateAsync(user);
+            (await _userManager.UpdateAsync(user)).CheckErrors();
         }
 
         public async Task<ListResultDto<UserDto>> GetUsersInRole(string rolename)

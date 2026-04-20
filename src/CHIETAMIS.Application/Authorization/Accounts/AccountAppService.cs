@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Abp.Configuration;
+using Abp.Domain.Uow;
 using Abp.Zero.Configuration;
 using Abp.UI;
 using CHIETAMIS.Authorization.Accounts.Dto;
@@ -21,6 +22,7 @@ namespace CHIETAMIS.Authorization.Accounts
     public class AccountAppService : CHIETAMISAppServiceBase, IAccountAppService
     {
         private readonly IUserEmailer _userEmailer;
+        private readonly IUnitOfWorkManager _unitOfWorkManager;
         public IAppUrlService AppUrlService { get; set; }
 
         // from: http://regexlib.com/REDetails.aspx?regexp_id=1923
@@ -29,10 +31,11 @@ namespace CHIETAMIS.Authorization.Accounts
         private readonly UserRegistrationManager _userRegistrationManager;
         //private readonly IHostingEnvironment hostingEnvironmentt;
 
-        public AccountAppService(UserRegistrationManager userRegistrationManager, IUserEmailer userEmailer)
+        public AccountAppService(UserRegistrationManager userRegistrationManager, IUserEmailer userEmailer, IUnitOfWorkManager unitOfWorkManager)
         {
             _userRegistrationManager = userRegistrationManager;
-            _userEmailer =  userEmailer;
+            _userEmailer = userEmailer;
+            _unitOfWorkManager = unitOfWorkManager;
         }
 
         public async Task<IsTenantAvailableOutput> IsTenantAvailable(IsTenantAvailableInput input)
@@ -71,38 +74,46 @@ namespace CHIETAMIS.Authorization.Accounts
         }
         public async Task SendPasswordResetCode(SendPasswordResetCodeInput input)
         {
-            var user = await GetUserByChecking(input.EmailAddress);
-            //user.SetNewPasswordResetCode();
-            Random generator = new Random();
-            user.PasswordResetCode = generator.Next(0, 1000000).ToString("D6");
-            await _userEmailer.SendPasswordResetLinkAsync(
-                user,
-                AppUrlService.CreatePasswordResetUrlFormat(2)
-            );
+            using (_unitOfWorkManager.Current.DisableFilter(AbpDataFilters.MayHaveTenant))
+            using (_unitOfWorkManager.Current.DisableFilter(AbpDataFilters.MustHaveTenant))
+            {
+                var user = await GetUserByChecking(input.EmailAddress);
+
+                // Generate a 6-digit OTP
+                var random = new Random();
+                user.PasswordResetCode = random.Next(0, 1000000).ToString("D6");
+
+                // Persist the OTP to the database so it can be verified later.
+                (await UserManager.UpdateAsync(user)).CheckErrors();
+
+                // Send email containing just the OTP code.
+                await _userEmailer.SendPasswordResetLinkAsync(user);
+            }
         }
 
         public virtual async Task ResetPassword(ResetPasswordInput input)
         {
-            var user = await UserManager.FindByEmailAsync(input.EmailAddress);
-
-            if (user == null || user.PasswordResetCode != input.ResetCode)
+            User user;
+            using (_unitOfWorkManager.Current.DisableFilter(AbpDataFilters.MayHaveTenant))
+            using (_unitOfWorkManager.Current.DisableFilter(AbpDataFilters.MustHaveTenant))
             {
-                throw new UserFriendlyException("The Reset Code cannot be matched, please user the most recent one.");
+                user = await UserManager.FindByEmailAsync(input.EmailAddress);
             }
 
-           // Throws an exception if the token is invalid
-           //await UserManager.ResetPasswordAsync(user, input.ResetCode, input.Password);
-            //UserManager.ChangePasswordAsync(user, input.Password);
-            await UserManager.ChangePasswordAsync(user, input.Password);
+            if (user == null
+                || string.IsNullOrEmpty(user.PasswordResetCode)
+                || user.PasswordResetCode != input.ResetCode)
+            {
+                throw new UserFriendlyException("The reset code is invalid or has already been used. Please request a new one.");
+            }
 
-            // todo: I would like to automatically confirm the users email after restting their password but.. 
-            // can't use 'user.EmailConfirmed = true;' and need email token to confirm the email when using the _userManager.
-            // The only way to do it currently is to use 'GenerateChangeEmailTokenAsync'
-            //await _userManager.ConfirmEmailAsync(user, await _userManager.GenerateChangeEmailTokenAsync(user, user.Email));
+            // Change the password using ABP’s direct overload (no old-password required).
+            // CheckErrors converts any IdentityResult failure into a UserFriendlyException.
+            (await UserManager.ChangePasswordAsync(user, input.Password)).CheckErrors();
 
-            //user.PasswordResetCode = null;
-
-            //await UserManager.UpdateAsync(user);
+            // Invalidate the OTP so it cannot be reused.
+            user.PasswordResetCode = null;
+            (await UserManager.UpdateAsync(user)).CheckErrors();
         }
 
         private async Task<User> GetUserByChecking(string inputEmailAddress)
@@ -110,7 +121,7 @@ namespace CHIETAMIS.Authorization.Accounts
             var user = await UserManager.FindByEmailAsync(inputEmailAddress);
             if (user == null)
             {
-                throw new Exception(L("InvalidEmailAddress"));
+                throw new UserFriendlyException("No account is registered with that email address. Please check and try again.");
             }
 
             return user;
